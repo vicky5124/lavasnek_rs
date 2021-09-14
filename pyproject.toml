@@ -4,6 +4,7 @@ version = "0.1.0-alpha.0"
 description = "A lavalink-rs wrapper for any python async library"
 authors = ["vicky5124 <vickyf5124@gmail.com>"]
 license = "MPL-v2"
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.6"
