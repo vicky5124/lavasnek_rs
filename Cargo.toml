@@ -1,0 +1,38 @@
+cargo-features = ["strip"]
+
+[package]
+name = "lavasnek_rs"
+version = "0.1.0"
+edition = "2018"
+authors = ["vicky5124 <vickyf5124@gmail.com>"]
+license = "MPL-v2"
+
+[lib]
+name = "lavasnek_rs"
+crate-type = ["cdylib"]
+
+[dependencies]
+log = "0.4"
+pyo3-log = "0.4"
+pythonize = "0.14"
+
+[dependencies.pyo3]
+version = "0.14"
+features = ["extension-module"]
+
+[dependencies.pyo3-asyncio]
+version = "0.14"
+features = ["tokio-runtime"]
+
+[dependencies.tokio]
+version = "1.4"
+
+[dependencies.lavalink-rs]
+#version = "0.9.0-rc"
+#git = "https://gitlab.com/vicky5124/lavalink-rs"
+path = "../lavalink-rs"
+default-features = false
+features = ["rustls", "simple-gateway", "normal-log", "wait-before-connect"]
+
+[profile.release]
+strip = "symbols"

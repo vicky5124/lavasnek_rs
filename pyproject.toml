@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "lavasnek_rs"
+version = "0.1.0"
+description = "A lavalink-rs wrapper for any python async library"
+authors = ["vicky5124 <vickyf5124@gmail.com>"]
+license = "MPL-v2"
+
+[tool.poetry.dependencies]
+python = "^3.6"
+
+[tool.poetry.dev-dependencies]
+maturin = "==0.9.0"
+pytest = "^6.1"
+
+[build-system]
+requires = ["maturin>=0.11,<0.12"]
+build-backend = "maturin"
