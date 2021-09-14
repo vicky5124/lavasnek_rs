@@ -74,7 +74,7 @@ impl LavalinkBuilder {
 
     /// Sets the token of the bot.
     fn set_bot_token(mut slf: PyRefMut<Self>, bot_token: String) -> PyRefMut<Self> {
-        slf.builder.bot_token = bot_token.into();
+        slf.builder.bot_token = bot_token;
         slf
     }
 
