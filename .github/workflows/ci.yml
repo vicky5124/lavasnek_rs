@@ -83,7 +83,7 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: lavasnek-rs ${{ matrix.os }} ${{ matrix.python-version }}
-          path: target/wheels/lavasnek_rs-${{ matrix.os }}-py${{ matrix.python-version }}.whl
+          path: target/wheels/lavasnek_rs-${{ matrix.os }}-py${{ matrix.python-version }}/*.whl
 
       # - name: pytest
       #   run: poetry run pytest tests
