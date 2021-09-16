@@ -77,7 +77,13 @@ jobs:
           override: true
 
       - name: Build Python package
-        run: poetry run maturin develop --release
+        run: poetry run maturin build --release -o target/wheels/lavasnek_rs-${{ matrix.os }}-py${{ matrix.python-version }}.whl
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@master
+        with:
+          name: lavasnek-rs ${{ matrix.os }} ${{ matrix.python-version }}
+          path: target/wheels/lavasnek_rs-${{ matrix.os }}-py${{ matrix.python-version }}.whl
 
       # - name: pytest
       #   run: poetry run pytest tests
