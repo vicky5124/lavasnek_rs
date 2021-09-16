@@ -37,6 +37,7 @@ class Bot(hikari.GatewayBot):
 
 bot = Bot(token=TOKEN)
 
+
 async def _join(event: hikari.GuildMessageCreateEvent):
     states = bot.cache.get_voice_states_view_for_guild(event.get_guild())
     voice_state = list(
@@ -63,7 +64,9 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
             await event.message.respond("Ping?")
 
         elif is_command("help", event.content):
-            await event.message.respond("ping, join, leave, play, stop, skip, pause, resume")
+            await event.message.respond(
+                "ping, join, leave, play, stop, skip, pause, resume"
+            )
 
         elif is_command("join", event.content):
             await _join(event)
@@ -77,7 +80,9 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
             await event.message.respond("Left voice channel")
 
         elif is_command("play", event.content):
-            con = await bot.data.lavalink.get_guild_gateway_connection_info(event.guild_id)
+            con = await bot.data.lavalink.get_guild_gateway_connection_info(
+                event.guild_id
+            )
             if not con:
                 await _join(event)
 
@@ -96,9 +101,7 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
                     event.guild_id, query_information["tracks"][0]
                 ).queue()
             except lavasnek_rs.NoSessionPresent:
-                await event.message.respond(
-                    f"Use `{PREFIX}join` first"
-                )
+                await event.message.respond(f"Use `{PREFIX}join` first")
                 return
 
             await event.message.respond(
@@ -119,7 +122,9 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
                 if not node["queue"] and not node["now_playing"]:
                     await bot.data.lavalink.stop(event.guild_id)
 
-                await event.message.respond(f"Skipped: {skip['track']['info']['title']}")
+                await event.message.respond(
+                    f"Skipped: {skip['track']['info']['title']}"
+                )
 
         elif is_command("pause", event.content):
             await bot.data.lavalink.pause(event.guild_id)

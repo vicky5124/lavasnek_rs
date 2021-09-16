@@ -35,7 +35,7 @@ pub(crate) struct Lavalink {
 #[pymethods]
 impl Lavalink {
     /// Joins a guild's voice channel using the lavalink-rs discord gateway.
-    /// 
+    ///
     /// Returns information about the gateway connection, which can be used with `create_session()`
     /// to connect lavalink to that voice connection.
     ///
