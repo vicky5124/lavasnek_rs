@@ -1,5 +1,9 @@
 # lavasnek_rs
 
+Dev Docs: https://5124.mywire.org:5124/docs/
+GitHub repo: https://github.com/vicky5124/lavasnek_rs/
+GitLab repo: https://gitlab.com/vicky5124/lavasnek_rs/
+
 ## Building and Running
 
 ```bash
