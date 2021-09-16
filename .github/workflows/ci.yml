@@ -77,13 +77,26 @@ jobs:
           override: true
 
       - name: Build Python package
-        run: poetry run maturin build --release -o target/wheels/lavasnek_rs-${{ matrix.os }}-py${{ matrix.python-version }} -i python${{ matrix.python-version }}
+        if:  matrix.os != 'windows-latest'
+        run: poetry run maturin build --release -o target/wheels/lavasnek_rs -i python${{ matrix.python-version }}
+
+      - name: Build Python package
+        if:  matrix.os == 'windows-latest'
+        run: poetry run maturin build --release -o target/wheels/lavasnek_rs
 
       - name: Upload Artifacts
+        if:  matrix.os != 'windows-latest'
         uses: actions/upload-artifact@master
         with:
           name: lavasnek-rs ${{ matrix.os }} ${{ matrix.python-version }}
-          path: target/wheels/lavasnek_rs-${{ matrix.os }}-py${{ matrix.python-version }}
+          path: target/wheels/lavasnek_rs
+
+      - name: Upload Artifacts
+        if:  matrix.os == 'windows-latest'
+        uses: actions/upload-artifact@master
+        with:
+          name: lavasnek-rs ${{ matrix.os }} 3.6-3.9
+          path: target/wheels/lavasnek_rs
 
       # - name: pytest
       #   run: poetry run pytest tests
