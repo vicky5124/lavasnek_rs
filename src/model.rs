@@ -1,12 +1,8 @@
-use pyo3::prelude::*;
 use lavalink_rs::model::{
-    Track as LavaTrack,
-    Tracks as LavaTracks,
-    TrackQueue as LavaTrackQueue,
-    PlaylistInfo as LavaPlaylistInfo,
-    Info as LavaInfo,
-    Node as LavaNode,
+    Info as LavaInfo, Node as LavaNode, PlaylistInfo as LavaPlaylistInfo, Track as LavaTrack,
+    TrackQueue as LavaTrackQueue, Tracks as LavaTracks,
 };
+use pyo3::prelude::*;
 
 /// This is never actually used, a dictionary is used instead. If you use a 3rd party method of
 /// joining a voice channel, you can get this values from the `VOICE_STATE_UPDATE` and
@@ -72,7 +68,11 @@ impl Tracks {
     ///
     /// Returns `List<Track>`
     fn tracks(&self) -> Vec<Track> {
-        self.inner.tracks.iter().map(|i| Track { inner: i.clone() }).collect()
+        self.inner
+            .tracks
+            .iter()
+            .map(|i| Track { inner: i.clone() })
+            .collect()
     }
 }
 
@@ -114,7 +114,9 @@ impl TrackQueue {
     ///
     /// Returns `Track`
     fn track(&self) -> Track {
-        Track { inner: self.inner.track.clone() }
+        Track {
+            inner: self.inner.track.clone(),
+        }
     }
 
     #[getter]
@@ -145,7 +147,7 @@ impl TrackQueue {
 #[pyclass]
 #[derive(Clone, Debug)]
 pub struct PlaylistInfo {
-    pub inner: LavaPlaylistInfo
+    pub inner: LavaPlaylistInfo,
 }
 
 #[pymethods]
@@ -168,7 +170,7 @@ impl PlaylistInfo {
 #[pyclass]
 #[derive(Clone, Debug)]
 pub struct Info {
-    pub inner: LavaInfo
+    pub inner: LavaInfo,
 }
 
 #[pymethods]
@@ -257,12 +259,19 @@ impl Node {
     #[getter]
     /// Returns `Option<TrackQueue>`
     fn now_playing(&self) -> Option<TrackQueue> {
-        self.inner.now_playing.as_ref().map(|i| TrackQueue { inner: i.clone() })
+        self.inner
+            .now_playing
+            .as_ref()
+            .map(|i| TrackQueue { inner: i.clone() })
     }
 
     #[getter]
     /// Returns `List<TrackQueue>`
     fn queue(&self) -> Vec<TrackQueue> {
-        self.inner.queue.iter().map(|i| TrackQueue { inner: i.clone() }).collect()
+        self.inner
+            .queue
+            .iter()
+            .map(|i| TrackQueue { inner: i.clone() })
+            .collect()
     }
 }

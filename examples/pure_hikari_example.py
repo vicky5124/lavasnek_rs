@@ -144,9 +144,7 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
                 if not node.queue and not node.now_playing:
                     await bot.data.lavalink.stop(event.guild_id)
 
-                await event.message.respond(
-                    f"Skipped: {skip.track.info.title}"
-                )
+                await event.message.respond(f"Skipped: {skip.track.info.title}")
 
         elif is_command("pause", event.content):
             await bot.data.lavalink.pause(event.guild_id)

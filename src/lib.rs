@@ -321,7 +321,10 @@ impl Lavalink {
 
             Ok(Python::with_gil(|py| {
                 if let Some(track) = track {
-                    TrackQueue { inner: track.clone() }.into_py(py)
+                    TrackQueue {
+                        inner: track.clone(),
+                    }
+                    .into_py(py)
                 } else {
                     py.None()
                 }
@@ -502,7 +505,10 @@ impl Lavalink {
 
             Ok(Python::with_gil(|py| {
                 if let Some(node) = node {
-                    Node { inner: node.clone() }.into_py(py)
+                    Node {
+                        inner: node.clone(),
+                    }
+                    .into_py(py)
                 } else {
                     py.None()
                 }

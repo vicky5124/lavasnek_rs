@@ -6,9 +6,9 @@ use pyo3::prelude::*;
 use lavalink_rs::{
     async_trait,
     builders::{LavalinkClientBuilder, PlayParameters},
+    error::LavalinkError,
     gateway::LavalinkEventHandler,
     LavalinkClient,
-    error::LavalinkError,
 };
 use std::net::SocketAddr;
 use std::str::FromStr;
@@ -244,16 +244,13 @@ impl PlayBuilder {
         let builder = self.builder.clone();
 
         pyo3_asyncio::tokio::future_into_py(py, async move {
-            builder
-                .queue()
-                .await
-                .map_err(|e| {
-                    match e {
-                        LavalinkError::NoSessionPresent => error::NoSessionPresent::new_err(e.to_string()),
-                        LavalinkError::ErrorWebsocketPayload(_) => error::NetworkError::new_err(e.to_string()),
-                        _ => error::Exception::new_err(e.to_string())
-                    }
-                })?;
+            builder.queue().await.map_err(|e| match e {
+                LavalinkError::NoSessionPresent => error::NoSessionPresent::new_err(e.to_string()),
+                LavalinkError::ErrorWebsocketPayload(_) => {
+                    error::NetworkError::new_err(e.to_string())
+                }
+                _ => error::Exception::new_err(e.to_string()),
+            })?;
             Ok(Python::with_gil(|py| py.None()))
         })
     }
