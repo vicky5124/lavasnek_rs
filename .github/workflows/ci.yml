@@ -4,7 +4,7 @@ on:
   push:
 
 jobs:
-  lint:
+  lint-and-fmt:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,6 +21,7 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: fmt
+          args: -- --check
 
       - name: Lint with clippy
         uses: actions-rs/cargo@v1
