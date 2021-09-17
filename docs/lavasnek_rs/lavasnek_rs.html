@@ -296,6 +296,14 @@ and that function should be awaited to work.</li>
 <p>Returns information about the gateway connection, which can be used with <code><a href="#Lavalink.create_session">create_session()</a></code>
 to connect lavalink to that voice connection.</p>
 
+<div class="codehilite"><pre><span></span><code><span class="n">lavalink</span><span class="p">:</span> <span class="n">lavasnek_rs</span><span class="o">.</span><span class="n">Lavalink</span> <span class="o">=</span> <span class="o">...</span>
+
+<span class="n">connection_info</span> <span class="o">=</span> <span class="k">await</span> <span class="n">lavalink</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">guild_id</span><span class="p">,</span> <span class="n">voice_channel_id</span><span class="p">)</span>
+<span class="k">await</span> <span class="n">lavalink</span><span class="o">.</span><span class="n">create_session</span><span class="p">(</span><span class="n">connection_info</span><span class="p">)</span>
+
+<span class="k">await</span> <span class="n">send_message</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Joined &lt;#</span><span class="si">{</span><span class="n">voice_channel_id</span><span class="si">}</span><span class="s2">&gt;&quot;</span><span class="p">)</span>
+</code></pre></div>
+
 <p>Timing out means that there's either no permission to join the voice channel, or 5 seconds
 have happened since the function was called.</p>
 
@@ -323,6 +331,14 @@ have happened since the function was called.</p>
             <div class="docstring"><p>Leaves the current guild's voice channel using the lavalink-rs discord gateway.</p>
 
 <p><code><a href="#Lavalink.destroy">Lavalink.destroy()</a></code> should be ran as well before this, to safely stop the lavalink session.</p>
+
+<div class="codehilite"><pre><span></span><code><span class="n">lavalink</span><span class="p">:</span> <span class="n">lavasnek_rs</span><span class="o">.</span><span class="n">Lavalink</span> <span class="o">=</span> <span class="o">...</span>
+
+<span class="k">await</span> <span class="n">lavalink</span><span class="o">.</span><span class="n">destroy</span><span class="p">(</span><span class="n">guild_id</span><span class="p">)</span>
+<span class="k">await</span> <span class="n">lavalink</span><span class="o">.</span><span class="n">leave</span><span class="p">(</span><span class="n">guild_id</span><span class="p">)</span>
+
+<span class="k">await</span> <span class="n">send_message</span><span class="p">(</span><span class="s2">&quot;Left voice channel&quot;</span><span class="p">)</span>
+</code></pre></div>
 
 <p>Timing out means that 5 seconds have happened since the function was called.</p>
 
@@ -396,6 +412,23 @@ The node is not added to the loops unless <code><a href="#PlayBuilder.queue">Pla
 
         
             <div class="docstring"><p>Returns the Play builder.</p>
+
+<div class="codehilite"><pre><span></span><code><span class="n">lavalink</span><span class="p">:</span> <span class="n">lavasnek_rs</span><span class="o">.</span><span class="n">Lavalink</span> <span class="o">=</span> <span class="o">...</span>
+
+<span class="n">query_information</span> <span class="o">=</span> <span class="k">await</span> <span class="n">lavalink</span><span class="o">.</span><span class="n">auto_search_tracks</span><span class="p">(</span><span class="n">search_query_or_url</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">query_information</span><span class="p">[</span><span class="s2">&quot;tracks&quot;</span><span class="p">]:</span> <span class="c1"># tracks is empty</span>
+    <span class="k">await</span> <span class="n">send_message</span><span class="p">(</span><span class="s2">&quot;Could not find any video of the search query.&quot;</span><span class="p">)</span>
+    <span class="k">return</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="k">await</span> <span class="n">lavalink</span><span class="o">.</span><span class="n">play</span><span class="p">(</span>
+        <span class="n">guild_id</span><span class="p">,</span> <span class="n">query_information</span><span class="p">[</span><span class="s2">&quot;tracks&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">requester</span><span class="p">(</span><span class="n">author_id</span><span class="p">)</span><span class="o">.</span><span class="n">queue</span><span class="p">()</span>
+<span class="k">except</span> <span class="n">lavasnek_rs</span><span class="o">.</span><span class="n">NoSessionPresent</span><span class="p">:</span>
+    <span class="k">await</span> <span class="n">send_message</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Use `</span><span class="si">{</span><span class="n">PREFIX</span><span class="si">}</span><span class="s2">join` first&quot;</span><span class="p">)</span>
+    <span class="k">return</span>
+</code></pre></div>
 
 <p>Positional Arguments:</p>
 
@@ -519,6 +552,20 @@ Uses youtube to search.</p>
 
 <p>If nothing is in the queue, the currently playing track will keep playing.
 Check if the queue is empty and run <code><a href="#Lavalink.stop">stop()</a></code> if that's the case.</p>
+
+<div class="codehilite"><pre><span></span><code><span class="n">lavalink</span><span class="p">:</span> <span class="n">lavasnek_rs</span><span class="o">.</span><span class="n">Lavalink</span> <span class="o">=</span> <span class="o">...</span>
+
+<span class="n">skip</span> <span class="o">=</span> <span class="k">await</span> <span class="n">lavalink</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="n">guild_id</span><span class="p">)</span>
+<span class="n">node</span> <span class="o">=</span> <span class="k">await</span> <span class="n">lavalink</span><span class="o">.</span><span class="n">get_guild_node</span><span class="p">(</span><span class="n">guild_id</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">skip</span><span class="p">:</span>
+    <span class="k">await</span> <span class="n">send_message</span><span class="p">(</span><span class="s2">&quot;Nothing to skip&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">[</span><span class="s2">&quot;queue&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">node</span><span class="p">[</span><span class="s2">&quot;now_playing&quot;</span><span class="p">]:</span>
+        <span class="k">await</span> <span class="n">lavalink</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="n">guild_id</span><span class="p">)</span>
+
+    <span class="k">await</span> <span class="n">send_message</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Skipped: </span><span class="si">{</span><span class="n">skip</span><span class="p">[</span><span class="s1">&#39;track&#39;</span><span class="p">][</span><span class="s1">&#39;info&#39;</span><span class="p">][</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+</code></pre></div>
 
 <p>This can raise an exception if a network error happens.</p>
 

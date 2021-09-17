@@ -39,6 +39,8 @@ bot = Bot(token=TOKEN)
 
 
 async def _join(event: hikari.GuildMessageCreateEvent):
+    """Join's the user's voice channel creating a lavalink session."""
+
     states = bot.cache.get_voice_states_view_for_guild(event.get_guild())
     voice_state = list(
         filter(lambda i: i.user_id == event.author_id, states.iterator())
@@ -56,6 +58,8 @@ async def _join(event: hikari.GuildMessageCreateEvent):
 
 @bot.listen()
 async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
+    """Event that triggers on every new message."""
+
     if event.is_bot or not event.content or not event.guild_id:
         return
 
@@ -137,6 +141,8 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
 
 @bot.listen()
 async def on_ready(event: hikari.ShardReadyEvent) -> None:
+    """Event that triggers when the hikari gateway is ready."""
+
     builder = (
         lavasnek_rs.LavalinkBuilder(event.my_user.id, os.environ["DISCORD_TOKEN"])
         .set_host("127.0.0.1")

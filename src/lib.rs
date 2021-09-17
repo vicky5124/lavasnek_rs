@@ -39,6 +39,15 @@ impl Lavalink {
     /// Returns information about the gateway connection, which can be used with `create_session()`
     /// to connect lavalink to that voice connection.
     ///
+    /// ```py
+    /// lavalink: lavasnek_rs.Lavalink = ...
+    ///
+    /// connection_info = await lavalink.join(guild_id, voice_channel_id)
+    /// await lavalink.create_session(connection_info)
+    ///
+    /// await send_message(f"Joined <#{voice_channel_id}>")
+    /// ```
+    ///
     /// Timing out means that there's either no permission to join the voice channel, or 5 seconds
     /// have happened since the function was called.
     ///
@@ -66,6 +75,14 @@ impl Lavalink {
     /// Leaves the current guild's voice channel using the lavalink-rs discord gateway.
     ///
     /// `Lavalink.destroy()` should be ran as well before this, to safely stop the lavalink session.
+    /// ```py
+    /// lavalink: lavasnek_rs.Lavalink = ...
+    ///
+    /// await lavalink.destroy(guild_id)
+    /// await lavalink.leave(guild_id)
+    ///
+    /// await send_message("Left voice channel")
+    /// ```
     ///
     /// Timing out means that 5 seconds have happened since the function was called.
     ///
@@ -134,6 +151,24 @@ impl Lavalink {
     }
 
     /// Returns the Play builder.
+    ///
+    /// ```py
+    /// lavalink: lavasnek_rs.Lavalink = ...
+    ///
+    /// query_information = await lavalink.auto_search_tracks(search_query_or_url)
+    ///
+    /// if not query_information["tracks"]: # tracks is empty
+    ///     await send_message("Could not find any video of the search query.")
+    ///     return
+    ///
+    /// try:
+    ///     await lavalink.play(
+    ///         guild_id, query_information["tracks"][0]
+    ///     ).requester(author_id).queue()
+    /// except lavasnek_rs.NoSessionPresent:
+    ///     await send_message(f"Use `{PREFIX}join` first")
+    ///     return
+    /// ```
     ///
     /// Positional Arguments:
     /// - `guild_id` : `Unsigned 64 bit integer`
@@ -241,6 +276,21 @@ impl Lavalink {
     ///
     /// If nothing is in the queue, the currently playing track will keep playing.
     /// Check if the queue is empty and run `stop()` if that's the case.
+    ///
+    /// ```py
+    /// lavalink: lavasnek_rs.Lavalink = ...
+    ///
+    /// skip = await lavalink.skip(guild_id)
+    /// node = await lavalink.get_guild_node(guild_id)
+    ///
+    /// if not skip:
+    ///     await send_message("Nothing to skip")
+    /// else:
+    ///     if not node["queue"] and not node["now_playing"]:
+    ///         await lavalink.stop(guild_id)
+    ///
+    ///     await send_message(f"Skipped: {skip['track']['info']['title']}"
+    /// ```
     ///
     /// This can raise an exception if a network error happens.
     ///
