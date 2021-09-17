@@ -38,7 +38,7 @@ jobs:
 
   build-posix:
     runs-on: ${{ matrix.os }}
-    needs: lint
+    needs: lint-and-fmt
     strategy:
       fail-fast: false
       matrix:
