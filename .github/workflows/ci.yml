@@ -86,7 +86,7 @@ jobs:
 
   build-windows:
     runs-on: windows-latest
-    needs: lint
+    needs: lint-and-fmt
     strategy:
       fail-fast: false
 
