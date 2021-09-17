@@ -8,6 +8,7 @@ use lavalink_rs::{
     builders::{LavalinkClientBuilder, PlayParameters},
     gateway::LavalinkEventHandler,
     LavalinkClient,
+    error::LavalinkError,
 };
 use std::net::SocketAddr;
 use std::str::FromStr;
@@ -215,7 +216,7 @@ impl PlayBuilder {
     // NOTE: this can only return a network error.
     /// Starts playing the track.
     ///
-    /// Returns: `Future<Result<None, builtins.Exception>>`
+    /// Returns: `Future<Result<None, lavasnek_rs.NetworkError>>`
     #[pyo3(text_signature = "($self, /)")]
     fn start<'a>(&self, py: Python<'a>) -> PyResult<&'a PyAny> {
         let builder = self.builder.clone();
@@ -224,7 +225,7 @@ impl PlayBuilder {
             builder
                 .start()
                 .await
-                .map_err(|e| error::Exception::new_err(e.to_string()))?;
+                .map_err(|e| error::NetworkError::new_err(e.to_string()))?;
             Ok(Python::with_gil(|py| py.None()))
         })
     }
@@ -237,7 +238,7 @@ impl PlayBuilder {
     ///
     /// Needs for `Lavalink.create_session() to be called first.
     ///
-    /// Returns: `Future<Result<None, lavasnek_rs.NoSessionPresent>>`
+    /// Returns: `Future<Result<None, [lavasnek_rs.NoSessionPresent, lavasnek_rs.NetworkError]>>`
     #[pyo3(text_signature = "($self, /)")]
     fn queue<'a>(&self, py: Python<'a>) -> PyResult<&'a PyAny> {
         let builder = self.builder.clone();
@@ -246,7 +247,13 @@ impl PlayBuilder {
             builder
                 .queue()
                 .await
-                .map_err(|e| error::NoSessionPresent::new_err(e.to_string()))?;
+                .map_err(|e| {
+                    match e {
+                        LavalinkError::NoSessionPresent => error::NoSessionPresent::new_err(e.to_string()),
+                        LavalinkError::ErrorWebsocketPayload(_) => error::NetworkError::new_err(e.to_string()),
+                        _ => error::Exception::new_err(e.to_string())
+                    }
+                })?;
             Ok(Python::with_gil(|py| py.None()))
         })
     }

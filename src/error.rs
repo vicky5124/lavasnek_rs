@@ -7,3 +7,4 @@ pyo3::import_exception!(builtins, TypeError);
 pyo3::import_exception!(builtins, Exception);
 pyo3::import_exception!(ipaddress, AddressValueError);
 pyo3::create_exception!(lavasnek_rs, NoSessionPresent, PyException);
+pyo3::create_exception!(lavasnek_rs, NetworkError, PyException);

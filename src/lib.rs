@@ -161,7 +161,7 @@ impl Lavalink {
     /// Positional Arguments:
     /// - `guild_id` : `Unsigned 64 bit integer`
     ///
-    /// Returns: `Future<Result<None, builtins.Exception>>`
+    /// Returns: `Future<Result<None, lavasnek_rs.NetworkError>>`
     #[pyo3(text_signature = "($self, guild_id, /)")]
     fn destroy<'a>(&self, py: Python<'a>, guild_id: u64) -> PyResult<&'a PyAny> {
         let lava_client = self.lava.clone();
@@ -170,7 +170,7 @@ impl Lavalink {
             lava_client
                 .destroy(guild_id)
                 .await
-                .map_err(|e| error::Exception::new_err(e.to_string()))?;
+                .map_err(|e| error::NetworkError::new_err(e.to_string()))?;
 
             Ok(Python::with_gil(|py| py.None()))
         })
@@ -216,7 +216,7 @@ impl Lavalink {
     /// Positional Arguments:
     /// - `query` : `String`
     ///
-    /// Returns: `Future<Result<Tracks, builtins.Exception>>`
+    /// Returns: `Future<Result<Tracks, lavasnek_rs.NetworkError>>`
     #[pyo3(text_signature = "($self, query, /)")]
     fn get_tracks<'a>(&self, py: Python<'a>, query: String) -> PyResult<&'a PyAny> {
         let lava_client = self.lava.clone();
@@ -225,7 +225,7 @@ impl Lavalink {
             let tracks = lava_client
                 .get_tracks(query)
                 .await
-                .map_err(|e| error::Exception::new_err(e.to_string()))?;
+                .map_err(|e| error::NetworkError::new_err(e.to_string()))?;
 
             Ok(Python::with_gil(|py| pythonize(py, &tracks).unwrap()))
         })
@@ -238,7 +238,7 @@ impl Lavalink {
     /// Positional Arguments:
     /// - `query` : `String`
     ///
-    /// Returns: `Future<Result<Tracks, builtins.Exception>>`
+    /// Returns: `Future<Result<Tracks, lavasnek_rs.NetworkError>>`
     #[pyo3(text_signature = "($self, query, /)")]
     fn auto_search_tracks<'a>(&self, py: Python<'a>, query: String) -> PyResult<&'a PyAny> {
         let lava_client = self.lava.clone();
@@ -247,7 +247,7 @@ impl Lavalink {
             let tracks = lava_client
                 .auto_search_tracks(query)
                 .await
-                .map_err(|e| error::Exception::new_err(e.to_string()))?;
+                .map_err(|e| error::NetworkError::new_err(e.to_string()))?;
 
             Ok(Python::with_gil(|py| pythonize(py, &tracks).unwrap()))
         })
@@ -261,7 +261,7 @@ impl Lavalink {
     /// Positional Arguments:
     /// - `query` : `String`
     ///
-    /// Returns: `Future<Result<Tracks, builtins.Exception>>`
+    /// Returns: `Future<Result<Tracks, lavasnek_rs.NetworkError>>`
     #[pyo3(text_signature = "($self, query, /)")]
     fn search_tracks<'a>(&self, py: Python<'a>, query: String) -> PyResult<&'a PyAny> {
         let lava_client = self.lava.clone();
@@ -270,7 +270,7 @@ impl Lavalink {
             let tracks = lava_client
                 .search_tracks(query)
                 .await
-                .map_err(|e| error::Exception::new_err(e.to_string()))?;
+                .map_err(|e| error::NetworkError::new_err(e.to_string()))?;
 
             Ok(Python::with_gil(|py| pythonize(py, &tracks).unwrap()))
         })
@@ -283,7 +283,7 @@ impl Lavalink {
     /// Positional Arguments:
     /// - `guild_id` : `Unsigned 64 bit integer`
     ///
-    /// Returns: `Future<Result<None, builtins.Exception>>`
+    /// Returns: `Future<Result<None, lavasnek_rs.NetworkError>>`
     #[pyo3(text_signature = "($self, guild_id, /)")]
     fn stop<'a>(&self, py: Python<'a>, guild_id: u64) -> PyResult<&'a PyAny> {
         let lava_client = self.lava.clone();
@@ -292,7 +292,7 @@ impl Lavalink {
             lava_client
                 .stop(guild_id)
                 .await
-                .map_err(|e| error::Exception::new_err(e.to_string()))?;
+                .map_err(|e| error::NetworkError::new_err(e.to_string()))?;
 
             Ok(Python::with_gil(|py| py.None()))
         })
@@ -323,7 +323,7 @@ impl Lavalink {
     /// Positional Arguments:
     /// - `guild_id` : `Unsigned 64 bit integer`
     ///
-    /// Returns: `Future<Result<Option<TrackQueue>, builtins.Exception>>`
+    /// Returns: `Future<Option<TrackQueue>>`
     #[pyo3(text_signature = "($self, guild_id, /)")]
     fn skip<'a>(&self, py: Python<'a>, guild_id: u64) -> PyResult<&'a PyAny> {
         let lava_client = self.lava.clone();
@@ -350,7 +350,7 @@ impl Lavalink {
     /// - `guild_id` : `Unsigned 64 bit integer`
     /// - `pause` : `bool`
     ///
-    /// Returns: `Future<Result<None, builtins.Exception>>`
+    /// Returns: `Future<Result<None, lavasnek_rs.NetworkError>>`
     #[pyo3(text_signature = "($self, guild_id, pause, /)")]
     fn set_pause<'a>(&self, py: Python<'a>, guild_id: u64, pause: bool) -> PyResult<&'a PyAny> {
         let lava_client = self.lava.clone();
@@ -359,7 +359,7 @@ impl Lavalink {
             lava_client
                 .set_pause(guild_id, pause)
                 .await
-                .map_err(|e| error::Exception::new_err(e.to_string()))?;
+                .map_err(|e| error::NetworkError::new_err(e.to_string()))?;
 
             Ok(Python::with_gil(|py| py.None()))
         })
@@ -385,7 +385,7 @@ impl Lavalink {
     /// - `guild_id` : `Unsigned 64 bit integer`
     /// - `time` : `Unsigned 64 bit integer`
     ///
-    /// Returns: `Future<Result<None, builtins.Exception>>`
+    /// Returns: `Future<Result<None, lavasnek_rs.NetworkError>>`
     #[pyo3(text_signature = "($self, guild_id, time, /)")]
     fn seek_secs<'a>(&self, py: Python<'a>, guild_id: u64, time: u64) -> PyResult<&'a PyAny> {
         let lava_client = self.lava.clone();
@@ -394,7 +394,7 @@ impl Lavalink {
             lava_client
                 .seek(guild_id, Duration::from_secs(time))
                 .await
-                .map_err(|e| error::Exception::new_err(e.to_string()))?;
+                .map_err(|e| error::NetworkError::new_err(e.to_string()))?;
 
             Ok(Python::with_gil(|py| py.None()))
         })
@@ -425,7 +425,7 @@ impl Lavalink {
     /// - `guild_id` : `Unsigned 64 bit integer`
     /// - `time` : `Unsigned 64 bit integer`
     ///
-    /// Returns: `Future<Result<None, builtins.Exception>>`
+    /// Returns: `Future<Result<None, lavasnek_rs.NetworkError>>`
     #[pyo3(text_signature = "($self, guild_id, time, /)")]
     fn seek_millis<'a>(&self, py: Python<'a>, guild_id: u64, time: u64) -> PyResult<&'a PyAny> {
         let lava_client = self.lava.clone();
@@ -434,7 +434,7 @@ impl Lavalink {
             lava_client
                 .seek(guild_id, Duration::from_millis(time))
                 .await
-                .map_err(|e| error::Exception::new_err(e.to_string()))?;
+                .map_err(|e| error::NetworkError::new_err(e.to_string()))?;
 
             Ok(Python::with_gil(|py| py.None()))
         })
@@ -466,7 +466,7 @@ impl Lavalink {
     /// - `guild_id` : `Unsigned 64 bit integer`
     /// - `Volume` : `Unsigned 16 bit integer`
     ///
-    /// Returns: `Future<Result<None, builtins.Exception>>`
+    /// Returns: `Future<Result<None, lavasnek_rs.NetworkError>>`
     #[pyo3(text_signature = "($self, guild_id, volume, /)")]
     fn volume<'a>(&self, py: Python<'a>, guild_id: u64, volume: u16) -> PyResult<&'a PyAny> {
         let lava_client = self.lava.clone();
@@ -475,7 +475,7 @@ impl Lavalink {
             lava_client
                 .volume(guild_id, volume)
                 .await
-                .map_err(|e| error::Exception::new_err(e.to_string()))?;
+                .map_err(|e| error::NetworkError::new_err(e.to_string()))?;
 
             Ok(Python::with_gil(|py| py.None()))
         })
@@ -722,6 +722,7 @@ fn lavasnek_rs(py: Python, m: &PyModule) -> PyResult<()> {
     m.add_class::<ConnectionInfo>()?;
 
     m.add("NoSessionPresent", py.get_type::<error::NoSessionPresent>())?;
+    m.add("NetworkError", py.get_type::<error::NetworkError>())?;
 
     Ok(())
 }

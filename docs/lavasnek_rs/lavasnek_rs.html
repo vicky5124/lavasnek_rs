@@ -222,6 +222,12 @@
                 </ul>
 
             </li>
+            <li>
+                    <a class="class" href="#NetworkError">NetworkError</a>
+                            <ul class="memberlist">
+                </ul>
+
+            </li>
     </ul>
 
 
@@ -446,7 +452,7 @@ The node is not added to the loops unless <code><a href="#PlayBuilder.queue">Pla
 <li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
 </ul>
 
-<p>Returns: <code>Future&lt;Result&lt;None, builtins.Exception&gt;&gt;</code></p>
+<p>Returns: <code>Future&lt;Result&lt;None, <a href="../lavasnek_rs.html#NetworkError">lavasnek_rs.NetworkError</a>&gt;&gt;</code></p>
 </div>
 
 
@@ -510,7 +516,7 @@ The node is not added to the loops unless <code><a href="#PlayBuilder.queue">Pla
 <li><code>query</code> : <code>String</code></li>
 </ul>
 
-<p>Returns: <code>Future&lt;Result&lt;Tracks, builtins.Exception&gt;&gt;</code></p>
+<p>Returns: <code>Future&lt;Result&lt;Tracks, <a href="../lavasnek_rs.html#NetworkError">lavasnek_rs.NetworkError</a>&gt;&gt;</code></p>
 </div>
 
 
@@ -534,7 +540,7 @@ The node is not added to the loops unless <code><a href="#PlayBuilder.queue">Pla
 <li><code>query</code> : <code>String</code></li>
 </ul>
 
-<p>Returns: <code>Future&lt;Result&lt;Tracks, builtins.Exception&gt;&gt;</code></p>
+<p>Returns: <code>Future&lt;Result&lt;Tracks, <a href="../lavasnek_rs.html#NetworkError">lavasnek_rs.NetworkError</a>&gt;&gt;</code></p>
 </div>
 
 
@@ -559,7 +565,7 @@ Uses youtube to search.</p>
 <li><code>query</code> : <code>String</code></li>
 </ul>
 
-<p>Returns: <code>Future&lt;Result&lt;Tracks, builtins.Exception&gt;&gt;</code></p>
+<p>Returns: <code>Future&lt;Result&lt;Tracks, <a href="../lavasnek_rs.html#NetworkError">lavasnek_rs.NetworkError</a>&gt;&gt;</code></p>
 </div>
 
 
@@ -583,7 +589,7 @@ Uses youtube to search.</p>
 <li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
 </ul>
 
-<p>Returns: <code>Future&lt;Result&lt;None, builtins.Exception&gt;&gt;</code></p>
+<p>Returns: <code>Future&lt;Result&lt;None, <a href="../lavasnek_rs.html#NetworkError">lavasnek_rs.NetworkError</a>&gt;&gt;</code></p>
 </div>
 
 
@@ -624,7 +630,7 @@ Check if the queue is empty and run <code><a href="#Lavalink.stop">stop()</a></c
 <li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
 </ul>
 
-<p>Returns: <code>Future&lt;Result&lt;Option&lt;TrackQueue&gt;, builtins.Exception&gt;&gt;</code></p>
+<p>Returns: <code>Future&lt;Option&lt;TrackQueue&gt;&gt;</code></p>
 </div>
 
 
@@ -649,7 +655,7 @@ Check if the queue is empty and run <code><a href="#Lavalink.stop">stop()</a></c
 <li><code><a href="#Lavalink.pause">pause</a></code> : <code>bool</code></li>
 </ul>
 
-<p>Returns: <code>Future&lt;Result&lt;None, builtins.Exception&gt;&gt;</code></p>
+<p>Returns: <code>Future&lt;Result&lt;None, <a href="../lavasnek_rs.html#NetworkError">lavasnek_rs.NetworkError</a>&gt;&gt;</code></p>
 </div>
 
 
@@ -702,7 +708,7 @@ Check if the queue is empty and run <code><a href="#Lavalink.stop">stop()</a></c
 <li><code>time</code> : <code>Unsigned 64 bit integer</code></li>
 </ul>
 
-<p>Returns: <code>Future&lt;Result&lt;None, builtins.Exception&gt;&gt;</code></p>
+<p>Returns: <code>Future&lt;Result&lt;None, <a href="../lavasnek_rs.html#NetworkError">lavasnek_rs.NetworkError</a>&gt;&gt;</code></p>
 </div>
 
 
@@ -755,7 +761,7 @@ Check if the queue is empty and run <code><a href="#Lavalink.stop">stop()</a></c
 <li><code>time</code> : <code>Unsigned 64 bit integer</code></li>
 </ul>
 
-<p>Returns: <code>Future&lt;Result&lt;None, builtins.Exception&gt;&gt;</code></p>
+<p>Returns: <code>Future&lt;Result&lt;None, <a href="../lavasnek_rs.html#NetworkError">lavasnek_rs.NetworkError</a>&gt;&gt;</code></p>
 </div>
 
 
@@ -809,7 +815,7 @@ Max is 1000, min is 0</p>
 <li><code>Volume</code> : <code>Unsigned 16 bit integer</code></li>
 </ul>
 
-<p>Returns: <code>Future&lt;Result&lt;None, builtins.Exception&gt;&gt;</code></p>
+<p>Returns: <code>Future&lt;Result&lt;None, <a href="../lavasnek_rs.html#NetworkError">lavasnek_rs.NetworkError</a>&gt;&gt;</code></p>
 </div>
 
 
@@ -1314,7 +1320,7 @@ seconds)</p>
         
             <div class="docstring"><p>Starts playing the track.</p>
 
-<p>Returns: <code>Future&lt;Result&lt;None, builtins.Exception&gt;&gt;</code></p>
+<p>Returns: <code>Future&lt;Result&lt;None, <a href="../lavasnek_rs.html#NetworkError">lavasnek_rs.NetworkError</a>&gt;&gt;</code></p>
 </div>
 
 
@@ -1335,7 +1341,7 @@ on <code>Lavalink.loops()</code></p>
 
 <p>Needs for `<a href="#Lavalink.create_session">Lavalink.create_session()</a> to be called first.</p>
 
-<p>Returns: <code>Future&lt;Result&lt;None, <a href="../lavasnek_rs.html#NoSessionPresent">lavasnek_rs.NoSessionPresent</a>&gt;&gt;</code></p>
+<p>Returns: <code>Future&lt;Result&lt;None, [<a href="../lavasnek_rs.html#NoSessionPresent">lavasnek_rs.NoSessionPresent</a>, <a href="../lavasnek_rs.html#NetworkError">lavasnek_rs.NetworkError</a>]&gt;&gt;</code></p>
 </div>
 
 
@@ -1535,6 +1541,35 @@ joining a voice channel, you can get this values from the <code>VOICE_STATE_UPDA
             <div><dt>builtins.BaseException</dt>
                                 <dd id="NoSessionPresent.with_traceback" class="function">with_traceback</dd>
                 <dd id="NoSessionPresent.args" class="variable">args</dd>
+
+            </div>
+                                </dl>
+                            </div>
+                </section>
+                <section id="NetworkError">
+                                <div class="attr class">
+        <a class="headerlink" href="#NetworkError">#&nbsp;&nbsp</a>
+
+        
+        <span class="def">class</span>
+        <span class="name">NetworkError</span><wbr>(<span class="base">builtins.Exception</span>):
+    </div>
+
+        
+            <div class="docstring"><p>Common base class for all non-exit exceptions.</p>
+</div>
+
+
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt>builtins.Exception</dt>
+                                <dd id="NetworkError.__init__" class="function">Exception</dd>
+
+            </div>
+            <div><dt>builtins.BaseException</dt>
+                                <dd id="NetworkError.with_traceback" class="function">with_traceback</dd>
+                <dd id="NetworkError.args" class="variable">args</dd>
 
             </div>
                                 </dl>
