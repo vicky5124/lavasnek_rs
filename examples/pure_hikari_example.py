@@ -9,6 +9,8 @@ import lavasnek_rs
 PREFIX = ","
 TOKEN = os.environ["DISCORD_TOKEN"]
 
+HIKARI_VOICE = False # if True connect to voice with the hikari gateway instead of lavasnek_rs's
+
 
 def is_command(cmd_name: str, content: str) -> bool:
     """Check if the message sent is a valid command."""
@@ -38,7 +40,7 @@ class Bot(hikari.GatewayBot):
 bot = Bot(token=TOKEN)
 
 
-async def _join(event: hikari.GuildMessageCreateEvent):
+async def _join(event: hikari.GuildMessageCreateEvent) -> int:
     """Join's the user's voice channel creating a lavalink session."""
 
     states = bot.cache.get_voice_states_view_for_guild(event.get_guild())
@@ -52,8 +54,15 @@ async def _join(event: hikari.GuildMessageCreateEvent):
 
     channel_id = voice_state[0].channel_id
 
-    connection_info = await bot.data.lavalink.join(event.guild_id, channel_id)
+    if HIKARI_VOICE:
+        await bot.update_voice_state(event.guild_id, channel_id, self_deaf=True)
+        connection_info = await bot.data.lavalink.wait_for_full_connection_info_insert(event.guild_id)
+    else:
+        connection_info = await bot.data.lavalink.join(event.guild_id, channel_id)
+
     await bot.data.lavalink.create_session(connection_info)
+
+    return channel_id
 
 
 @bot.listen()
@@ -73,13 +82,18 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
             )
 
         elif is_command("join", event.content):
-            await _join(event)
+            channel_id = await _join(event)
 
             await event.message.respond(f"Joined <#{channel_id}>")
 
         elif is_command("leave", event.content):
             await bot.data.lavalink.destroy(event.guild_id)
-            await bot.data.lavalink.leave(event.guild_id)
+
+            if HIKARI_VOICE:
+                await bot.update_voice_state(event.guild_id, None)
+                await bot.data.lavalink.wait_for_connection_info_remove(event.guild_id)
+            else:
+                await bot.data.lavalink.leave(event.guild_id)
 
             await event.message.respond("Left voice channel")
 
@@ -149,9 +163,19 @@ async def on_ready(event: hikari.ShardReadyEvent) -> None:
         .set_password(os.environ["LAVALINK_PASSWORD"])
     )
 
+    if HIKARI_VOICE:
+        builder.set_start_gateway(False)
+
     lava_client = await builder.build()
 
     bot.data.lavalink = lava_client
 
+@bot.listen()
+async def voice_state_update(event: hikari.VoiceStateUpdateEvent) -> None:
+    await bot.data.lavalink.raw_handle_event_voice_state_update(event.state.guild_id, event.state.user_id, event.state.session_id, event.state.channel_id)
+
+@bot.listen()
+async def voice_server_update(event: hikari.VoiceServerUpdateEvent) -> None:
+    await bot.data.lavalink.raw_handle_event_voice_server_update(event.guild_id, event.endpoint, event.token)
 
 bot.run()

@@ -34,6 +34,32 @@ pub(crate) struct Lavalink {
 
 #[pymethods]
 impl Lavalink {
+    /// Start the discord gateway, if it has stopped, or it never started because the client builder was
+    /// configured that way.
+    ///
+    /// If `wait_time` is passed, it will override the previosuly configured wait time.
+    ///
+    /// Positional Arguments:
+    /// - `wait_time` : `Optional Unsigned 64 bit integer` -- seconds
+    ///
+    /// Returns: `Future<None>`
+    #[pyo3(text_signature = "($self, /, wait_time)")]
+    fn start_discord_gateway<'a>(
+        &self,
+        py: Python<'a>,
+        wait_time: Option<u64>,
+    ) -> PyResult<&'a PyAny> {
+        let lava_client = self.lava.clone();
+
+        pyo3_asyncio::tokio::future_into_py(py, async move {
+            lava_client
+                .start_discord_gateway(wait_time.map(|t| Duration::from_secs(t)))
+                .await;
+
+            Ok(Python::with_gil(|py| py.None()))
+        })
+    }
+
     /// Joins a guild's voice channel using the lavalink-rs discord gateway.
     ///
     /// Returns information about the gateway connection, which can be used with `create_session()`
@@ -522,6 +548,134 @@ impl Lavalink {
                     py.None()
                 }
             }))
+        })
+    }
+
+    /// Waits until the ConnectionInfo is complete and returns it.
+    ///
+    /// Positional Arguments:
+    /// - `guild_id` : `Unsigned 64 bit integer`
+    /// - `event_count` : `Unsigned 128 bit integer` defaults to 10
+    ///
+    /// Returns: `Future<ConnectionInfo>`
+    #[pyo3(text_signature = "($self, guild_id, /, event_count=10)")]
+    fn wait_for_full_connection_info_insert<'a>(
+        &self,
+        py: Python<'a>,
+        guild_id: u64,
+        event_count: Option<usize>,
+    ) -> PyResult<&'a PyAny> {
+        let lava_client = self.lava.clone();
+
+        pyo3_asyncio::tokio::future_into_py(py, async move {
+            let connection_info = lavalink_rs::voice::wait_for_full_connection_info_insert(
+                &lava_client,
+                guild_id,
+                event_count,
+            )
+            .await
+            .map_err(|e| error::TimeoutError::new_err(e.to_string()))?;
+
+            Ok(Python::with_gil(|py| {
+                pythonize(py, &connection_info).unwrap()
+            }))
+        })
+    }
+
+    /// Waits until the ConnectionInfo is removed.
+    ///
+    /// Positional Arguments:
+    /// - `guild_id` : `Unsigned 64 bit integer`
+    /// - `event_count` : `Unsigned 128 bit integer` defaults to 10
+    ///
+    /// Returns: `Future<None>`
+    #[pyo3(text_signature = "($self, guild_id, /, event_count=10)")]
+    fn wait_for_connection_info_remove<'a>(
+        &self,
+        py: Python<'a>,
+        guild_id: u64,
+        event_count: Option<usize>,
+        //) -> LavalinkResult<()> {
+    ) -> PyResult<&'a PyAny> {
+        let lava_client = self.lava.clone();
+
+        pyo3_asyncio::tokio::future_into_py(py, async move {
+            lavalink_rs::voice::wait_for_connection_info_remove(
+                &lava_client,
+                guild_id,
+                event_count,
+            )
+            .await
+            .map_err(|e| error::TimeoutError::new_err(e.to_string()))?;
+
+            Ok(Python::with_gil(|py| py.None()))
+        })
+    }
+
+    /// Handles voice events to manage `ConnectionInfo` internally. This one is for the
+    /// VOICE_SERVER_UPDATE event.
+    ///
+    /// Positional Arguments:
+    /// - `guild_id` : `Unsigned 64 bit integer`
+    /// - `endpint` : `String`
+    /// - `token` : `String`
+    ///
+    /// Returns: `Future<None>`
+    #[pyo3(text_signature = "($self, guild_id, endpoint, token, /)")]
+    fn raw_handle_event_voice_server_update<'a>(
+        &self,
+        py: Python<'a>,
+        guild_id: u64,
+        endpoint: String,
+        token: String,
+    ) -> PyResult<&'a PyAny> {
+        let lava_client = self.lava.clone();
+
+        pyo3_asyncio::tokio::future_into_py(py, async move {
+            lavalink_rs::voice::raw_handle_event_voice_server_update(
+                &lava_client,
+                guild_id,
+                endpoint,
+                token,
+            )
+            .await;
+
+            Ok(Python::with_gil(|py| py.None()))
+        })
+    }
+
+    /// Handles voice events to manage `ConnectionInfo` internally. This one is for the
+    /// VOICE_STATE_UPDATE event.
+    ///
+    /// Positional Arguments:
+    /// - `guild_id` : `Unsigned 64 bit integer`
+    /// - `user_id` : `Unsigned 64 bit integer`
+    /// - `session_id` : `String`
+    /// - `channel_id` : `Optional Unsigned 64 bit integer`
+    ///
+    /// Returns: `Future<None>`
+    #[pyo3(text_signature = "($self, guild_id, user_id, session_id, channel_id/)")]
+    fn raw_handle_event_voice_state_update<'a>(
+        &self,
+        py: Python<'a>,
+        guild_id: u64,
+        user_id: u64,
+        session_id: String,
+        channel_id: Option<u64>,
+    ) -> PyResult<&'a PyAny> {
+        let lava_client = self.lava.clone();
+
+        pyo3_asyncio::tokio::future_into_py(py, async move {
+            lavalink_rs::voice::raw_handle_event_voice_state_update(
+                &lava_client,
+                guild_id,
+                channel_id,
+                user_id,
+                session_id,
+            )
+            .await;
+
+            Ok(Python::with_gil(|py| py.None()))
         })
     }
 }

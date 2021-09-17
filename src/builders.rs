@@ -171,6 +171,43 @@ impl LavalinkBuilder {
         slf.builder.is_ssl = is_ssl;
         slf
     }
+
+    /// Sets if the discord gateway for voice connections should start or not. (Default to: True)
+    ///
+    /// Positional Arguments:
+    /// - `start_gateway` : `bool`
+    ///
+    /// Returns: `Self`
+    #[pyo3(text_signature = "($self, start_gateway, /)")]
+    fn set_start_gateway(mut slf: PyRefMut<Self>, start_gateway: bool) -> PyRefMut<Self> {
+        slf.builder.start_gateway = start_gateway;
+        slf
+    }
+
+    /// Sets the time to wait before starting the first discord gateway connection. (Default to: 6
+    /// seconds)
+    ///
+    /// Positional Arguments:
+    /// - `time` : `Unsigned 64 bit integer`
+    ///
+    /// Returns: `Self`
+    #[pyo3(text_signature = "($self, time, /)")]
+    fn set_gateway_start_wait_time_secs(mut slf: PyRefMut<Self>, time: u64) -> PyRefMut<Self> {
+        slf.builder.gateway_start_wait_time = Duration::from_secs(time);
+        slf
+    }
+
+    /// Sets the time to wait before starting the first discord gateway connection.
+    ///
+    /// Positional Arguments:
+    /// - `time` : `Unsigned 64 bit integer`
+    ///
+    /// Returns: `Self`
+    #[pyo3(text_signature = "($self, time, /)")]
+    fn set_gateway_start_wait_time_millis(mut slf: PyRefMut<Self>, time: u64) -> PyRefMut<Self> {
+        slf.builder.gateway_start_wait_time = Duration::from_millis(time);
+        slf
+    }
 }
 
 #[pymethods]
