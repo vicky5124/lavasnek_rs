@@ -9,7 +9,9 @@ import lavasnek_rs
 PREFIX = ","
 TOKEN = os.environ["DISCORD_TOKEN"]
 
-HIKARI_VOICE = False # if True connect to voice with the hikari gateway instead of lavasnek_rs's
+HIKARI_VOICE = (
+    False  # if True connect to voice with the hikari gateway instead of lavasnek_rs's
+)
 
 
 def is_command(cmd_name: str, content: str) -> bool:
@@ -56,7 +58,9 @@ async def _join(event: hikari.GuildMessageCreateEvent) -> int:
 
     if HIKARI_VOICE:
         await bot.update_voice_state(event.guild_id, channel_id, self_deaf=True)
-        connection_info = await bot.data.lavalink.wait_for_full_connection_info_insert(event.guild_id)
+        connection_info = await bot.data.lavalink.wait_for_full_connection_info_insert(
+            event.guild_id
+        )
     else:
         connection_info = await bot.data.lavalink.join(event.guild_id, channel_id)
 
@@ -170,12 +174,23 @@ async def on_ready(event: hikari.ShardReadyEvent) -> None:
 
     bot.data.lavalink = lava_client
 
-@bot.listen()
-async def voice_state_update(event: hikari.VoiceStateUpdateEvent) -> None:
-    await bot.data.lavalink.raw_handle_event_voice_state_update(event.state.guild_id, event.state.user_id, event.state.session_id, event.state.channel_id)
 
-@bot.listen()
-async def voice_server_update(event: hikari.VoiceServerUpdateEvent) -> None:
-    await bot.data.lavalink.raw_handle_event_voice_server_update(event.guild_id, event.endpoint, event.token)
+if HIKARI_VOICE:
+
+    @bot.listen()
+    async def voice_state_update(event: hikari.VoiceStateUpdateEvent) -> None:
+        await bot.data.lavalink.raw_handle_event_voice_state_update(
+            event.state.guild_id,
+            event.state.user_id,
+            event.state.session_id,
+            event.state.channel_id,
+        )
+
+    @bot.listen()
+    async def voice_server_update(event: hikari.VoiceServerUpdateEvent) -> None:
+        await bot.data.lavalink.raw_handle_event_voice_server_update(
+            event.guild_id, event.endpoint, event.token
+        )
+
 
 bot.run()
