@@ -3,9 +3,11 @@ extern crate log;
 
 mod builders;
 mod error;
+mod model;
 use builders::*;
+use model::*;
 
-use lavalink_rs::model::{ConnectionInfo as LavaConnectionInfo, Track};
+use lavalink_rs::model::ConnectionInfo as LavaConnectionInfo;
 use lavalink_rs::LavalinkClient;
 
 use pyo3::prelude::*;
@@ -13,22 +15,8 @@ use pythonize::{depythonize, pythonize};
 
 use tokio::time::{sleep, Duration};
 
-/// This is never actually used, a dictionary is used instead. If you use a 3rd party method of
-/// joining a voice channel, you can get this values from the `VOICE_STATE_UPDATE` and
-/// `VOICE_SERVER_UPDATE` events, and manually build a dict with them.
-///
-/// Fields:
-///
-/// - `guild_id` : `Unsigned 64 bit integer`
-/// - `channel_id` : `Unsigned 64 bit integer`
-/// - `endpoint` : `String`
-/// - `token` : `String`
-/// - `session_id` : `String`
 #[pyclass]
-struct ConnectionInfo;
-
-#[pyclass]
-pub(crate) struct Lavalink {
+pub struct Lavalink {
     lava: LavalinkClient,
 }
 
@@ -202,10 +190,9 @@ impl Lavalink {
     ///
     /// Returns: `PlayBuilder`
     #[pyo3(text_signature = "($self, track, /)")]
-    fn play(&self, py: Python, guild_id: u64, track: PyObject) -> PlayBuilder {
-        let track: Track = depythonize(track.as_ref(py)).unwrap();
+    fn play(&self, guild_id: u64, track: Track) -> PlayBuilder {
         PlayBuilder {
-            builder: self.lava.play(guild_id, track),
+            builder: self.lava.play(guild_id, track.inner),
         }
     }
 
@@ -227,7 +214,7 @@ impl Lavalink {
                 .await
                 .map_err(|e| error::NetworkError::new_err(e.to_string()))?;
 
-            Ok(Python::with_gil(|py| pythonize(py, &tracks).unwrap()))
+            Ok(Python::with_gil(|py| Tracks { inner: tracks }.into_py(py)))
         })
     }
 
@@ -249,7 +236,7 @@ impl Lavalink {
                 .await
                 .map_err(|e| error::NetworkError::new_err(e.to_string()))?;
 
-            Ok(Python::with_gil(|py| pythonize(py, &tracks).unwrap()))
+            Ok(Python::with_gil(|py| Tracks { inner: tracks }.into_py(py)))
         })
     }
 
@@ -272,7 +259,7 @@ impl Lavalink {
                 .await
                 .map_err(|e| error::NetworkError::new_err(e.to_string()))?;
 
-            Ok(Python::with_gil(|py| pythonize(py, &tracks).unwrap()))
+            Ok(Python::with_gil(|py| Tracks { inner: tracks }.into_py(py)))
         })
     }
 
@@ -334,7 +321,7 @@ impl Lavalink {
 
             Ok(Python::with_gil(|py| {
                 if let Some(track) = track {
-                    pythonize(py, &track).unwrap()
+                    TrackQueue { inner: track.clone() }.into_py(py)
                 } else {
                     py.None()
                 }
@@ -515,7 +502,7 @@ impl Lavalink {
 
             Ok(Python::with_gil(|py| {
                 if let Some(node) = node {
-                    pythonize(py, &node.to_owned()).unwrap()
+                    Node { inner: node.clone() }.into_py(py)
                 } else {
                     py.None()
                 }
@@ -717,9 +704,17 @@ fn lavasnek_rs(py: Python, m: &PyModule) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(log_something, m)?)?;
 
     m.add_class::<Lavalink>()?;
+
     m.add_class::<LavalinkBuilder>()?;
     m.add_class::<PlayBuilder>()?;
+
     m.add_class::<ConnectionInfo>()?;
+    m.add_class::<Track>()?;
+    m.add_class::<Tracks>()?;
+    m.add_class::<TrackQueue>()?;
+    m.add_class::<Info>()?;
+    m.add_class::<PlaylistInfo>()?;
+    m.add_class::<Node>()?;
 
     m.add("NoSessionPresent", py.get_type::<error::NoSessionPresent>())?;
     m.add("NetworkError", py.get_type::<error::NetworkError>())?;

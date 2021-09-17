@@ -217,6 +217,135 @@
 
             </li>
             <li>
+                    <a class="class" href="#Track">Track</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#Track.__init__">Track</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Track.track">track</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Track.info">info</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#Tracks">Tracks</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#Tracks.__init__">Tracks</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Tracks.playlist_info">playlist_info</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Tracks.load_type">load_type</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Tracks.tracks">tracks</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#TrackQueue">TrackQueue</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#TrackQueue.__init__">TrackQueue</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#TrackQueue.end_time">end_time</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#TrackQueue.track">track</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#TrackQueue.requester">requester</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#TrackQueue.start_time">start_time</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#Info">Info</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#Info.__init__">Info</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Info.position">position</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Info.is_stream">is_stream</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Info.identifier">identifier</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Info.author">author</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Info.is_seekable">is_seekable</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Info.title">title</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Info.length">length</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Info.uri">uri</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#PlaylistInfo">PlaylistInfo</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#PlaylistInfo.__init__">PlaylistInfo</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#PlaylistInfo.selected_track">selected_track</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#PlaylistInfo.name">name</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#Node">Node</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#Node.__init__">Node</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Node.is_paused">is_paused</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Node.queue">queue</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Node.volume">volume</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Node.now_playing">now_playing</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Node.is_on_loops">is_on_loops</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Node.guild">guild</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
                     <a class="class" href="#NoSessionPresent">NoSessionPresent</a>
                             <ul class="memberlist">
                 </ul>
@@ -254,7 +383,7 @@ the type of the returned value if not <code>None</code>.</li>
 and that function should be awaited to work.</li>
 <li>/ on arguments means the end of positional arguments.</li>
 <li>Slef (with a capital S) means the type of self.</li>
-<li>For <code>Track</code>, <code>Tracks</code>, <code>TrackQueue</code> and <code>Node</code> documentation, check it out on
+<li>For <code><a href="#Track">Track</a></code>, <code><a href="#Tracks">Tracks</a></code>, <code><a href="#TrackQueue">TrackQueue</a></code> and <code><a href="#Node">Node</a></code> documentation, check it out on
 (docs.rs)[https://docs.rs/lavalink-rs]</li>
 </ul>
 </div>
@@ -489,7 +618,7 @@ The node is not added to the loops unless <code><a href="#PlayBuilder.queue">Pla
 
 <ul>
 <li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
-<li><code>track</code> : <code>Track</code> - From the track search methods, it's a value from the "tracks" field.</li>
+<li><code>track</code> : <code><a href="#Track">Track</a></code> - From the track search methods, it's a value from the "tracks" field.</li>
 </ul>
 
 <p>Returns: <code><a href="#PlayBuilder">PlayBuilder</a></code></p>
@@ -1491,7 +1620,26 @@ on <code>Lavalink.loops()</code></p>
         
             <div class="docstring"><p>This is never actually used, a dictionary is used instead. If you use a 3rd party method of
 joining a voice channel, you can get this values from the <code>VOICE_STATE_UPDATE</code> and
-<code>VOICE_SERVER_UPDATE</code> events, and manually build a dict with them.</p>
+<code>VOICE_SERVER_UPDATE</code> events, and use raw_handle_event_voice_state_update() +
+raw_handle_event_voice_server_update() or manually build a dict with them.</p>
+
+<p>With hikari:</p>
+
+<div class="codehilite"><pre><span></span><code><span class="nd">@bot</span><span class="o">.</span><span class="n">listen</span><span class="p">()</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">voice_state_update</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n">hikari</span><span class="o">.</span><span class="n">VoiceStateUpdateEvent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">await</span> <span class="n">bot</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">lavalink</span><span class="o">.</span><span class="n">raw_handle_event_voice_state_update</span><span class="p">(</span>
+        <span class="n">event</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">guild_id</span><span class="p">,</span>
+        <span class="n">event</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">user_id</span><span class="p">,</span>
+        <span class="n">event</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">session_id</span><span class="p">,</span>
+        <span class="n">event</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">channel_id</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="nd">@bot</span><span class="o">.</span><span class="n">listen</span><span class="p">()</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">voice_server_update</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n">hikari</span><span class="o">.</span><span class="n">VoiceServerUpdateEvent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">await</span> <span class="n">bot</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">lavalink</span><span class="o">.</span><span class="n">raw_handle_event_voice_server_update</span><span class="p">(</span>
+        <span class="n">event</span><span class="o">.</span><span class="n">guild_id</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">token</span>
+    <span class="p">)</span>
+</code></pre></div>
 
 <p>Fields:</p>
 
@@ -1514,6 +1662,443 @@ joining a voice channel, you can get this values from the <code>VOICE_STATE_UPDA
 
         
     
+
+                            </div>
+                </section>
+                <section id="Track">
+                                <div class="attr class">
+        <a class="headerlink" href="#Track">#&nbsp;&nbsp</a>
+
+        
+        <span class="def">class</span>
+        <span class="name">Track</span>:
+    </div>
+
+        
+    
+
+                            <div id="Track.__init__" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Track.__init__">#&nbsp;&nbsp</a>
+
+        
+            <span class="name">Track</span><span class="signature">()</span>
+    </div>
+
+        
+    
+
+                            </div>
+                            <div id="Track.track" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Track.track">#&nbsp;&nbsp</a>
+
+        <span class="name">track</span><span class="default_value"> = &lt;attribute &#39;track&#39; of &#39;builtins.Track&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>The playable track.</p>
+
+<p>Returns <code>String</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Track.info" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Track.info">#&nbsp;&nbsp</a>
+
+        <span class="name">info</span><span class="default_value"> = &lt;attribute &#39;info&#39; of &#39;builtins.Track&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>Information about the track.</p>
+
+<p>Returns <code>Option&lt;Info&gt;</code></p>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="Tracks">
+                                <div class="attr class">
+        <a class="headerlink" href="#Tracks">#&nbsp;&nbsp</a>
+
+        
+        <span class="def">class</span>
+        <span class="name">Tracks</span>:
+    </div>
+
+        
+    
+
+                            <div id="Tracks.__init__" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Tracks.__init__">#&nbsp;&nbsp</a>
+
+        
+            <span class="name">Tracks</span><span class="signature">()</span>
+    </div>
+
+        
+    
+
+                            </div>
+                            <div id="Tracks.playlist_info" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Tracks.playlist_info">#&nbsp;&nbsp</a>
+
+        <span class="name">playlist_info</span><span class="default_value"> = &lt;attribute &#39;playlist_info&#39; of &#39;builtins.Tracks&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>Information about the playlist.</p>
+
+<p>Returns <code>Option&lt;PlaylistInfo&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Tracks.load_type" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Tracks.load_type">#&nbsp;&nbsp</a>
+
+        <span class="name">load_type</span><span class="default_value"> = &lt;attribute &#39;load_type&#39; of &#39;builtins.Tracks&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>Returns <code>String</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Tracks.tracks" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Tracks.tracks">#&nbsp;&nbsp</a>
+
+        <span class="name">tracks</span><span class="default_value"> = &lt;attribute &#39;tracks&#39; of &#39;builtins.Tracks&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>The tracks that can be played</p>
+
+<p>Returns <code>List&lt;Track&gt;</code></p>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="TrackQueue">
+                                <div class="attr class">
+        <a class="headerlink" href="#TrackQueue">#&nbsp;&nbsp</a>
+
+        
+        <span class="def">class</span>
+        <span class="name">TrackQueue</span>:
+    </div>
+
+        
+    
+
+                            <div id="TrackQueue.__init__" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#TrackQueue.__init__">#&nbsp;&nbsp</a>
+
+        
+            <span class="name">TrackQueue</span><span class="signature">()</span>
+    </div>
+
+        
+    
+
+                            </div>
+                            <div id="TrackQueue.end_time" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackQueue.end_time">#&nbsp;&nbsp</a>
+
+        <span class="name">end_time</span><span class="default_value"> = &lt;attribute &#39;end_time&#39; of &#39;builtins.TrackQueue&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>The time the track will finish at.</p>
+
+<p>Returns <code>Option&lt;Unsigned 64 bit integer&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="TrackQueue.track" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackQueue.track">#&nbsp;&nbsp</a>
+
+        <span class="name">track</span><span class="default_value"> = &lt;attribute &#39;track&#39; of &#39;builtins.TrackQueue&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>The playable track.</p>
+
+<p>Returns <code><a href="#Track">Track</a></code></p>
+</div>
+
+
+                            </div>
+                            <div id="TrackQueue.requester" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackQueue.requester">#&nbsp;&nbsp</a>
+
+        <span class="name">requester</span><span class="default_value"> = &lt;attribute &#39;requester&#39; of &#39;builtins.TrackQueue&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>The user id who requested the track if set by the <code><a href="#PlayBuilder">PlayBuilder</a></code></p>
+
+<p>Returns <code>Option&lt;Unsigned 64 bit integer&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="TrackQueue.start_time" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackQueue.start_time">#&nbsp;&nbsp</a>
+
+        <span class="name">start_time</span><span class="default_value"> = &lt;attribute &#39;start_time&#39; of &#39;builtins.TrackQueue&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>The time the track will start at.</p>
+
+<p>Returns <code>Unsigned 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="Info">
+                                <div class="attr class">
+        <a class="headerlink" href="#Info">#&nbsp;&nbsp</a>
+
+        
+        <span class="def">class</span>
+        <span class="name">Info</span>:
+    </div>
+
+        
+    
+
+                            <div id="Info.__init__" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Info.__init__">#&nbsp;&nbsp</a>
+
+        
+            <span class="name">Info</span><span class="signature">()</span>
+    </div>
+
+        
+    
+
+                            </div>
+                            <div id="Info.position" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Info.position">#&nbsp;&nbsp</a>
+
+        <span class="name">position</span><span class="default_value"> = &lt;attribute &#39;position&#39; of &#39;builtins.Info&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>Returns <code>Unsigned 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Info.is_stream" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Info.is_stream">#&nbsp;&nbsp</a>
+
+        <span class="name">is_stream</span><span class="default_value"> = &lt;attribute &#39;is_stream&#39; of &#39;builtins.Info&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>Returns <code>bool</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Info.identifier" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Info.identifier">#&nbsp;&nbsp</a>
+
+        <span class="name">identifier</span><span class="default_value"> = &lt;attribute &#39;identifier&#39; of &#39;builtins.Info&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>Returns <code>String</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Info.author" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Info.author">#&nbsp;&nbsp</a>
+
+        <span class="name">author</span><span class="default_value"> = &lt;attribute &#39;author&#39; of &#39;builtins.Info&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>Returns <code>String</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Info.is_seekable" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Info.is_seekable">#&nbsp;&nbsp</a>
+
+        <span class="name">is_seekable</span><span class="default_value"> = &lt;attribute &#39;is_seekable&#39; of &#39;builtins.Info&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>Returns <code>bool</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Info.title" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Info.title">#&nbsp;&nbsp</a>
+
+        <span class="name">title</span><span class="default_value"> = &lt;attribute &#39;title&#39; of &#39;builtins.Info&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>Returns <code>String</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Info.length" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Info.length">#&nbsp;&nbsp</a>
+
+        <span class="name">length</span><span class="default_value"> = &lt;attribute &#39;length&#39; of &#39;builtins.Info&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>Returns <code>Unsigned 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Info.uri" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Info.uri">#&nbsp;&nbsp</a>
+
+        <span class="name">uri</span><span class="default_value"> = &lt;attribute &#39;uri&#39; of &#39;builtins.Info&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>Returns <code>String</code></p>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="PlaylistInfo">
+                                <div class="attr class">
+        <a class="headerlink" href="#PlaylistInfo">#&nbsp;&nbsp</a>
+
+        
+        <span class="def">class</span>
+        <span class="name">PlaylistInfo</span>:
+    </div>
+
+        
+    
+
+                            <div id="PlaylistInfo.__init__" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#PlaylistInfo.__init__">#&nbsp;&nbsp</a>
+
+        
+            <span class="name">PlaylistInfo</span><span class="signature">()</span>
+    </div>
+
+        
+    
+
+                            </div>
+                            <div id="PlaylistInfo.selected_track" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#PlaylistInfo.selected_track">#&nbsp;&nbsp</a>
+
+        <span class="name">selected_track</span><span class="default_value"> = &lt;attribute &#39;selected_track&#39; of &#39;builtins.PlaylistInfo&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>Returns <code>Option&lt;Signed 64 bit integer&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="PlaylistInfo.name" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#PlaylistInfo.name">#&nbsp;&nbsp</a>
+
+        <span class="name">name</span><span class="default_value"> = &lt;attribute &#39;name&#39; of &#39;builtins.PlaylistInfo&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>The name of the playlist.</p>
+
+<p>Returns <code>Option&lt;String&gt;</code></p>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="Node">
+                                <div class="attr class">
+        <a class="headerlink" href="#Node">#&nbsp;&nbsp</a>
+
+        
+        <span class="def">class</span>
+        <span class="name">Node</span>:
+    </div>
+
+        
+    
+
+                            <div id="Node.__init__" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Node.__init__">#&nbsp;&nbsp</a>
+
+        
+            <span class="name">Node</span><span class="signature">()</span>
+    </div>
+
+        
+    
+
+                            </div>
+                            <div id="Node.is_paused" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Node.is_paused">#&nbsp;&nbsp</a>
+
+        <span class="name">is_paused</span><span class="default_value"> = &lt;attribute &#39;is_paused&#39; of &#39;builtins.Node&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>Returns <code>bool</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Node.queue" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Node.queue">#&nbsp;&nbsp</a>
+
+        <span class="name">queue</span><span class="default_value"> = &lt;attribute &#39;queue&#39; of &#39;builtins.Node&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>Returns <code>List&lt;TrackQueue&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Node.volume" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Node.volume">#&nbsp;&nbsp</a>
+
+        <span class="name">volume</span><span class="default_value"> = &lt;attribute &#39;volume&#39; of &#39;builtins.Node&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>Returns <code>Unsigned 16 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Node.now_playing" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Node.now_playing">#&nbsp;&nbsp</a>
+
+        <span class="name">now_playing</span><span class="default_value"> = &lt;attribute &#39;now_playing&#39; of &#39;builtins.Node&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>Returns <code>Option&lt;TrackQueue&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Node.is_on_loops" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Node.is_on_loops">#&nbsp;&nbsp</a>
+
+        <span class="name">is_on_loops</span><span class="default_value"> = &lt;attribute &#39;is_on_loops&#39; of &#39;builtins.Node&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>Returns <code>bool</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Node.guild" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Node.guild">#&nbsp;&nbsp</a>
+
+        <span class="name">guild</span><span class="default_value"> = &lt;attribute &#39;guild&#39; of &#39;builtins.Node&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>Returns <code>Unsigned 64 bit integer</code></p>
+</div>
+
 
                             </div>
                 </section>

@@ -112,7 +112,7 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
 
             query_information = await bot.data.lavalink.auto_search_tracks(args)
 
-            if not query_information["tracks"]:  # tracks is empty
+            if not query_information.tracks:  # tracks is empty
                 await event.message.respond(
                     "Could not find any video of the search query."
                 )
@@ -120,14 +120,14 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
 
             try:
                 await bot.data.lavalink.play(
-                    event.guild_id, query_information["tracks"][0]
-                ).queue()
+                    event.guild_id, query_information.tracks[0]
+                ).requester(event.author_id).queue()
             except lavasnek_rs.NoSessionPresent:
                 await event.message.respond(f"Use `{PREFIX}join` first")
                 return
 
             await event.message.respond(
-                f"Added to queue: {query_information['tracks'][0]['info']['title']}"
+                f"Added to queue: {query_information.tracks[0].info.title}"
             )
 
         elif is_command("stop", event.content):
@@ -141,11 +141,11 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
             if not skip:
                 await event.message.respond("Nothing to skip")
             else:
-                if not node["queue"] and not node["now_playing"]:
+                if not node.queue and not node.now_playing:
                     await bot.data.lavalink.stop(event.guild_id)
 
                 await event.message.respond(
-                    f"Skipped: {skip['track']['info']['title']}"
+                    f"Skipped: {skip.track.info.title}"
                 )
 
         elif is_command("pause", event.content):
@@ -162,7 +162,7 @@ async def on_ready(event: hikari.ShardReadyEvent) -> None:
     """Event that triggers when the hikari gateway is ready."""
 
     builder = (
-        lavasnek_rs.LavalinkBuilder(event.my_user.id, os.environ["DISCORD_TOKEN"])
+        lavasnek_rs.LavalinkBuilder(event.my_user.id, TOKEN)
         .set_host("127.0.0.1")
         .set_password(os.environ["LAVALINK_PASSWORD"])
     )

@@ -31,13 +31,13 @@ impl LavalinkEventHandler for LavalinkHandler {}
 /// Returns: `Self`
 #[pyclass]
 #[pyo3(text_signature = "(bot_id, bot_token, /)")]
-pub(crate) struct LavalinkBuilder {
-    builder: LavalinkClientBuilder,
+pub struct LavalinkBuilder {
+    pub builder: LavalinkClientBuilder,
 }
 
 #[pyclass]
-pub(crate) struct PlayBuilder {
-    pub(crate) builder: PlayParameters,
+pub struct PlayBuilder {
+    pub builder: PlayParameters,
 }
 
 #[pymethods]
