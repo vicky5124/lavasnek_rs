@@ -43,6 +43,9 @@
                                 <a class="function" href="#Lavalink.__init__">Lavalink</a>
                         </li>
                         <li>
+                                <a class="function" href="#Lavalink.start_discord_gateway">start_discord_gateway</a>
+                        </li>
+                        <li>
                                 <a class="function" href="#Lavalink.join">join</a>
                         </li>
                         <li>
@@ -111,6 +114,18 @@
                         <li>
                                 <a class="function" href="#Lavalink.get_guild_gateway_connection_info">get_guild_gateway_connection_info</a>
                         </li>
+                        <li>
+                                <a class="function" href="#Lavalink.wait_for_full_connection_info_insert">wait_for_full_connection_info_insert</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.wait_for_connection_info_remove">wait_for_connection_info_remove</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.raw_handle_event_voice_server_update">raw_handle_event_voice_server_update</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.raw_handle_event_voice_state_update">raw_handle_event_voice_state_update</a>
+                        </li>
                 </ul>
 
             </li>
@@ -146,6 +161,15 @@
                         </li>
                         <li>
                                 <a class="function" href="#LavalinkBuilder.set_is_ssl">set_is_ssl</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#LavalinkBuilder.set_start_gateway">set_start_gateway</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#LavalinkBuilder.set_gateway_start_wait_time_secs">set_gateway_start_wait_time_secs</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#LavalinkBuilder.set_gateway_start_wait_time_millis">set_gateway_start_wait_time_millis</a>
                         </li>
                 </ul>
 
@@ -280,6 +304,31 @@ and that function should be awaited to work.</li>
 
         
     
+
+                            </div>
+                            <div id="Lavalink.start_discord_gateway" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.start_discord_gateway">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">start_discord_gateway</span><span class="signature">(self, /, wait_time)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Start the discord gateway, if it has stopped, or it never started because the client builder was
+configured that way.</p>
+
+<p>If <code>wait_time</code> is passed, it will override the previosuly configured wait time.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>wait_time</code> : <code>Optional Unsigned 64 bit integer</code> -- seconds</li>
+</ul>
+
+<p>Returns: <code>Future&lt;None&gt;</code></p>
+</div>
+
 
                             </div>
                             <div id="Lavalink.join" class="classattr">
@@ -831,6 +880,103 @@ Max is 1000, min is 0</p>
 
 
                             </div>
+                            <div id="Lavalink.wait_for_full_connection_info_insert" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.wait_for_full_connection_info_insert">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">wait_for_full_connection_info_insert</span><span class="signature">(self, guild_id, /, event_count=10)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Waits until the ConnectionInfo is complete and returns it.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
+<li><code>event_count</code> : <code>Unsigned 128 bit integer</code> defaults to 10</li>
+</ul>
+
+<p>Returns: <code>Future&lt;ConnectionInfo&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.wait_for_connection_info_remove" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.wait_for_connection_info_remove">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">wait_for_connection_info_remove</span><span class="signature">(self, guild_id, /, event_count=10)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Waits until the ConnectionInfo is removed.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
+<li><code>event_count</code> : <code>Unsigned 128 bit integer</code> defaults to 10</li>
+</ul>
+
+<p>Returns: <code>Future&lt;None&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.raw_handle_event_voice_server_update" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.raw_handle_event_voice_server_update">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">raw_handle_event_voice_server_update</span><span class="signature">(self, guild_id, endpoint, token, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Handles voice events to manage <code><a href="#ConnectionInfo">ConnectionInfo</a></code> internally. This one is for the
+VOICE_SERVER_UPDATE event.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
+<li><code>endpint</code> : <code>String</code></li>
+<li><code>token</code> : <code>String</code></li>
+</ul>
+
+<p>Returns: <code>Future&lt;None&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.raw_handle_event_voice_state_update" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.raw_handle_event_voice_state_update">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">raw_handle_event_voice_state_update</span><span class="signature">(self, guild_id, user_id, session_id, /, channel_id)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Handles voice events to manage <code><a href="#ConnectionInfo">ConnectionInfo</a></code> internally. This one is for the
+VOICE_STATE_UPDATE event.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
+<li><code>user_id</code> : <code>Unsigned 64 bit integer</code></li>
+<li><code>session_id</code> : <code>String</code></li>
+<li><code>channel_id</code> : <code>Optional Unsigned 64 bit integer</code></li>
+</ul>
+
+<p>Returns: <code>Future&lt;None&gt;</code></p>
+</div>
+
+
+                            </div>
                 </section>
                 <section id="LavalinkBuilder">
                                 <div class="attr class">
@@ -1059,6 +1205,73 @@ both.</p>
 
 <ul>
 <li><code>is_ssl</code> : <code>bool</code></li>
+</ul>
+
+<p>Returns: <code>Self</code></p>
+</div>
+
+
+                            </div>
+                            <div id="LavalinkBuilder.set_start_gateway" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#LavalinkBuilder.set_start_gateway">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">set_start_gateway</span><span class="signature">(self, start_gateway, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Sets if the discord gateway for voice connections should start or not. (Default to: True)</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>start_gateway</code> : <code>bool</code></li>
+</ul>
+
+<p>Returns: <code>Self</code></p>
+</div>
+
+
+                            </div>
+                            <div id="LavalinkBuilder.set_gateway_start_wait_time_secs" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#LavalinkBuilder.set_gateway_start_wait_time_secs">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">set_gateway_start_wait_time_secs</span><span class="signature">(self, time, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Sets the time to wait before starting the first discord gateway connection. (Default to: 6
+seconds)</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>time</code> : <code>Unsigned 64 bit integer</code></li>
+</ul>
+
+<p>Returns: <code>Self</code></p>
+</div>
+
+
+                            </div>
+                            <div id="LavalinkBuilder.set_gateway_start_wait_time_millis" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#LavalinkBuilder.set_gateway_start_wait_time_millis">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">set_gateway_start_wait_time_millis</span><span class="signature">(self, time, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Sets the time to wait before starting the first discord gateway connection.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>time</code> : <code>Unsigned 64 bit integer</code></li>
 </ul>
 
 <p>Returns: <code>Self</code></p>
