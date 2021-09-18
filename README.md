@@ -4,7 +4,17 @@ Dev Docs: https://5124.mywire.org:5124/docs/
 GitHub repo: https://github.com/vicky5124/lavasnek_rs/
 GitLab repo: https://gitlab.com/vicky5124/lavasnek_rs/
 
+## Using the library
+
+The library is currently not yet on PyPi, but it will be when 0.1 releases.
+
+To install the library, go to the Actions tab on GitHub, select the latest commit, and download the Artifact that suits your needs. Extract the artifact, and install the .whl file with `pip install -U filename.whl`
+
+Then you should be able to import the library and use it!
+
 ## Building and Running
+
+If you wanna build the project from source, you will need:
 
 ```bash
 # It is highly recommended that you use Linux, either natively or with WSL2
@@ -31,5 +41,5 @@ $ source .env/bin/activate
 $ pip install maturin
 
 $ maturin develop
-$ python test.py
+$ python examples/pure_hikari_example.py
 ```
