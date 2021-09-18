@@ -250,13 +250,13 @@
                                 <a class="function" href="#Tracks.__init__">Tracks</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Tracks.load_type">load_type</a>
-                        </li>
-                        <li>
                                 <a class="variable" href="#Tracks.playlist_info">playlist_info</a>
                         </li>
                         <li>
                                 <a class="variable" href="#Tracks.tracks">tracks</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Tracks.load_type">load_type</a>
                         </li>
                 </ul>
 
@@ -274,10 +274,10 @@
                                 <a class="variable" href="#TrackQueue.requester">requester</a>
                         </li>
                         <li>
-                                <a class="variable" href="#TrackQueue.start_time">start_time</a>
+                                <a class="variable" href="#TrackQueue.end_time">end_time</a>
                         </li>
                         <li>
-                                <a class="variable" href="#TrackQueue.end_time">end_time</a>
+                                <a class="variable" href="#TrackQueue.start_time">start_time</a>
                         </li>
                 </ul>
 
@@ -289,19 +289,10 @@
                                 <a class="function" href="#Info.__init__">Info</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Info.length">length</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#Info.is_seekable">is_seekable</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#Info.uri">uri</a>
+                                <a class="variable" href="#Info.identifier">identifier</a>
                         </li>
                         <li>
                                 <a class="variable" href="#Info.position">position</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#Info.author">author</a>
                         </li>
                         <li>
                                 <a class="variable" href="#Info.title">title</a>
@@ -310,7 +301,16 @@
                                 <a class="variable" href="#Info.is_stream">is_stream</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Info.identifier">identifier</a>
+                                <a class="variable" href="#Info.uri">uri</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Info.author">author</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Info.is_seekable">is_seekable</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Info.length">length</a>
                         </li>
                 </ul>
 
@@ -337,22 +337,28 @@
                                 <a class="function" href="#Node.__init__">Node</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Node.guild">guild</a>
+                                <a class="function" href="#Node.get_data">get_data</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Node.is_on_loops">is_on_loops</a>
+                                <a class="function" href="#Node.set_data">set_data</a>
                         </li>
                         <li>
                                 <a class="variable" href="#Node.queue">queue</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Node.now_playing">now_playing</a>
+                                <a class="variable" href="#Node.is_on_loops">is_on_loops</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Node.guild">guild</a>
                         </li>
                         <li>
                                 <a class="variable" href="#Node.is_paused">is_paused</a>
                         </li>
                         <li>
                                 <a class="variable" href="#Node.volume">volume</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Node.now_playing">now_playing</a>
                         </li>
                 </ul>
 
@@ -1873,17 +1879,6 @@ raw_handle_event_voice_server_update() or manually build a dict with them.</p>
     
 
                             </div>
-                            <div id="Tracks.load_type" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Tracks.load_type">#&nbsp;&nbsp</a>
-
-        <span class="name">load_type</span><span class="default_value"> = &lt;attribute &#39;load_type&#39; of &#39;builtins.Tracks&#39; objects&gt;</span>
-    </div>
-
-            <div class="docstring"><p>Returns <code>String</code></p>
-</div>
-
-
-                            </div>
                             <div id="Tracks.playlist_info" class="classattr">
                                             <div class="attr variable"><a class="headerlink" href="#Tracks.playlist_info">#&nbsp;&nbsp</a>
 
@@ -1906,6 +1901,17 @@ raw_handle_event_voice_server_update() or manually build a dict with them.</p>
             <div class="docstring"><p>The tracks that can be played</p>
 
 <p>Returns <code>List&lt;Track&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Tracks.load_type" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Tracks.load_type">#&nbsp;&nbsp</a>
+
+        <span class="name">load_type</span><span class="default_value"> = &lt;attribute &#39;load_type&#39; of &#39;builtins.Tracks&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>Returns <code>String</code></p>
 </div>
 
 
@@ -1960,19 +1966,6 @@ raw_handle_event_voice_server_update() or manually build a dict with them.</p>
 
 
                             </div>
-                            <div id="TrackQueue.start_time" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#TrackQueue.start_time">#&nbsp;&nbsp</a>
-
-        <span class="name">start_time</span><span class="default_value"> = &lt;attribute &#39;start_time&#39; of &#39;builtins.TrackQueue&#39; objects&gt;</span>
-    </div>
-
-            <div class="docstring"><p>The time the track will start at.</p>
-
-<p>Returns <code>Unsigned 64 bit integer</code></p>
-</div>
-
-
-                            </div>
                             <div id="TrackQueue.end_time" class="classattr">
                                             <div class="attr variable"><a class="headerlink" href="#TrackQueue.end_time">#&nbsp;&nbsp</a>
 
@@ -1982,6 +1975,19 @@ raw_handle_event_voice_server_update() or manually build a dict with them.</p>
             <div class="docstring"><p>The time the track will finish at.</p>
 
 <p>Returns <code>Option&lt;Unsigned 64 bit integer&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="TrackQueue.start_time" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackQueue.start_time">#&nbsp;&nbsp</a>
+
+        <span class="name">start_time</span><span class="default_value"> = &lt;attribute &#39;start_time&#39; of &#39;builtins.TrackQueue&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>The time the track will start at.</p>
+
+<p>Returns <code>Unsigned 64 bit integer</code></p>
 </div>
 
 
@@ -2010,32 +2016,10 @@ raw_handle_event_voice_server_update() or manually build a dict with them.</p>
     
 
                             </div>
-                            <div id="Info.length" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Info.length">#&nbsp;&nbsp</a>
+                            <div id="Info.identifier" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Info.identifier">#&nbsp;&nbsp</a>
 
-        <span class="name">length</span><span class="default_value"> = &lt;attribute &#39;length&#39; of &#39;builtins.Info&#39; objects&gt;</span>
-    </div>
-
-            <div class="docstring"><p>Returns <code>Unsigned 64 bit integer</code></p>
-</div>
-
-
-                            </div>
-                            <div id="Info.is_seekable" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Info.is_seekable">#&nbsp;&nbsp</a>
-
-        <span class="name">is_seekable</span><span class="default_value"> = &lt;attribute &#39;is_seekable&#39; of &#39;builtins.Info&#39; objects&gt;</span>
-    </div>
-
-            <div class="docstring"><p>Returns <code>bool</code></p>
-</div>
-
-
-                            </div>
-                            <div id="Info.uri" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Info.uri">#&nbsp;&nbsp</a>
-
-        <span class="name">uri</span><span class="default_value"> = &lt;attribute &#39;uri&#39; of &#39;builtins.Info&#39; objects&gt;</span>
+        <span class="name">identifier</span><span class="default_value"> = &lt;attribute &#39;identifier&#39; of &#39;builtins.Info&#39; objects&gt;</span>
     </div>
 
             <div class="docstring"><p>Returns <code>String</code></p>
@@ -2050,17 +2034,6 @@ raw_handle_event_voice_server_update() or manually build a dict with them.</p>
     </div>
 
             <div class="docstring"><p>Returns <code>Unsigned 64 bit integer</code></p>
-</div>
-
-
-                            </div>
-                            <div id="Info.author" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Info.author">#&nbsp;&nbsp</a>
-
-        <span class="name">author</span><span class="default_value"> = &lt;attribute &#39;author&#39; of &#39;builtins.Info&#39; objects&gt;</span>
-    </div>
-
-            <div class="docstring"><p>Returns <code>String</code></p>
 </div>
 
 
@@ -2087,13 +2060,46 @@ raw_handle_event_voice_server_update() or manually build a dict with them.</p>
 
 
                             </div>
-                            <div id="Info.identifier" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Info.identifier">#&nbsp;&nbsp</a>
+                            <div id="Info.uri" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Info.uri">#&nbsp;&nbsp</a>
 
-        <span class="name">identifier</span><span class="default_value"> = &lt;attribute &#39;identifier&#39; of &#39;builtins.Info&#39; objects&gt;</span>
+        <span class="name">uri</span><span class="default_value"> = &lt;attribute &#39;uri&#39; of &#39;builtins.Info&#39; objects&gt;</span>
     </div>
 
             <div class="docstring"><p>Returns <code>String</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Info.author" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Info.author">#&nbsp;&nbsp</a>
+
+        <span class="name">author</span><span class="default_value"> = &lt;attribute &#39;author&#39; of &#39;builtins.Info&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>Returns <code>String</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Info.is_seekable" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Info.is_seekable">#&nbsp;&nbsp</a>
+
+        <span class="name">is_seekable</span><span class="default_value"> = &lt;attribute &#39;is_seekable&#39; of &#39;builtins.Info&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>Returns <code>bool</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Info.length" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Info.length">#&nbsp;&nbsp</a>
+
+        <span class="name">length</span><span class="default_value"> = &lt;attribute &#39;length&#39; of &#39;builtins.Info&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>Returns <code>Unsigned 64 bit integer</code></p>
 </div>
 
 
@@ -2170,24 +2176,34 @@ raw_handle_event_voice_server_update() or manually build a dict with them.</p>
     
 
                             </div>
-                            <div id="Node.guild" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Node.guild">#&nbsp;&nbsp</a>
+                            <div id="Node.get_data" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Node.get_data">#&nbsp;&nbsp</a>
 
-        <span class="name">guild</span><span class="default_value"> = &lt;attribute &#39;guild&#39; of &#39;builtins.Node&#39; objects&gt;</span>
+        
+            <span class="def">def</span>
+            <span class="name">get_data</span><span class="signature">(unknown)</span>:
     </div>
 
-            <div class="docstring"><p>Returns <code>Unsigned 64 bit integer</code></p>
+        
+            <div class="docstring"><p>Use this to get the currently stored data on the Node.</p>
+
+<p>Returns <code>Future&lt;Dict&lt;Any, Any&gt;&gt;</code></p>
 </div>
 
 
                             </div>
-                            <div id="Node.is_on_loops" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Node.is_on_loops">#&nbsp;&nbsp</a>
+                            <div id="Node.set_data" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Node.set_data">#&nbsp;&nbsp</a>
 
-        <span class="name">is_on_loops</span><span class="default_value"> = &lt;attribute &#39;is_on_loops&#39; of &#39;builtins.Node&#39; objects&gt;</span>
+        
+            <span class="def">def</span>
+            <span class="name">set_data</span><span class="signature">(self, dict, /)</span>:
     </div>
 
-            <div class="docstring"><p>Returns <code>bool</code></p>
+        
+            <div class="docstring"><p>Use this to set the tored data of the Node.</p>
+
+<p>Returns <code>Future&lt;None&gt;</code></p>
 </div>
 
 
@@ -2203,13 +2219,24 @@ raw_handle_event_voice_server_update() or manually build a dict with them.</p>
 
 
                             </div>
-                            <div id="Node.now_playing" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Node.now_playing">#&nbsp;&nbsp</a>
+                            <div id="Node.is_on_loops" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Node.is_on_loops">#&nbsp;&nbsp</a>
 
-        <span class="name">now_playing</span><span class="default_value"> = &lt;attribute &#39;now_playing&#39; of &#39;builtins.Node&#39; objects&gt;</span>
+        <span class="name">is_on_loops</span><span class="default_value"> = &lt;attribute &#39;is_on_loops&#39; of &#39;builtins.Node&#39; objects&gt;</span>
     </div>
 
-            <div class="docstring"><p>Returns <code>Option&lt;TrackQueue&gt;</code></p>
+            <div class="docstring"><p>Returns <code>bool</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Node.guild" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Node.guild">#&nbsp;&nbsp</a>
+
+        <span class="name">guild</span><span class="default_value"> = &lt;attribute &#39;guild&#39; of &#39;builtins.Node&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>Returns <code>Unsigned 64 bit integer</code></p>
 </div>
 
 
@@ -2236,6 +2263,17 @@ raw_handle_event_voice_server_update() or manually build a dict with them.</p>
 
 
                             </div>
+                            <div id="Node.now_playing" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Node.now_playing">#&nbsp;&nbsp</a>
+
+        <span class="name">now_playing</span><span class="default_value"> = &lt;attribute &#39;now_playing&#39; of &#39;builtins.Node&#39; objects&gt;</span>
+    </div>
+
+            <div class="docstring"><p>Returns <code>Option&lt;TrackQueue&gt;</code></p>
+</div>
+
+
+                            </div>
                 </section>
                 <section id="Band">
                                 <div class="attr class">
@@ -2247,7 +2285,15 @@ raw_handle_event_voice_server_update() or manually build a dict with them.</p>
     </div>
 
         
-    
+            <div class="docstring"><p>See <code><a href="#Lavalink.equalize_all">Lavalink.equalize_all</a></code> for more info.</p>
+
+<div class="codehilite"><pre><span></span><code><span class="n">band_num</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">14</span> <span class="c1"># 0 to 14</span>
+<span class="n">bain</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.125</span> <span class="c1"># -0.25 to 1.0</span>
+
+<span class="n">band</span> <span class="o">=</span> <span class="n">Band</span><span class="p">(</span><span class="n">band_num</span><span class="p">,</span> <span class="n">gain</span><span class="p">)</span>
+</code></pre></div>
+</div>
+
 
                             <div id="Band.__init__" class="classattr">
                                         <div class="attr function"><a class="headerlink" href="#Band.__init__">#&nbsp;&nbsp</a>

@@ -1,8 +1,15 @@
+use lavalink_rs::typemap_rev::TypeMapKey;
 use lavalink_rs::model::{
     Info as LavaInfo, Node as LavaNode, PlaylistInfo as LavaPlaylistInfo, Track as LavaTrack,
     TrackQueue as LavaTrackQueue, Tracks as LavaTracks, Band as LavaBand,
 };
-use pyo3::prelude::*;
+use pyo3::{prelude::*, types::PyDict};
+
+struct NodeData;
+
+impl TypeMapKey for NodeData {
+    type Value = PyObject;
+}
 
 /// This is never actually used, a dictionary is used instead. If you use a 3rd party method of
 /// joining a voice channel, you can get this values from the `VOICE_STATE_UPDATE` and
@@ -270,10 +277,56 @@ impl Node {
             .map(|i| TrackQueue { inner: i.clone() })
             .collect()
     }
+
+    /// Use this to get the currently stored data on the Node.
+    ///
+    /// Returns `Future<Dict<Any, Any>>`
+    fn get_data<'a>(&self, py: Python<'a>) -> PyResult<&'a PyAny> {
+        let data_lock = self.inner.data.clone();
+        let dict = PyDict::new(py).into_py(py);
+
+        pyo3_asyncio::tokio::future_into_py(py, async move {
+            let contains_key = data_lock.read().await.contains_key::<NodeData>();
+
+            if !contains_key {
+                data_lock.write().await.insert::<NodeData>(dict)
+            }
+
+            let data = {
+                let data_read = data_lock.read().await;
+                data_read.get::<NodeData>().unwrap().clone()
+            };
+
+            Ok(Python::with_gil(|py| data.into_py(py)))
+        })
+    }
+
+    /// Use this to set the tored data of the Node.
+    ///
+    /// Returns `Future<None>`
+    #[pyo3(text_signature = "($self, dict, /)")]
+    fn set_data<'a>(&self, py: Python<'a>, dict: PyObject) -> PyResult<&'a PyAny> {
+        let data_lock = self.inner.data.clone();
+
+        pyo3_asyncio::tokio::future_into_py(py, async move {
+            data_lock.write().await.insert::<NodeData>(dict);
+
+            Ok(Python::with_gil(|py| py.None()))
+        })
+    }
 }
 
 #[pyclass]
 #[derive(Clone)]
+#[pyo3(text_signature = "($self, guild_id, /)")]
+/// See `Lavalink.equalize_all` for more info.
+///
+/// ```py
+/// band_num: int = 14 # 0 to 14
+/// bain: float = 0.125 # -0.25 to 1.0
+///
+/// band = Band(band_num, gain)
+/// ```
 pub struct Band {
     pub inner: LavaBand,
 }

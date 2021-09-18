@@ -138,6 +138,7 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
             await bot.data.lavalink.stop(event.guild_id)
             await bot.data.lavalink.remove_guild_from_loops(event.guild_id)
             await event.message.respond("Stopped playing")
+
         elif is_command("skip", event.content):
             skip = await bot.data.lavalink.skip(event.guild_id)
             node = await bot.data.lavalink.get_guild_node(event.guild_id)
@@ -157,6 +158,16 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
         elif is_command("resume", event.content):
             await bot.data.lavalink.resume(event.guild_id)
             await event.message.respond("Resumed player")
+
+        elif is_command("data", event.content):
+            args = get_args("play", event.content, False)
+            node = await bot.data.lavalink.get_guild_node(event.guild_id)
+
+            if not args:
+                await event.message.respond(await node.get_data())
+            else:
+                await node.set_data({args[0] : args[1]})
+                await event.message.respond(await node.get_data())
 
 
 @bot.listen()
