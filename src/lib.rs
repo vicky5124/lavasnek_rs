@@ -471,6 +471,120 @@ impl Lavalink {
         })
     }
 
+    /// Sets all equalizer levels.
+    ///
+    /// - There are 15 bands (0-14) that can be changed.
+    /// - The floating point value is the multiplier for the given band.
+    /// - The default value is 0.
+    /// - Valid values range from -0.25 to 1.0, where -0.25 means the given band is completely muted, and 0.25 means it is doubled.
+    /// - Modifying the gain could also change the volume of the output.
+    ///
+    /// This can raise an exception if a network error happens.
+    ///
+    /// Positional Arguments:
+    /// - `guild_id` : `Unsigned 64 bit integer`
+    /// - `bands` : `List<64 bit floating point>` -- Must be 15 in length
+    ///
+    /// Returns: `Future<Result<None, lavasnek_rs.NetworkError>>`
+    #[pyo3(text_signature = "($self, guild_id, bands, /)")]
+    fn equalize_all<'a>(
+        &self,
+        py: Python<'a>,
+        guild_id: u64,
+        bands: [f64; 15],
+    ) -> PyResult<&'a PyAny> {
+        let lava_client = self.lava.clone();
+
+        pyo3_asyncio::tokio::future_into_py(py, async move {
+            lava_client
+                .equalize_all(guild_id, bands)
+                .await
+                .map_err(|e| error::NetworkError::new_err(e.to_string()))?;
+
+            Ok(Python::with_gil(|py| py.None()))
+        })
+    }
+
+    /// Equalize a dynamic set of bands, rather than just one or all of them at once.
+    ///
+    /// Unmentioned bands will remain unmodified.
+    ///
+    /// This can raise an exception if a network error happens.
+    ///
+    /// Positional Arguments:
+    /// - `guild_id` : `Unsigned 64 bit integer`
+    /// - `bands` : `List<64 bit floating point>` -- Must be 15 or less in length
+    ///
+    /// Returns: `Future<Result<None, lavasnek_rs.NetworkError>>`
+    #[pyo3(text_signature = "($self, guild_id, bands, /)")]
+    fn equalize_dynamic<'a>(
+        &self,
+        py: Python<'a>,
+        guild_id: u64,
+        bands: Vec<Band>,
+    ) -> PyResult<&'a PyAny> {
+        let lava_client = self.lava.clone();
+
+        pyo3_asyncio::tokio::future_into_py(py, async move {
+            lava_client
+                .equalize_dynamic(guild_id, bands.iter().map(|i| i.inner.clone()).collect())
+                .await
+                .map_err(|e| error::NetworkError::new_err(e.to_string()))?;
+
+            Ok(Python::with_gil(|py| py.None()))
+        })
+    }
+
+    /// Equalizes a specific band.
+    ///
+    /// This can raise an exception if a network error happens.
+    ///
+    /// Positional Arguments:
+    /// - `guild_id` : `Unsigned 64 bit integer`
+    /// - `band` : `Band`
+    ///
+    /// Returns: `Future<Result<None, lavasnek_rs.NetworkError>>`
+    #[pyo3(text_signature = "($self, guild_id, band, /)")]
+    fn equalize_band<'a>(
+        &self,
+        py: Python<'a>,
+        guild_id: u64,
+        band: Band,
+    ) -> PyResult<&'a PyAny> {
+        let lava_client = self.lava.clone();
+
+        pyo3_asyncio::tokio::future_into_py(py, async move {
+            lava_client
+                .equalize_band(guild_id, band.inner)
+                .await
+                .map_err(|e| error::NetworkError::new_err(e.to_string()))?;
+
+            Ok(Python::with_gil(|py| py.None()))
+        })
+    }
+
+    /// Resets all equalizer levels.
+    ///
+    /// This can raise an exception if a network error happens.
+    ///
+    /// Positional Arguments:
+    /// - `guild_id` : `Unsigned 64 bit integer`
+    ///
+    /// Returns: `Future<Result<None, lavasnek_rs.NetworkError>>`
+    #[pyo3(text_signature = "($self, guild_id, /)")]
+    fn equalize_reset<'a>(&self, py: Python<'a>, guild_id: u64) -> PyResult<&'a PyAny> {
+        let lava_client = self.lava.clone();
+
+        pyo3_asyncio::tokio::future_into_py(py, async move {
+            lava_client
+                .equalize_reset(guild_id)
+                .await
+                .map_err(|e| error::NetworkError::new_err(e.to_string()))?;
+
+            Ok(Python::with_gil(|py| py.None()))
+        })
+    }
+
     /// Remove the guild from the queue loops.
     ///
     /// Positional Arguments:
@@ -699,9 +813,7 @@ fn log_something() {
 /// - If something returns a `Future<T>`, it means that it returns [this](https://docs.python.org/3/library/asyncio-future.html?#asyncio.Future),
 /// and that function should be awaited to work.
 /// - / on arguments means the end of positional arguments.
-/// - Slef (with a capital S) means the type of self.
-/// - For `Track`, `Tracks`, `TrackQueue` and `Node` documentation, check it out on
-/// (docs.rs)[https://docs.rs/lavalink-rs]
+/// - Self (with a capital S) means the type of self.
 #[pymodule]
 fn lavasnek_rs(py: Python, m: &PyModule) -> PyResult<()> {
     pyo3_log::init();
@@ -721,6 +833,7 @@ fn lavasnek_rs(py: Python, m: &PyModule) -> PyResult<()> {
     m.add_class::<Info>()?;
     m.add_class::<PlaylistInfo>()?;
     m.add_class::<Node>()?;
+    m.add_class::<Band>()?;
 
     m.add("NoSessionPresent", py.get_type::<error::NoSessionPresent>())?;
     m.add("NetworkError", py.get_type::<error::NetworkError>())?;

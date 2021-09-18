@@ -1,6 +1,6 @@
 use lavalink_rs::model::{
     Info as LavaInfo, Node as LavaNode, PlaylistInfo as LavaPlaylistInfo, Track as LavaTrack,
-    TrackQueue as LavaTrackQueue, Tracks as LavaTracks,
+    TrackQueue as LavaTrackQueue, Tracks as LavaTracks, Band as LavaBand,
 };
 use pyo3::prelude::*;
 
@@ -269,5 +269,42 @@ impl Node {
             .iter()
             .map(|i| TrackQueue { inner: i.clone() })
             .collect()
+    }
+}
+
+#[pyclass]
+#[derive(Clone)]
+pub struct Band {
+    pub inner: LavaBand,
+}
+
+
+#[pymethods]
+impl Band {
+    #[new]
+    fn new(band: u8, gain: f64) -> Self {
+        Self { inner: LavaBand { band, gain } }
+    }
+
+    #[getter]
+    /// Returns `Unsigned 8 bit integer`
+    fn get_band(&self) -> u8 {
+        self.inner.band
+    }
+
+    #[getter]
+    /// Returns `64 bit float`
+    fn get_gain(&self) -> f64 {
+        self.inner.gain
+    }
+
+    #[setter]
+    fn set_band(&mut self, val: u8) {
+        self.inner.band = val
+    }
+
+    #[setter]
+    fn set_gain(&mut self, val: f64) {
+        self.inner.gain = val
     }
 }
