@@ -1,7 +1,7 @@
 import os
 
 # import logging
-from typing import Any
+from typing import Any, Union, List
 
 import hikari
 import lavasnek_rs
@@ -19,9 +19,12 @@ def is_command(cmd_name: str, content: str) -> bool:
     return content.startswith(f"{PREFIX}{cmd_name}")
 
 
-def get_args(cmd_name: str, content: str) -> str:
+def get_args(cmd_name: str, content: str, is_text: bool) -> Union[str, List[str]]:
     """Return the arguments of a command."""
-    return content[len(f"{PREFIX}{cmd_name}") :]
+    if is_text:
+        return content[len(f"{PREFIX}{cmd_name}") :].rstrip()
+    else:
+        return list(filter(lambda i: i, content[len(f'{PREFIX}{cmd_name}') :].split()))
 
 
 class Data:
@@ -108,9 +111,10 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
             if not con:
                 await _join(event)
 
-            args = get_args("play", event.content)
+            args = get_args("play", event.content, False)
+            query = " ".join(args)
 
-            query_information = await bot.data.lavalink.auto_search_tracks(args)
+            query_information = await bot.data.lavalink.auto_search_tracks(query)
 
             if not query_information.tracks:  # tracks is empty
                 await event.message.respond(
