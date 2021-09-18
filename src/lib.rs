@@ -41,7 +41,7 @@ impl Lavalink {
 
         pyo3_asyncio::tokio::future_into_py(py, async move {
             lava_client
-                .start_discord_gateway(wait_time.map(|t| Duration::from_secs(t)))
+                .start_discord_gateway(wait_time.map(Duration::from_secs))
                 .await;
 
             Ok(Python::with_gil(|py| py.None()))
@@ -322,7 +322,7 @@ impl Lavalink {
             Ok(Python::with_gil(|py| {
                 if let Some(track) = track {
                     TrackQueue {
-                        inner: track.clone(),
+                        inner: track,
                     }
                     .into_py(py)
                 } else {

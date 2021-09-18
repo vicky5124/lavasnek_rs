@@ -56,11 +56,7 @@ impl Tracks {
     ///
     /// Returns `Option<PlaylistInfo>`
     fn playlist_info(&self) -> Option<PlaylistInfo> {
-        if let Some(ref pi) = self.inner.playlist_info {
-            Some(PlaylistInfo { inner: pi.clone() })
-        } else {
-            None
-        }
+        self.inner.playlist_info.as_ref().map(|pi| PlaylistInfo { inner: pi.clone() })
     }
 
     #[getter]
@@ -163,7 +159,7 @@ impl PlaylistInfo {
     ///
     /// Returns `Option<String>`
     fn name(&self) -> Option<String> {
-        self.inner.name.as_ref().map(|n| n.clone())
+        self.inner.name.as_ref().cloned()
     }
 }
 
