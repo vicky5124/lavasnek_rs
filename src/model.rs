@@ -53,7 +53,7 @@ pub struct Tracks {
 #[pymethods]
 impl Tracks {
     #[getter]
-    /// Returns `String`
+    /// Contains `String`
     fn load_type(&self) -> String {
         self.inner.load_type.clone()
     }
@@ -61,7 +61,7 @@ impl Tracks {
     #[getter]
     /// Information about the playlist.
     ///
-    /// Returns `Option<PlaylistInfo>`
+    /// Contains `Option<PlaylistInfo>`
     fn playlist_info(&self) -> Option<PlaylistInfo> {
         self.inner.playlist_info.as_ref().map(|pi| PlaylistInfo { inner: pi.clone() })
     }
@@ -69,7 +69,7 @@ impl Tracks {
     #[getter]
     /// The tracks that can be played
     ///
-    /// Returns `List<Track>`
+    /// Contains `List<Track>`
     fn tracks(&self) -> Vec<Track> {
         self.inner
             .tracks
@@ -90,7 +90,7 @@ impl Track {
     #[getter]
     /// The playable track.
     ///
-    /// Returns `String`
+    /// Contains `String`
     fn track(&self) -> String {
         self.inner.track.clone()
     }
@@ -98,7 +98,7 @@ impl Track {
     #[getter]
     /// Information about the track.
     ///
-    /// Returns `Option<Info>`
+    /// Contains `Option<Info>`
     fn info(&self) -> Option<Info> {
         self.inner.info.as_ref().map(|i| Info { inner: i.clone() })
     }
@@ -115,7 +115,7 @@ impl TrackQueue {
     #[getter]
     /// The playable track.
     ///
-    /// Returns `Track`
+    /// Contains `Track`
     fn track(&self) -> Track {
         Track {
             inner: self.inner.track.clone(),
@@ -125,7 +125,7 @@ impl TrackQueue {
     #[getter]
     /// The time the track will start at.
     ///
-    /// Returns `Unsigned 64 bit integer`
+    /// Contains `Unsigned 64 bit integer`
     fn start_time(&self) -> u64 {
         self.inner.start_time
     }
@@ -133,7 +133,7 @@ impl TrackQueue {
     #[getter]
     /// The time the track will finish at.
     ///
-    /// Returns `Option<Unsigned 64 bit integer>`
+    /// Contains `Option<Unsigned 64 bit integer>`
     fn end_time(&self) -> Option<u64> {
         self.inner.end_time
     }
@@ -141,7 +141,7 @@ impl TrackQueue {
     #[getter]
     /// The user id who requested the track if set by the `PlayBuilder`
     ///
-    /// Returns `Option<Unsigned 64 bit integer>`
+    /// Contains `Option<Unsigned 64 bit integer>`
     fn requester(&self) -> Option<u64> {
         self.inner.requester.map(|u| u.0)
     }
@@ -156,7 +156,7 @@ pub struct PlaylistInfo {
 #[pymethods]
 impl PlaylistInfo {
     #[getter]
-    /// Returns `Option<Signed 64 bit integer>`
+    /// Contains `Option<Signed 64 bit integer>`
     fn selected_track(&self) -> Option<i64> {
         self.inner.selected_track
     }
@@ -164,7 +164,7 @@ impl PlaylistInfo {
     #[getter]
     /// The name of the playlist.
     ///
-    /// Returns `Option<String>`
+    /// Contains `Option<String>`
     fn name(&self) -> Option<String> {
         self.inner.name.as_ref().cloned()
     }
@@ -179,49 +179,49 @@ pub struct Info {
 #[pymethods]
 impl Info {
     #[getter]
-    /// Returns `Unsigned 64 bit integer`
+    /// Contains `Unsigned 64 bit integer`
     fn length(&self) -> u64 {
         self.inner.length
     }
 
     #[getter]
-    /// Returns `Unsigned 64 bit integer`
+    /// Contains `Unsigned 64 bit integer`
     fn position(&self) -> u64 {
         self.inner.position
     }
 
     #[getter]
-    /// Returns `bool`
+    /// Contains `bool`
     fn is_seekable(&self) -> bool {
         self.inner.is_seekable
     }
 
     #[getter]
-    /// Returns `bool`
+    /// Contains `bool`
     fn is_stream(&self) -> bool {
         self.inner.is_stream
     }
 
     #[getter]
-    /// Returns `String`
+    /// Contains `String`
     fn identifier(&self) -> String {
         self.inner.identifier.clone()
     }
 
     #[getter]
-    /// Returns `String`
+    /// Contains `String`
     fn author(&self) -> String {
         self.inner.author.clone()
     }
 
     #[getter]
-    /// Returns `String`
+    /// Contains `String`
     fn title(&self) -> String {
         self.inner.title.clone()
     }
 
     #[getter]
-    /// Returns `String`
+    /// Contains `String`
     fn uri(&self) -> String {
         self.inner.uri.clone()
     }
@@ -236,32 +236,32 @@ pub struct Node {
 #[pymethods]
 impl Node {
     #[getter]
-    /// Returns `Unsigned 64 bit integer`
-    fn guild(&self) -> u64 {
+    /// Contains `Unsigned 64 bit integer`
+    fn get_guild(&self) -> u64 {
         self.inner.guild.0
     }
 
     #[getter]
-    /// Returns `Unsigned 16 bit integer`
-    fn volume(&self) -> u16 {
+    /// Contains `Unsigned 16 bit integer`
+    fn get_volume(&self) -> u16 {
         self.inner.volume
     }
 
     #[getter]
-    /// Returns `bool`
-    fn is_paused(&self) -> bool {
+    /// Contains `bool`
+    fn get_is_paused(&self) -> bool {
         self.inner.is_paused
     }
 
     #[getter]
-    /// Returns `bool`
-    fn is_on_loops(&self) -> bool {
+    /// Contains `bool`
+    fn get_is_on_loops(&self) -> bool {
         self.inner.is_on_loops
     }
 
     #[getter]
-    /// Returns `Option<TrackQueue>`
-    fn now_playing(&self) -> Option<TrackQueue> {
+    /// Contains `Option<TrackQueue>`
+    fn get_now_playing(&self) -> Option<TrackQueue> {
         self.inner
             .now_playing
             .as_ref()
@@ -269,8 +269,8 @@ impl Node {
     }
 
     #[getter]
-    /// Returns `List<TrackQueue>`
-    fn queue(&self) -> Vec<TrackQueue> {
+    /// Contains `List<TrackQueue>`
+    fn get_queue(&self) -> Vec<TrackQueue> {
         self.inner
             .queue
             .iter()
@@ -278,9 +278,43 @@ impl Node {
             .collect()
     }
 
+    #[setter]
+    fn set_guild(&mut self, guild_id: u64) {
+        self.inner.guild.0 = guild_id;
+    }
+
+    #[setter]
+    fn set_volume(&mut self, volume: u16) {
+        self.inner.volume = volume
+    }
+
+    #[setter]
+    fn set_is_paused(&mut self, is_paused: bool) {
+        self.inner.is_paused = is_paused;
+    }
+
+    #[setter]
+    fn set_is_on_loops(&mut self, is_on_loops: bool) {
+        self.inner.is_on_loops = is_on_loops;
+    }
+
+    #[setter]
+    fn set_now_playing(&mut self, track: Option<TrackQueue>) {
+        self.inner.now_playing = track.map(|t| t.inner);
+    }
+
+    #[setter]
+    fn set_queue(&mut self, queue: Vec<TrackQueue>) {
+        self.inner.queue = queue.iter().map(|i| i.inner.clone()).collect();
+    }
+
     /// Use this to get the currently stored data on the Node.
     ///
-    /// Returns `Future<Dict<Any, Any>>`
+    /// `T` is whatever type you give to `set_data`, if you call this method before it, it will
+    /// default to a Dict.
+    ///
+    /// Returns `Future<T>`
+    #[pyo3(text_signature = "($self, /)")]
     fn get_data<'a>(&self, py: Python<'a>) -> PyResult<&'a PyAny> {
         let data_lock = self.inner.data.clone();
         let dict = PyDict::new(py).into_py(py);
@@ -340,13 +374,13 @@ impl Band {
     }
 
     #[getter]
-    /// Returns `Unsigned 8 bit integer`
+    /// Contains `Unsigned 8 bit integer`
     fn get_band(&self) -> u8 {
         self.inner.band
     }
 
     #[getter]
-    /// Returns `64 bit float`
+    /// Contains `64 bit float`
     fn get_gain(&self) -> f64 {
         self.inner.gain
     }

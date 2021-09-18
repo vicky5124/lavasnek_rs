@@ -166,7 +166,10 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
             if not args:
                 await event.message.respond(await node.get_data())
             else:
-                await node.set_data({args[0] : args[1]})
+                if len(args) == 1:
+                    await node.set_data({args[0] : args[0]})
+                else:
+                    await node.set_data({args[0] : args[1]})
                 await event.message.respond(await node.get_data())
 
 
