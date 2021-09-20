@@ -168,7 +168,7 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
             await event.message.respond("Resumed player")
 
         elif is_command("data", event.content):
-            args = get_args("play", event.content, False)
+            args = get_args("data", event.content, False)
             node = await bot.data.lavalink.get_guild_node(event.guild_id)
 
             if not args:
