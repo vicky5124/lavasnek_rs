@@ -1,6 +1,5 @@
 import os
-
-# import logging
+import logging
 from typing import Any, Union, List
 
 import hikari
@@ -24,7 +23,7 @@ def get_args(cmd_name: str, content: str, is_text: bool) -> Union[str, List[str]
     if is_text:
         return content[len(f"{PREFIX}{cmd_name}") :].rstrip()
     else:
-        return list(filter(lambda i: i, content[len(f'{PREFIX}{cmd_name}') :].split()))
+        return list(filter(lambda i: i, content[len(f"{PREFIX}{cmd_name}") :].split()))
 
 
 class Data:
@@ -42,6 +41,14 @@ class Bot(hikari.GatewayBot):
         self.data = Data()
 
 
+class EventHandler:
+    async def track_start(self, _lava_client, event):
+        logging.info(f"Track started on guild: {event.guild_id}")
+
+    async def track_finish(self, _lava_client, event):
+        logging.info(f"Track finished on guild: {event.guild_id}")
+
+
 bot = Bot(token=TOKEN)
 
 
@@ -55,7 +62,7 @@ async def _join(event: hikari.GuildMessageCreateEvent) -> int:
 
     if not voice_state:
         await event.message.respond("Connect to a voice channel first")
-        return
+        return 0
 
     channel_id = voice_state[0].channel_id
 
@@ -91,7 +98,8 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
         elif is_command("join", event.content):
             channel_id = await _join(event)
 
-            await event.message.respond(f"Joined <#{channel_id}>")
+            if channel_id:
+                await event.message.respond(f"Joined <#{channel_id}>")
 
         elif is_command("leave", event.content):
             await bot.data.lavalink.destroy(event.guild_id)
@@ -167,9 +175,9 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
                 await event.message.respond(await node.get_data())
             else:
                 if len(args) == 1:
-                    await node.set_data({args[0] : args[0]})
+                    await node.set_data({args[0]: args[0]})
                 else:
-                    await node.set_data({args[0] : args[1]})
+                    await node.set_data({args[0]: args[1]})
                 await event.message.respond(await node.get_data())
 
 
@@ -186,7 +194,7 @@ async def on_ready(event: hikari.ShardReadyEvent) -> None:
     if HIKARI_VOICE:
         builder.set_start_gateway(False)
 
-    lava_client = await builder.build()
+    lava_client = await builder.build(EventHandler())
 
     bot.data.lavalink = lava_client
 

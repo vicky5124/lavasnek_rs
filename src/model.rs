@@ -1,8 +1,8 @@
-use lavalink_rs::typemap_rev::TypeMapKey;
 use lavalink_rs::model::{
-    Info as LavaInfo, Node as LavaNode, PlaylistInfo as LavaPlaylistInfo, Track as LavaTrack,
-    TrackQueue as LavaTrackQueue, Tracks as LavaTracks, Band as LavaBand,
+    Band as LavaBand, Info as LavaInfo, Node as LavaNode, PlaylistInfo as LavaPlaylistInfo,
+    Track as LavaTrack, TrackQueue as LavaTrackQueue, Tracks as LavaTracks, PlayerDestroyed as LavaPlayerDestroyed, WebSocketClosed as LavaWebSocketClosed, TrackFinish as LavaTrackFinish, TrackStart as LavaTrackStart, PlayerUpdate as LavaPlayerUpdate, Stats as LavaStats,
 };
+use lavalink_rs::typemap_rev::TypeMapKey;
 use pyo3::{prelude::*, types::PyDict};
 
 struct NodeData;
@@ -63,7 +63,10 @@ impl Tracks {
     ///
     /// Contains `Option<PlaylistInfo>`
     fn playlist_info(&self) -> Option<PlaylistInfo> {
-        self.inner.playlist_info.as_ref().map(|pi| PlaylistInfo { inner: pi.clone() })
+        self.inner
+            .playlist_info
+            .as_ref()
+            .map(|pi| PlaylistInfo { inner: pi.clone() })
     }
 
     #[getter]
@@ -310,8 +313,8 @@ impl Node {
 
     /// Use this to get the currently stored data on the Node.
     ///
-    /// `T` is whatever type you give to `set_data`, if you call this method before it, it will
-    /// default to a Dict.
+    /// `T` is whatever type you give to `set_data`'s data parameter, but if you call this method before it,
+    /// it will default to a Dict.
     ///
     /// Returns `Future<T>`
     #[pyo3(text_signature = "($self, /)")]
@@ -338,12 +341,12 @@ impl Node {
     /// Use this to set the tored data of the Node.
     ///
     /// Returns `Future<None>`
-    #[pyo3(text_signature = "($self, dict, /)")]
-    fn set_data<'a>(&self, py: Python<'a>, dict: PyObject) -> PyResult<&'a PyAny> {
+    #[pyo3(text_signature = "($self, data, /)")]
+    fn set_data<'a>(&self, py: Python<'a>, data: PyObject) -> PyResult<&'a PyAny> {
         let data_lock = self.inner.data.clone();
 
         pyo3_asyncio::tokio::future_into_py(py, async move {
-            data_lock.write().await.insert::<NodeData>(dict);
+            data_lock.write().await.insert::<NodeData>(data);
 
             Ok(Python::with_gil(|py| py.None()))
         })
@@ -365,12 +368,13 @@ pub struct Band {
     pub inner: LavaBand,
 }
 
-
 #[pymethods]
 impl Band {
     #[new]
     fn new(band: u8, gain: f64) -> Self {
-        Self { inner: LavaBand { band, gain } }
+        Self {
+            inner: LavaBand { band, gain },
+        }
     }
 
     #[getter]
@@ -393,5 +397,287 @@ impl Band {
     #[setter]
     fn set_gain(&mut self, val: f64) {
         self.inner.gain = val
+    }
+}
+
+#[pyclass]
+#[derive(Clone)]
+pub struct Stats {
+    pub inner: LavaStats,
+}
+
+#[pymethods]
+impl Stats {
+    #[getter]
+    /// Contains `String`
+    fn op(&self) -> String {
+        self.inner.op.clone()
+    }
+
+    #[getter]
+    /// Contains `Signed 64 bit integer`
+    fn playing_players(&self) -> i64 {
+        self.inner.playing_players
+    }
+
+    #[getter]
+    /// Contains `Signed 64 bit integer`
+    fn players(&self) -> i64 {
+        self.inner.players
+    }
+
+    #[getter]
+    /// Contains `Signed 64 bit integer`
+    fn uptime(&self) -> i64 {
+        self.inner.uptime
+    }
+
+    #[getter]
+    /// Contains `Signed 64 bit integer`
+    fn memory_reservable(&self) -> i64 {
+        self.inner.memory.reservable
+    }
+
+    #[getter]
+    /// Contains `Signed 64 bit integer`
+    fn memory_used(&self) -> i64 {
+        self.inner.memory.used
+    }
+
+    #[getter]
+    /// Contains `Signed 64 bit integer`
+    fn memory_free(&self) -> i64 {
+        self.inner.memory.free
+    }
+
+    #[getter]
+    /// Contains `Signed 64 bit integer`
+    fn memory_allocated(&self) -> i64 {
+        self.inner.memory.allocated
+    }
+
+    #[getter]
+    /// Contains `Signed 64 bit integer`
+    fn cpu_cores(&self) -> i64 {
+        self.inner.cpu.cores
+    }
+
+    #[getter]
+    /// Contains `64 bit floating point`
+    fn cpu_system_load(&self) -> f64 {
+        self.inner.cpu.system_load
+    }
+
+    #[getter]
+    /// Contains `64 bit floating point`
+    fn cpu_lavalink_load(&self) -> f64 {
+        self.inner.cpu.lavalink_load
+    }
+
+    #[getter]
+    /// Contains `Optional Signed 64 bit integer`
+    fn frame_stats_sent(&self) -> Option<i64> {
+        self.inner.frame_stats.as_ref().map(|i| i.sent)
+    }
+
+    #[getter]
+    /// Contains `Optional Signed 64 bit integer`
+    fn frame_stats_deficit(&self) -> Option<i64> {
+        self.inner.frame_stats.as_ref().map(|i| i.deficit)
+    }
+
+    #[getter]
+    /// Contains `Optional Signed 64 bit integer`
+    fn frame_stats_nulled(&self) -> Option<i64> {
+        self.inner.frame_stats.as_ref().map(|i| i.nulled)
+    }
+}
+
+#[pyclass]
+#[derive(Clone)]
+pub struct PlayerUpdate{
+    pub inner: LavaPlayerUpdate,
+}
+
+#[pymethods]
+impl PlayerUpdate {
+    #[getter]
+    /// Contains `String`
+    fn op(&self) -> String {
+        self.inner.op.clone()
+    }
+
+    #[getter]
+    /// Contains `Unsigned 64 bit integer`
+    fn guild_id(&self) -> u64 {
+        self.inner.guild_id.0
+    }
+
+    #[getter]
+    /// Contains `Signed 64 bit integer`
+    fn state_position(&self) -> i64 {
+        self.inner.state.position
+    }
+
+    #[getter]
+    /// Contains `Signed 64 bit integer`
+    fn state_time(&self) -> i64 {
+        self.inner.state.time
+    }
+}
+
+#[pyclass]
+#[derive(Clone)]
+pub struct TrackStart {
+    pub inner: LavaTrackStart,
+}
+
+#[pymethods]
+impl TrackStart {
+    #[getter]
+    /// Contains `String`
+    fn op(&self) -> String {
+        self.inner.op.clone()
+    }
+
+    #[getter]
+    /// Contains `Unsigned 64 bit integer`
+    fn guild_id(&self) -> u64 {
+        self.inner.guild_id.0
+    }
+
+    #[getter]
+    /// Contains `String`
+    fn track_start_type(&self) -> String {
+        self.inner.track_start_type.clone()
+    }
+
+    #[getter]
+    /// Contains `String`
+    fn track(&self) -> String {
+        self.inner.track.clone()
+    }
+}
+
+#[pyclass]
+#[derive(Clone)]
+pub struct TrackFinish {
+    pub inner: LavaTrackFinish,
+}
+
+#[pymethods]
+impl TrackFinish {
+    #[getter]
+    /// Contains `String`
+    fn op(&self) -> String {
+        self.inner.op.clone()
+    }
+
+    #[getter]
+    /// Contains `Unsigned 64 bit integer`
+    fn guild_id(&self) -> u64 {
+        self.inner.guild_id.0
+    }
+
+    #[getter]
+    /// Contains `String`
+    fn track_finish_type(&self) -> String {
+        self.inner.track_finish_type.clone()
+    }
+
+    #[getter]
+    /// Contains `String`
+    fn track(&self) -> String {
+        self.inner.track.clone()
+    }
+
+    #[getter]
+    /// Contains `String`
+    fn reason(&self) -> String {
+        self.inner.reason.clone()
+    }
+}
+
+#[pyclass]
+#[derive(Clone)]
+pub struct WebSocketClosed {
+    pub inner: LavaWebSocketClosed,
+}
+
+#[pymethods]
+impl WebSocketClosed {
+    #[getter]
+    /// Contains `String`
+    fn op(&self) -> String {
+        self.inner.op.clone()
+    }
+
+    #[getter]
+    /// Contains `Unsigned 64 bit integer`
+    fn guild_id(&self) -> u64 {
+        self.inner.guild_id.0
+    }
+
+    #[getter]
+    /// Contains `Unsigned 64 bit integer`
+    fn user_id(&self) -> u64 {
+        self.inner.user_id.0
+    }
+
+    #[getter]
+    /// Contains `Unsigned 64 bit integer`
+    fn code(&self) -> u64 {
+        self.inner.code
+    }
+
+    #[getter]
+    /// Contains `String`
+    fn websocket_closed_type(&self) -> String {
+        self.inner.websocket_closed_type.clone()
+    }
+
+    #[getter]
+    /// Contains `bool`
+    fn by_remote(&self) -> bool {
+        self.inner.by_remote
+    }
+}
+
+#[pyclass]
+#[derive(Clone)]
+pub struct PlayerDestroyed {
+    pub inner: LavaPlayerDestroyed,
+}
+
+#[pymethods]
+impl PlayerDestroyed {
+    #[getter]
+    /// Contains `String`
+    fn op(&self) -> String {
+        self.inner.op.clone()
+    }
+
+    #[getter]
+    /// Contains `Unsigned 64 bit integer`
+    fn guild_id(&self) -> u64 {
+        self.inner.guild_id.0
+    }
+
+    #[getter]
+    /// Contains `Unsigned 64 bit integer`
+    fn user_id(&self) -> u64 {
+        self.inner.user_id.0
+    }
+
+    #[getter]
+    /// Contains `String`
+    fn player_destroyed_type(&self) -> String {
+        self.inner.player_destroyed_type.clone()
+    }
+
+    #[getter]
+    /// Contains `bool`
+    fn cleanup(&self) -> bool {
+        self.inner.cleanup
     }
 }

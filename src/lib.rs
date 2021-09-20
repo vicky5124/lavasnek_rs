@@ -3,8 +3,11 @@ extern crate log;
 
 mod builders;
 mod error;
+mod events;
 mod model;
+
 use builders::*;
+use events::*;
 use model::*;
 
 use lavalink_rs::model::ConnectionInfo as LavaConnectionInfo;
@@ -16,6 +19,7 @@ use pythonize::{depythonize, pythonize};
 use tokio::time::{sleep, Duration};
 
 #[pyclass]
+#[derive(Clone)]
 pub struct Lavalink {
     lava: LavalinkClient,
 }
@@ -321,10 +325,7 @@ impl Lavalink {
 
             Ok(Python::with_gil(|py| {
                 if let Some(track) = track {
-                    TrackQueue {
-                        inner: track,
-                    }
-                    .into_py(py)
+                    TrackQueue { inner: track }.into_py(py)
                 } else {
                     py.None()
                 }
@@ -545,12 +546,7 @@ impl Lavalink {
     ///
     /// Returns: `Future<Result<None, lavasnek_rs.NetworkError>>`
     #[pyo3(text_signature = "($self, guild_id, band, /)")]
-    fn equalize_band<'a>(
-        &self,
-        py: Python<'a>,
-        guild_id: u64,
-        band: Band,
-    ) -> PyResult<&'a PyAny> {
+    fn equalize_band<'a>(&self, py: Python<'a>, guild_id: u64, band: Band) -> PyResult<&'a PyAny> {
         let lava_client = self.lava.clone();
 
         pyo3_asyncio::tokio::future_into_py(py, async move {
@@ -810,10 +806,12 @@ fn log_something() {
 /// return normally, and `E` is a list of possible exceptions that can raise.
 /// - Functions that return an `Option<T>` mean that the value returned can be `None`, where `T` would be
 /// the type of the returned value if not `None`.
-/// - If something returns a `Future<T>`, it means that it returns [this](https://docs.python.org/3/library/asyncio-future.html?#asyncio.Future),
+/// - If something returns a `Future<T>`, it means that it returns
+/// [this](https://docs.python.org/3/library/asyncio-future.html?#asyncio.Future),
 /// and that function should be awaited to work.
 /// - / on arguments means the end of positional arguments.
 /// - Self (with a capital S) means the type of self.
+/// - A type prefixed with `impl` means it's a Class that implements that Trait type.
 #[pymodule]
 fn lavasnek_rs(py: Python, m: &PyModule) -> PyResult<()> {
     pyo3_log::init();
@@ -823,9 +821,12 @@ fn lavasnek_rs(py: Python, m: &PyModule) -> PyResult<()> {
 
     m.add_class::<Lavalink>()?;
 
+    // builders
     m.add_class::<LavalinkBuilder>()?;
     m.add_class::<PlayBuilder>()?;
 
+    // models
+    m.add_class::<LavalinkEventHandler>()?;
     m.add_class::<ConnectionInfo>()?;
     m.add_class::<Track>()?;
     m.add_class::<Tracks>()?;
@@ -835,6 +836,15 @@ fn lavasnek_rs(py: Python, m: &PyModule) -> PyResult<()> {
     m.add_class::<Node>()?;
     m.add_class::<Band>()?;
 
+    // event models
+    m.add_class::<Stats>()?;
+    m.add_class::<PlayerUpdate>()?;
+    m.add_class::<TrackStart>()?;
+    m.add_class::<TrackFinish>()?;
+    m.add_class::<WebSocketClosed>()?;
+    m.add_class::<PlayerDestroyed>()?;
+
+    // exceptions
     m.add("NoSessionPresent", py.get_type::<error::NoSessionPresent>())?;
     m.add("NetworkError", py.get_type::<error::NetworkError>())?;
 

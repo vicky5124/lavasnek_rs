@@ -1,23 +1,17 @@
 use crate::error;
+use crate::events;
 use crate::Lavalink;
 
 use pyo3::prelude::*;
 
 use lavalink_rs::{
-    async_trait,
     builders::{LavalinkClientBuilder, PlayParameters},
     error::LavalinkError,
-    gateway::LavalinkEventHandler,
     LavalinkClient,
 };
 use std::net::SocketAddr;
 use std::str::FromStr;
 use std::time::Duration;
-
-struct LavalinkHandler;
-
-#[async_trait]
-impl LavalinkEventHandler for LavalinkHandler {}
 
 /// __new__()
 ///
@@ -54,14 +48,22 @@ impl LavalinkBuilder {
     /// Can raise an exception if it's unable to connect to the lavalink server, discord server, or
     /// both.
     ///
+    /// Positional Arguments:
+    /// - `event_handler` : `impl LavalinkEventHandler`
+    ///
     /// Returns: `Future<Result<Lavalink, builtins.ConnectionError>>`
-    #[pyo3(text_signature = "($self, /)")]
-    fn build<'a>(&self, py: Python<'a>) -> PyResult<&'a PyAny> {
+    #[pyo3(text_signature = "($self, event_handler, /)")]
+    fn build<'a>(&self, py: Python<'a>, event_handler: PyObject) -> PyResult<&'a PyAny> {
         let builder = self.builder.clone();
+        let current_loop = pyo3_asyncio::get_running_loop(py)?;
+        let loop_ref = PyObject::from(current_loop);
 
         pyo3_asyncio::tokio::future_into_py(py, async move {
             let lava = builder
-                .build(LavalinkHandler)
+                .build(events::LavalinkEventHandler {
+                    inner: event_handler,
+                    current_loop: loop_ref,
+                })
                 .await
                 .map_err(|e| error::ConnectionError::new_err(e.to_string()))?;
             let lavalink = Lavalink { lava };
