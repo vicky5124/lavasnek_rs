@@ -1,8 +1,8 @@
 # lavasnek_rs
 
-Dev Docs: https://5124.mywire.org:5124/docs/
-GitHub repo: https://github.com/vicky5124/lavasnek_rs/
-GitLab repo: https://gitlab.com/vicky5124/lavasnek_rs/
+- Dev Docs: [Main Site](https://5124.mywire.org:5124/docs/) | Fallback: [GitHub Pages](https://vicky5124.github.io/lavasnek_rs/lavasnek_rs/lavasnek_rs.html)
+- [GitHub repo](https://github.com/vicky5124/lavasnek_rs/)
+- [GitLab repo](https://gitlab.com/vicky5124/lavasnek_rs/)
 
 ## Using the library
 
@@ -36,10 +36,10 @@ Then to run the project, just run all of this.
 Only the last 2 are repeatable.
 
 ```bash
-$ python -m venv .env
-$ source .env/bin/activate
-$ pip install maturin
+python -m venv .env
+source .env/bin/activate
+pip install maturin
 
-$ maturin develop
-$ python examples/pure_hikari_example.py
+maturin develop
+python examples/pure_hikari_example.py
 ```
