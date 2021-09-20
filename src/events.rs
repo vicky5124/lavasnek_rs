@@ -60,7 +60,7 @@ pub struct LavalinkEventHandler {
 #[async_trait]
 impl LavalinkEventHandlerTrait for LavalinkEventHandler {
     async fn stats(&self, client: LavalinkClient, event: Stats) {
-        let event = model::Stats{ inner: event };
+        let event = model::Stats { inner: event };
         call_event(self, client, event, "stats");
     }
     async fn player_update(&self, client: LavalinkClient, event: PlayerUpdate) {
@@ -89,7 +89,7 @@ impl LavalinkEventHandlerTrait for LavalinkEventHandler {
 impl LavalinkEventHandler {
     #[pyo3(text_signature = "($self, client, event, /)")]
     /// Periodic event that returns the statistics of the server.
-    /// 
+    ///
     /// Positional Arguments:
     /// - `client` : `Lavalink`
     /// - `event` : `Stats`
@@ -98,7 +98,7 @@ impl LavalinkEventHandler {
     fn stats(&self) {}
     #[pyo3(text_signature = "($self, client, event, /)")]
     /// Event that triggers when a player updates.
-    /// 
+    ///
     /// Positional Arguments:
     /// - `client` : `Lavalink`
     /// - `event` : `PlayerUpdate`
@@ -107,7 +107,7 @@ impl LavalinkEventHandler {
     fn player_update(&self) {}
     #[pyo3(text_signature = "($self, client, event, /)")]
     /// Event that triggers when a track starts playing.
-    /// 
+    ///
     /// Positional Arguments:
     /// - `client` : `Lavalink`
     /// - `event` : `TrackStart`
@@ -116,7 +116,7 @@ impl LavalinkEventHandler {
     fn track_start(&self) {}
     #[pyo3(text_signature = "($self, client, event, /)")]
     /// Event that triggers when a track finishes playing.
-    /// 
+    ///
     /// Positional Arguments:
     /// - `client` : `Lavalink`
     /// - `event` : `TrackFinish`
@@ -125,7 +125,7 @@ impl LavalinkEventHandler {
     fn track_finish(&self) {}
     #[pyo3(text_signature = "($self, client, event, /)")]
     /// Event that triggers when the websocket connection to the voice channel closes.
-    /// 
+    ///
     /// Positional Arguments:
     /// - `client` : `Lavalink`
     /// - `event` : `WebsocketClosed`
@@ -134,7 +134,7 @@ impl LavalinkEventHandler {
     fn websocket_closed(&self) {}
     #[pyo3(text_signature = "($self, client, event, /)")]
     /// Event that triggers when the player gets destroyed on a guild.
-    /// 
+    ///
     /// Positional Arguments:
     /// - `client` : `Lavalink`
     /// - `event` : `PlayerDestroyed`

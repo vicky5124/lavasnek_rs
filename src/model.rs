@@ -1,6 +1,8 @@
 use lavalink_rs::model::{
-    Band as LavaBand, Info as LavaInfo, Node as LavaNode, PlaylistInfo as LavaPlaylistInfo,
-    Track as LavaTrack, TrackQueue as LavaTrackQueue, Tracks as LavaTracks, PlayerDestroyed as LavaPlayerDestroyed, WebSocketClosed as LavaWebSocketClosed, TrackFinish as LavaTrackFinish, TrackStart as LavaTrackStart, PlayerUpdate as LavaPlayerUpdate, Stats as LavaStats,
+    Band as LavaBand, Info as LavaInfo, Node as LavaNode, PlayerDestroyed as LavaPlayerDestroyed,
+    PlayerUpdate as LavaPlayerUpdate, PlaylistInfo as LavaPlaylistInfo, Stats as LavaStats,
+    Track as LavaTrack, TrackFinish as LavaTrackFinish, TrackQueue as LavaTrackQueue,
+    TrackStart as LavaTrackStart, Tracks as LavaTracks, WebSocketClosed as LavaWebSocketClosed,
 };
 use lavalink_rs::typemap_rev::TypeMapKey;
 use pyo3::{prelude::*, types::PyDict};
@@ -495,7 +497,7 @@ impl Stats {
 
 #[pyclass]
 #[derive(Clone)]
-pub struct PlayerUpdate{
+pub struct PlayerUpdate {
     pub inner: LavaPlayerUpdate,
 }
 
