@@ -43,10 +43,10 @@ class Bot(hikari.GatewayBot):
 
 class EventHandler:
     async def track_start(self, _lava_client, event):
-        logging.info(f"Track started on guild: {event.guild_id}")
+        logging.info("Track started on guild: %s", event.guild_id)
 
     async def track_finish(self, _lava_client, event):
-        logging.info(f"Track finished on guild: {event.guild_id}")
+        logging.info("Track finished on guild: %s", event.guild_id)
 
 
 bot = Bot(token=TOKEN)
