@@ -153,7 +153,7 @@ fn call_event<T: Send + Sync + pyo3::IntoPy<PyObject> + 'static>(
     let slf2 = handler.clone();
 
     Python::with_gil(|py| {
-        let current_loop = slf1.current_loop.cast_as(py).unwrap();
+        let current_loop = slf1.current_loop.as_ref(py);
 
         pyo3_asyncio::tokio::future_into_py_with_loop(current_loop, async move {
             let future = Python::with_gil(|py| {
