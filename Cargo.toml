@@ -1,4 +1,4 @@
-cargo-features = ["strip"]
+#cargo-features = ["strip"]
 
 [package]
 name = "lavasnek_rs"
@@ -35,5 +35,5 @@ git = "https://gitlab.com/vicky5124/lavalink-rs"
 default-features = false
 features = ["rustls", "simple-gateway", "normal-log"]
 
-[profile.release]
-strip = "symbols"
+#[profile.release]
+#strip = "symbols"
