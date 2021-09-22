@@ -5,7 +5,6 @@ description = "A lavalink-rs wrapper for any python async library"
 authors = ["vicky5124 <vickyf5124@gmail.com>"]
 readme = "README.md"
 license = "MPL-2.0"
-description = "lavalink-rs bindings for Python"
 homepage = "https://github.com/vicky5124/lavasnek_rs"
 repository = "https://github.com/vicky5124/lavasnek_rs"
 documentation = "https://5124.mywire.org:5124/docs/"
