@@ -23,9 +23,8 @@ If you wanna build the project from source, you will need:
 sudo apt install python3-pip curl # for Ubuntu, Debian or derivatives
 sudo pacman -S python3-pip curl # for Arch, EndeavourOS, Manjaro or derivatives
 
-# You will also need rust with the nightly toolchain.
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh # to install rustlang
-rustup toolchain install nightly # to install the nightly toolchain
+# You will also need the rust programming language.
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # You will also need a lavalink server running.
 # see https://github.com/freyacodes/Lavalink or use docker

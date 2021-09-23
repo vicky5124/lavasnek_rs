@@ -10,10 +10,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: Install latest nightly
+      - name: Install latest stable
         uses: actions-rs/toolchain@v1
         with:
-          toolchain: nightly
+          toolchain: stable
           override: true
           components: rustfmt, clippy
 
@@ -34,7 +34,7 @@ jobs:
         with:
           command: test
           args: --no-default-features
-          toolchain: nightly
+          toolchain: stable
 
   build-posix:
     runs-on: ${{ matrix.os }}
@@ -66,10 +66,10 @@ jobs:
         run: |
           poetry install
 
-      - name: Install latest nightly
+      - name: Install latest stable
         uses: actions-rs/toolchain@v1
         with:
-          toolchain: nightly
+          toolchain: stable
           override: true
 
       - name: Build Python package
@@ -111,10 +111,10 @@ jobs:
         run: |
           poetry install
 
-      - name: Install latest nightly
+      - name: Install latest stable
         uses: actions-rs/toolchain@v1
         with:
-          toolchain: nightly
+          toolchain: stable
           override: true
 
       - name: Build Python package
