@@ -16,26 +16,559 @@
             <label id="navtoggle" for="togglestate" class="pdoc-button"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke-linecap='round' stroke="currentColor" stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg></label>
             <input id="togglestate" type="checkbox">
             <div>
-                        <a class="pdoc-button module-list-button" href="index.html">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-left" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0v-2z"/>
-  <path fill-rule="evenodd" d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
-</svg>                            &nbsp;
-                            Module Index
-                        </a>
 
 
-                        <input type="search" placeholder="Search..." role="searchbox" aria-label="search"
-                               pattern=".+" required>
 
 
-                    <h2>Submodules</h2>
-                    <ul>
-                            <li><a href="lavasnek_rs/lavasnek_rs.html">lavasnek_rs.lavasnek_rs</a></li>
-                    </ul>
 
                     <h2>API Documentation</h2>
                         <ul class="memberlist">
+            <li>
+                    <a class="function" href="#rust_sleep">rust_sleep</a>
+            </li>
+            <li>
+                    <a class="function" href="#log_something">log_something</a>
+            </li>
+            <li>
+                    <a class="class" href="#Lavalink">Lavalink</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#Lavalink.__init__">Lavalink</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.start_discord_gateway">start_discord_gateway</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.join">join</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.leave">leave</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.create_session">create_session</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.destroy">destroy</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.play">play</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.get_tracks">get_tracks</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.auto_search_tracks">auto_search_tracks</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.search_tracks">search_tracks</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.stop">stop</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.skip">skip</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.set_pause">set_pause</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.pause">pause</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.resume">resume</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.seek_secs">seek_secs</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.jump_to_time_secs">jump_to_time_secs</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.scrub_secs">scrub_secs</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.seek_millis">seek_millis</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.jump_to_time_millis">jump_to_time_millis</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.scrub_millis">scrub_millis</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.volume">volume</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.equalize_all">equalize_all</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.equalize_dynamic">equalize_dynamic</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.equalize_band">equalize_band</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.equalize_reset">equalize_reset</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.remove_guild_from_loops">remove_guild_from_loops</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.remove_guild_node">remove_guild_node</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.get_guild_node">get_guild_node</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.get_guild_gateway_connection_info">get_guild_gateway_connection_info</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.wait_for_full_connection_info_insert">wait_for_full_connection_info_insert</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.wait_for_connection_info_remove">wait_for_connection_info_remove</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.raw_handle_event_voice_server_update">raw_handle_event_voice_server_update</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Lavalink.raw_handle_event_voice_state_update">raw_handle_event_voice_state_update</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#LavalinkBuilder">LavalinkBuilder</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#LavalinkBuilder.__init__">LavalinkBuilder</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#LavalinkBuilder.build">build</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#LavalinkBuilder.set_host">set_host</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#LavalinkBuilder.set_port">set_port</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#LavalinkBuilder.set_addr">set_addr</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#LavalinkBuilder.set_password">set_password</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#LavalinkBuilder.set_shard_count">set_shard_count</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#LavalinkBuilder.set_bot_id">set_bot_id</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#LavalinkBuilder.set_bot_token">set_bot_token</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#LavalinkBuilder.set_is_ssl">set_is_ssl</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#LavalinkBuilder.set_start_gateway">set_start_gateway</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#LavalinkBuilder.set_gateway_start_wait_time_secs">set_gateway_start_wait_time_secs</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#LavalinkBuilder.set_gateway_start_wait_time_millis">set_gateway_start_wait_time_millis</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#PlayBuilder">PlayBuilder</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#PlayBuilder.__init__">PlayBuilder</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#PlayBuilder.start">start</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#PlayBuilder.queue">queue</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#PlayBuilder.requester">requester</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#PlayBuilder.replace">replace</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#PlayBuilder.start_time_secs">start_time_secs</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#PlayBuilder.finish_time_secs">finish_time_secs</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#PlayBuilder.start_time_millis">start_time_millis</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#PlayBuilder.finish_time_millis">finish_time_millis</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#LavalinkEventHandler">LavalinkEventHandler</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#LavalinkEventHandler.__init__">LavalinkEventHandler</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#LavalinkEventHandler.stats">stats</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#LavalinkEventHandler.player_update">player_update</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#LavalinkEventHandler.track_start">track_start</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#LavalinkEventHandler.track_finish">track_finish</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#LavalinkEventHandler.websocket_closed">websocket_closed</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#LavalinkEventHandler.player_destroyed">player_destroyed</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#ConnectionInfo">ConnectionInfo</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#ConnectionInfo.__init__">ConnectionInfo</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#Track">Track</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#Track.__init__">Track</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Track.track">track</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Track.info">info</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#Tracks">Tracks</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#Tracks.__init__">Tracks</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Tracks.load_type">load_type</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Tracks.playlist_info">playlist_info</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Tracks.tracks">tracks</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#TrackQueue">TrackQueue</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#TrackQueue.__init__">TrackQueue</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#TrackQueue.track">track</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#TrackQueue.end_time">end_time</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#TrackQueue.start_time">start_time</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#TrackQueue.requester">requester</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#Info">Info</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#Info.__init__">Info</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Info.author">author</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Info.is_stream">is_stream</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Info.title">title</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Info.length">length</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Info.identifier">identifier</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Info.uri">uri</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Info.is_seekable">is_seekable</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Info.position">position</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#PlaylistInfo">PlaylistInfo</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#PlaylistInfo.__init__">PlaylistInfo</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#PlaylistInfo.selected_track">selected_track</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#PlaylistInfo.name">name</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#Node">Node</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#Node.__init__">Node</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Node.get_data">get_data</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Node.set_data">set_data</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Node.now_playing">now_playing</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Node.queue">queue</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Node.volume">volume</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Node.is_paused">is_paused</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Node.guild">guild</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Node.is_on_loops">is_on_loops</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#Band">Band</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#Band.__init__">Band</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Band.band">band</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Band.gain">gain</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#Stats">Stats</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#Stats.__init__">Stats</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Stats.frame_stats_sent">frame_stats_sent</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Stats.frame_stats_deficit">frame_stats_deficit</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Stats.memory_free">memory_free</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Stats.uptime">uptime</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Stats.memory_reservable">memory_reservable</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Stats.memory_allocated">memory_allocated</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Stats.frame_stats_nulled">frame_stats_nulled</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Stats.players">players</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Stats.cpu_system_load">cpu_system_load</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Stats.cpu_cores">cpu_cores</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Stats.cpu_lavalink_load">cpu_lavalink_load</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Stats.op">op</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Stats.playing_players">playing_players</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Stats.memory_used">memory_used</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#PlayerUpdate">PlayerUpdate</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#PlayerUpdate.__init__">PlayerUpdate</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#PlayerUpdate.state_time">state_time</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#PlayerUpdate.state_position">state_position</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#PlayerUpdate.op">op</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#PlayerUpdate.guild_id">guild_id</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#TrackStart">TrackStart</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#TrackStart.__init__">TrackStart</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#TrackStart.op">op</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#TrackStart.guild_id">guild_id</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#TrackStart.track_start_type">track_start_type</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#TrackStart.track">track</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#TrackFinish">TrackFinish</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#TrackFinish.__init__">TrackFinish</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#TrackFinish.op">op</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#TrackFinish.guild_id">guild_id</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#TrackFinish.track">track</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#TrackFinish.track_finish_type">track_finish_type</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#TrackFinish.reason">reason</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#WebSocketClosed">WebSocketClosed</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#WebSocketClosed.__init__">WebSocketClosed</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#WebSocketClosed.by_remote">by_remote</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#WebSocketClosed.guild_id">guild_id</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#WebSocketClosed.op">op</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#WebSocketClosed.user_id">user_id</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#WebSocketClosed.code">code</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#WebSocketClosed.websocket_closed_type">websocket_closed_type</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#PlayerDestroyed">PlayerDestroyed</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#PlayerDestroyed.__init__">PlayerDestroyed</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#PlayerDestroyed.guild_id">guild_id</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#PlayerDestroyed.op">op</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#PlayerDestroyed.player_destroyed_type">player_destroyed_type</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#PlayerDestroyed.user_id">user_id</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#PlayerDestroyed.cleanup">cleanup</a>
+                        </li>
+                </ul>
+
+            </li>
             <li>
                     <a class="class" href="#NoSessionPresent">NoSessionPresent</a>
                             <ul class="memberlist">
@@ -64,15 +597,2734 @@
                     <h1 class="modulename">
 lavasnek_rs    </h1>
 
+                        <div class="docstring"><p>Cheat Sheet:</p>
+
+<ul>
+<li>Functions that return a <code>Result&lt;T, E&gt;</code> mean that it can raise an exception. <code>T</code> is the type they
+return normally, and <code>E</code> is a list of possible exceptions that can raise.</li>
+<li>Functions that return an <code>Option&lt;T&gt;</code> mean that the value returned can be <code>None</code>, where <code>T</code> would be
+the type of the returned value if not <code>None</code>.</li>
+<li>If something returns a <code>Future&lt;T&gt;</code>, it means that it returns
+<a href="https://docs.python.org/3/library/asyncio-future.html?#asyncio.Future">this</a>,
+and that function should be awaited to work.</li>
+<li>/ on arguments means the end of positional arguments.</li>
+<li>Self (with a capital S) means the type of self.</li>
+<li>A type prefixed with <code>impl</code> means it's a Class that implements that Trait type.</li>
+</ul>
+</div>
+
                 
-                        <details>
-            <summary>View Source</summary>
-            <div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">.lavasnek_rs</span> <span class="kn">import</span> <span class="o">*</span>
-</pre></div>
-
-        </details>
-
             </section>
+                <section id="rust_sleep">
+                            <div class="attr function"><a class="headerlink" href="#rust_sleep">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">rust_sleep</span><span class="signature">(seconds, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Test function, do not use.</p>
+</div>
+
+
+                </section>
+                <section id="log_something">
+                            <div class="attr function"><a class="headerlink" href="#log_something">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">log_something</span><span class="signature">()</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Test function, do not use.</p>
+</div>
+
+
+                </section>
+                <section id="Lavalink">
+                                <div class="attr class">
+        <a class="headerlink" href="#Lavalink">#&nbsp;&nbsp</a>
+
+        
+        <span class="def">class</span>
+        <span class="name">Lavalink</span>:
+    </div>
+
+        
+    
+
+                            <div id="Lavalink.__init__" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.__init__">#&nbsp;&nbsp</a>
+
+        
+            <span class="name">Lavalink</span><span class="signature">()</span>
+    </div>
+
+        
+    
+
+                            </div>
+                            <div id="Lavalink.start_discord_gateway" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.start_discord_gateway">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">start_discord_gateway</span><span class="signature">(self, /, wait_time)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Start the discord gateway, if it has stopped, or it never started because the client builder was
+configured that way.</p>
+
+<p>If <code>wait_time</code> is passed, it will override the previosuly configured wait time.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>wait_time</code> : <code>Optional Unsigned 64 bit integer</code> -- seconds</li>
+</ul>
+
+<p>Returns: <code>Future&lt;None&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.join" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.join">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">join</span><span class="signature">(self, guild_id, channel_id, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Joins a guild's voice channel using the lavalink-rs discord gateway.</p>
+
+<p>Returns information about the gateway connection, which can be used with <code><a href="#Lavalink.create_session">create_session()</a></code>
+to connect lavalink to that voice connection.</p>
+
+<div class="codehilite"><pre><span></span><code><span class="n">lavalink</span><span class="p">:</span> <span class="n">lavasnek_rs</span><span class="o">.</span><span class="n">Lavalink</span> <span class="o">=</span> <span class="o">...</span>
+
+<span class="n">connection_info</span> <span class="o">=</span> <span class="k">await</span> <span class="n">lavalink</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">guild_id</span><span class="p">,</span> <span class="n">voice_channel_id</span><span class="p">)</span>
+<span class="k">await</span> <span class="n">lavalink</span><span class="o">.</span><span class="n">create_session</span><span class="p">(</span><span class="n">connection_info</span><span class="p">)</span>
+
+<span class="k">await</span> <span class="n">send_message</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Joined &lt;#</span><span class="si">{</span><span class="n">voice_channel_id</span><span class="si">}</span><span class="s2">&gt;&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Timing out means that there's either no permission to join the voice channel, or 5 seconds
+have happened since the function was called.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
+<li><code>channel_id</code> : <code>Unsigned 64 bit integer</code></li>
+</ul>
+
+<p>Returns: <code>Future&lt;Result&lt;ConnectionInfo, builtins.TimeoutError&gt;&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.leave" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.leave">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">leave</span><span class="signature">(self, guild_id, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Leaves the current guild's voice channel using the lavalink-rs discord gateway.</p>
+
+<p><code><a href="#Lavalink.destroy">Lavalink.destroy()</a></code> should be ran as well before this, to safely stop the lavalink session.</p>
+
+<div class="codehilite"><pre><span></span><code><span class="n">lavalink</span><span class="p">:</span> <span class="n">lavasnek_rs</span><span class="o">.</span><span class="n">Lavalink</span> <span class="o">=</span> <span class="o">...</span>
+
+<span class="k">await</span> <span class="n">lavalink</span><span class="o">.</span><span class="n">destroy</span><span class="p">(</span><span class="n">guild_id</span><span class="p">)</span>
+<span class="k">await</span> <span class="n">lavalink</span><span class="o">.</span><span class="n">leave</span><span class="p">(</span><span class="n">guild_id</span><span class="p">)</span>
+
+<span class="k">await</span> <span class="n">send_message</span><span class="p">(</span><span class="s2">&quot;Left voice channel&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Timing out means that 5 seconds have happened since the function was called.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
+</ul>
+
+<p>Returns: <code>Future&lt;Result&lt;None, builtins.TimeoutError&gt;&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.create_session" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.create_session">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">create_session</span><span class="signature">(self, connection_info, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Creates a session in Lavalink with a voice connection. This also creates a Node and inserts it.
+The node is not added to the loops unless <code><a href="#PlayBuilder.queue">PlayBuilder.queue()</a></code> is ran.</p>
+
+<p>This can raise a TypeError if a necessary field of ConnectionInfo is missing.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>connection_info</code> : <code><a href="#ConnectionInfo">ConnectionInfo</a></code> (obtained from <code><a href="#Lavalink.join">Lavalink.join()</a></code>)</li>
+</ul>
+
+<p>Returns: <code>Future&lt;Result&lt;None, builtins.TypeError&gt;&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.destroy" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.destroy">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">destroy</span><span class="signature">(self, guild_id, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Stops the session in Lavalink of the guild. This also creates a Node and inserts it.</p>
+
+<p>This method does not remove the guild from the running event loops, nor does it clear the Node,
+this allows for reconnecting without losing data. If you are having issues with disconnecting
+and reconnecting the bot to a voice channel, remove the guild from the running event loops and
+reset the nodes.</p>
+
+<div class="codehilite"><pre><span></span><code><span class="n">lavalink</span><span class="o">.</span><span class="n">remove_guild_node</span><span class="p">(</span><span class="n">guild_id</span><span class="p">)</span>
+<span class="n">lavalink</span><span class="o">.</span><span class="n">remove_guild_from_loops</span><span class="p">(</span><span class="n">guild_id</span><span class="p">)</span>
+</code></pre></div>
+
+<p>This can raise an exception if a network error happens.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
+</ul>
+
+<p>Returns: <code>Future&lt;Result&lt;None, <a href="#NetworkError">lavasnek_rs.NetworkError</a>&gt;&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.play" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.play">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">play</span><span class="signature">(self, track, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Returns the Play builder.</p>
+
+<div class="codehilite"><pre><span></span><code><span class="n">lavalink</span><span class="p">:</span> <span class="n">lavasnek_rs</span><span class="o">.</span><span class="n">Lavalink</span> <span class="o">=</span> <span class="o">...</span>
+
+<span class="n">query_information</span> <span class="o">=</span> <span class="k">await</span> <span class="n">lavalink</span><span class="o">.</span><span class="n">auto_search_tracks</span><span class="p">(</span><span class="n">search_query_or_url</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">query_information</span><span class="p">[</span><span class="s2">&quot;tracks&quot;</span><span class="p">]:</span> <span class="c1"># tracks is empty</span>
+    <span class="k">await</span> <span class="n">send_message</span><span class="p">(</span><span class="s2">&quot;Could not find any video of the search query.&quot;</span><span class="p">)</span>
+    <span class="k">return</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="k">await</span> <span class="n">lavalink</span><span class="o">.</span><span class="n">play</span><span class="p">(</span>
+        <span class="n">guild_id</span><span class="p">,</span> <span class="n">query_information</span><span class="p">[</span><span class="s2">&quot;tracks&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">requester</span><span class="p">(</span><span class="n">author_id</span><span class="p">)</span><span class="o">.</span><span class="n">queue</span><span class="p">()</span>
+<span class="k">except</span> <span class="n">lavasnek_rs</span><span class="o">.</span><span class="n">NoSessionPresent</span><span class="p">:</span>
+    <span class="k">await</span> <span class="n">send_message</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Use `</span><span class="si">{</span><span class="n">PREFIX</span><span class="si">}</span><span class="s2">join` first&quot;</span><span class="p">)</span>
+    <span class="k">return</span>
+</code></pre></div>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
+<li><code>track</code> : <code><a href="#Track">Track</a></code> - From the track search methods, it's a value from the "tracks" field.</li>
+</ul>
+
+<p>Returns: <code><a href="#PlayBuilder">PlayBuilder</a></code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.get_tracks" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.get_tracks">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">get_tracks</span><span class="signature">(self, query, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Returns the tracks from the URL or query provided.</p>
+
+<p>This can raise an exception if a network error happens.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>query</code> : <code>String</code></li>
+</ul>
+
+<p>Returns: <code>Future&lt;Result&lt;Tracks, <a href="#NetworkError">lavasnek_rs.NetworkError</a>&gt;&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.auto_search_tracks" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.auto_search_tracks">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">auto_search_tracks</span><span class="signature">(self, query, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Will automatically search the query on youtube if it's not a valid URL.</p>
+
+<p>This can raise an exception if a network error happens.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>query</code> : <code>String</code></li>
+</ul>
+
+<p>Returns: <code>Future&lt;Result&lt;Tracks, <a href="#NetworkError">lavasnek_rs.NetworkError</a>&gt;&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.search_tracks" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.search_tracks">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">search_tracks</span><span class="signature">(self, query, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Returns tracks from the search query.
+Uses youtube to search.</p>
+
+<p>This can raise an exception if a network error happens.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>query</code> : <code>String</code></li>
+</ul>
+
+<p>Returns: <code>Future&lt;Result&lt;Tracks, <a href="#NetworkError">lavasnek_rs.NetworkError</a>&gt;&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.stop" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.stop">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">stop</span><span class="signature">(self, guild_id, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Stops the current player.</p>
+
+<p>This can raise an exception if a network error happens.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
+</ul>
+
+<p>Returns: <code>Future&lt;Result&lt;None, <a href="#NetworkError">lavasnek_rs.NetworkError</a>&gt;&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.skip" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.skip">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">skip</span><span class="signature">(self, guild_id, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Skips the current playing track to the next item on the queue.</p>
+
+<p>If nothing is in the queue, the currently playing track will keep playing.
+Check if the queue is empty and run <code><a href="#Lavalink.stop">stop()</a></code> if that's the case.</p>
+
+<div class="codehilite"><pre><span></span><code><span class="n">lavalink</span><span class="p">:</span> <span class="n">lavasnek_rs</span><span class="o">.</span><span class="n">Lavalink</span> <span class="o">=</span> <span class="o">...</span>
+
+<span class="n">skip</span> <span class="o">=</span> <span class="k">await</span> <span class="n">lavalink</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="n">guild_id</span><span class="p">)</span>
+<span class="n">node</span> <span class="o">=</span> <span class="k">await</span> <span class="n">lavalink</span><span class="o">.</span><span class="n">get_guild_node</span><span class="p">(</span><span class="n">guild_id</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">skip</span><span class="p">:</span>
+    <span class="k">await</span> <span class="n">send_message</span><span class="p">(</span><span class="s2">&quot;Nothing to skip&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">[</span><span class="s2">&quot;queue&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">node</span><span class="p">[</span><span class="s2">&quot;now_playing&quot;</span><span class="p">]:</span>
+        <span class="k">await</span> <span class="n">lavalink</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="n">guild_id</span><span class="p">)</span>
+
+    <span class="k">await</span> <span class="n">send_message</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Skipped: </span><span class="si">{</span><span class="n">skip</span><span class="p">[</span><span class="s1">&#39;track&#39;</span><span class="p">][</span><span class="s1">&#39;info&#39;</span><span class="p">][</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+</code></pre></div>
+
+<p>This can raise an exception if a network error happens.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
+</ul>
+
+<p>Returns: <code>Future&lt;Option&lt;TrackQueue&gt;&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.set_pause" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.set_pause">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">set_pause</span><span class="signature">(self, guild_id, pause, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Sets the pause status.</p>
+
+<p>This can raise an exception if a network error happens.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
+<li><code><a href="#Lavalink.pause">pause</a></code> : <code>bool</code></li>
+</ul>
+
+<p>Returns: <code>Future&lt;Result&lt;None, <a href="#NetworkError">lavasnek_rs.NetworkError</a>&gt;&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.pause" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.pause">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">pause</span><span class="signature">(self, guild_id, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Sets pause status to <code>True</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.resume" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.resume">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">resume</span><span class="signature">(self, guild_id, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Sets pause status to <code>False</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.seek_secs" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.seek_secs">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">seek_secs</span><span class="signature">(self, guild_id, time, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Jumps to a specific time in the currently playing track.</p>
+
+<p>This can raise an exception if a network error happens.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
+<li><code>time</code> : <code>Unsigned 64 bit integer</code></li>
+</ul>
+
+<p>Returns: <code>Future&lt;Result&lt;None, <a href="#NetworkError">lavasnek_rs.NetworkError</a>&gt;&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.jump_to_time_secs" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.jump_to_time_secs">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">jump_to_time_secs</span><span class="signature">(self, guild_id, time, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Alias to <code><a href="#Lavalink.seek_secs">seek_secs()</a></code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.scrub_secs" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.scrub_secs">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">scrub_secs</span><span class="signature">(self, guild_id, time, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Alias to <code><a href="#Lavalink.seek_secs">seek_secs()</a></code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.seek_millis" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.seek_millis">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">seek_millis</span><span class="signature">(self, guild_id, time, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Jumps to a specific time in the currently playing track.</p>
+
+<p>This can raise an exception if a network error happens.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
+<li><code>time</code> : <code>Unsigned 64 bit integer</code></li>
+</ul>
+
+<p>Returns: <code>Future&lt;Result&lt;None, <a href="#NetworkError">lavasnek_rs.NetworkError</a>&gt;&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.jump_to_time_millis" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.jump_to_time_millis">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">jump_to_time_millis</span><span class="signature">(self, guild_id, time, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Alias to <code><a href="#Lavalink.seek_millis">seek_millis()</a></code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.scrub_millis" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.scrub_millis">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">scrub_millis</span><span class="signature">(self, guild_id, time, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Alias to <code><a href="#Lavalink.seek_millis">seek_millis()</a></code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.volume" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.volume">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">volume</span><span class="signature">(self, guild_id, volume, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Sets the volume of the player.
+Max is 1000, min is 0</p>
+
+<p>This can raise an exception if a network error happens.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
+<li><code>Volume</code> : <code>Unsigned 16 bit integer</code></li>
+</ul>
+
+<p>Returns: <code>Future&lt;Result&lt;None, <a href="#NetworkError">lavasnek_rs.NetworkError</a>&gt;&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.equalize_all" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.equalize_all">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">equalize_all</span><span class="signature">(self, guild_id, bands, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Sets all equalizer levels.</p>
+
+<ul>
+<li>There are 15 bands (0-14) that can be changed.</li>
+<li>The floating point value is the multiplier for the given band.</li>
+<li>The default value is 0.</li>
+<li>Valid values range from -0.25 to 1.0, where -0.25 means the given band is completely muted, and 0.25 means it is doubled.</li>
+<li>Modifying the gain could also change the volume of the output.</li>
+</ul>
+
+<p>This can raise an exception if a network error happens.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
+<li><code>bands</code> : <code>List&lt;64 bit floating point&gt;</code> -- Must be 15 in length</li>
+</ul>
+
+<p>Returns: <code>Future&lt;Result&lt;None, <a href="#NetworkError">lavasnek_rs.NetworkError</a>&gt;&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.equalize_dynamic" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.equalize_dynamic">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">equalize_dynamic</span><span class="signature">(self, guild_id, bands, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Equalize a dynamic set of bands, rather than just one or all of them at once.</p>
+
+<p>Unmentioned bands will remain unmodified.</p>
+
+<p>This can raise an exception if a network error happens.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
+<li><code>bands</code> : <code>List&lt;64 bit floating point&gt;</code> -- Must be 15 or less in length</li>
+</ul>
+
+<p>Returns: <code>Future&lt;Result&lt;None, <a href="#NetworkError">lavasnek_rs.NetworkError</a>&gt;&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.equalize_band" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.equalize_band">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">equalize_band</span><span class="signature">(self, guild_id, band, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Equalizes a specific band.</p>
+
+<p>This can raise an exception if a network error happens.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
+<li><code>band</code> : <code><a href="#Band">Band</a></code></li>
+</ul>
+
+<p>Returns: <code>Future&lt;Result&lt;None, <a href="#NetworkError">lavasnek_rs.NetworkError</a>&gt;&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.equalize_reset" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.equalize_reset">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">equalize_reset</span><span class="signature">(self, guild_id, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Resets all equalizer levels.</p>
+
+<p>This can raise an exception if a network error happens.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
+</ul>
+
+<p>Returns: <code>Future&lt;Result&lt;None, <a href="#NetworkError">lavasnek_rs.NetworkError</a>&gt;&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.remove_guild_from_loops" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.remove_guild_from_loops">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">remove_guild_from_loops</span><span class="signature">(self, guild_id, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Remove the guild from the queue loops.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
+</ul>
+
+<p>Returns: <code>Future&lt;None&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.remove_guild_node" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.remove_guild_node">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">remove_guild_node</span><span class="signature">(self, guild_id, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Remove the guild node.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
+</ul>
+
+<p>Returns: <code>Future&lt;None&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.get_guild_node" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.get_guild_node">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">get_guild_node</span><span class="signature">(self, guild_id, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Get the current guild from the queue nodes.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
+</ul>
+
+<p>Returns: <code>Future&lt;Option&lt;Node&gt;&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.get_guild_gateway_connection_info" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.get_guild_gateway_connection_info">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">get_guild_gateway_connection_info</span><span class="signature">(self, guild_id, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Get the current guild from the queue nodes.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
+</ul>
+
+<p>Returns: <code>Future&lt;Option&lt;ConnectionInfo&gt;&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.wait_for_full_connection_info_insert" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.wait_for_full_connection_info_insert">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">wait_for_full_connection_info_insert</span><span class="signature">(self, guild_id, /, event_count=10)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Waits until the ConnectionInfo is complete and returns it.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
+<li><code>event_count</code> : <code>Unsigned 128 bit integer</code> defaults to 10</li>
+</ul>
+
+<p>Returns: <code>Future&lt;ConnectionInfo&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.wait_for_connection_info_remove" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.wait_for_connection_info_remove">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">wait_for_connection_info_remove</span><span class="signature">(self, guild_id, /, event_count=10)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Waits until the ConnectionInfo is removed.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
+<li><code>event_count</code> : <code>Unsigned 128 bit integer</code> defaults to 10</li>
+</ul>
+
+<p>Returns: <code>Future&lt;None&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.raw_handle_event_voice_server_update" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.raw_handle_event_voice_server_update">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">raw_handle_event_voice_server_update</span><span class="signature">(self, guild_id, endpoint, token, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Handles voice events to manage <code><a href="#ConnectionInfo">ConnectionInfo</a></code> internally. This one is for the
+VOICE_SERVER_UPDATE event.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
+<li><code>endpint</code> : <code>String</code></li>
+<li><code>token</code> : <code>String</code></li>
+</ul>
+
+<p>Returns: <code>Future&lt;None&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Lavalink.raw_handle_event_voice_state_update" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Lavalink.raw_handle_event_voice_state_update">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">raw_handle_event_voice_state_update</span><span class="signature">(self, guild_id, user_id, session_id, /, channel_id)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Handles voice events to manage <code><a href="#ConnectionInfo">ConnectionInfo</a></code> internally. This one is for the
+VOICE_STATE_UPDATE event.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
+<li><code>user_id</code> : <code>Unsigned 64 bit integer</code></li>
+<li><code>session_id</code> : <code>String</code></li>
+<li><code>channel_id</code> : <code>Optional Unsigned 64 bit integer</code></li>
+</ul>
+
+<p>Returns: <code>Future&lt;None&gt;</code></p>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="LavalinkBuilder">
+                                <div class="attr class">
+        <a class="headerlink" href="#LavalinkBuilder">#&nbsp;&nbsp</a>
+
+        
+        <span class="def">class</span>
+        <span class="name">LavalinkBuilder</span>:
+    </div>
+
+        
+            <div class="docstring"><p>__new__()</p>
+
+<p>All of the methods that return Self also modify Self, so you can chain them, or call the
+individually.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>bot_id</code> : <code>Unsigned 64 bit integer</code></li>
+<li><code>bot_token</code> : <code>String</code></li>
+</ul>
+
+<p>Returns: <code>Self</code></p>
+</div>
+
+
+                            <div id="LavalinkBuilder.__init__" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#LavalinkBuilder.__init__">#&nbsp;&nbsp</a>
+
+        
+            <span class="name">LavalinkBuilder</span><span class="signature">()</span>
+    </div>
+
+        
+    
+
+                            </div>
+                            <div id="LavalinkBuilder.build" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#LavalinkBuilder.build">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">build</span><span class="signature">(self, event_handler, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Uses the Self data to build a Lavalink client and return it.</p>
+
+<p>Can raise an exception if it's unable to connect to the lavalink server, discord server, or
+both.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>event_handler</code> : <code>impl LavalinkEventHandler</code></li>
+</ul>
+
+<p>Returns: <code>Future&lt;Result&lt;Lavalink, builtins.ConnectionError&gt;&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="LavalinkBuilder.set_host" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#LavalinkBuilder.set_host">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">set_host</span><span class="signature">(self, host, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Sets the host. (Default to: 127.0.0.1)</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>host</code> : <code>String</code></li>
+</ul>
+
+<p>Returns: <code>Self</code></p>
+</div>
+
+
+                            </div>
+                            <div id="LavalinkBuilder.set_port" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#LavalinkBuilder.set_port">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">set_port</span><span class="signature">(self, port, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Sets the port. (Default to: 2333)</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>port</code> : <code>Unsigned 16 bit integer</code></li>
+</ul>
+
+<p>Returns: <code>Self</code></p>
+</div>
+
+
+                            </div>
+                            <div id="LavalinkBuilder.set_addr" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#LavalinkBuilder.set_addr">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">set_addr</span><span class="signature">(self, address, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Sets the host and port from an address.</p>
+
+<p>Can raise an exception if the address is an invalid IPv4 or IPv6.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>address</code> : <code>String</code></li>
+</ul>
+
+<p>Returns: <code>Result&lt;Self, ipaddress.AddressValueError&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="LavalinkBuilder.set_password" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#LavalinkBuilder.set_password">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">set_password</span><span class="signature">(self, password, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Sets the lavalink password. (Default to: "youshallnotpass")</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>password</code> : <code>String</code></li>
+</ul>
+
+<p>Returns: <code>Self</code></p>
+</div>
+
+
+                            </div>
+                            <div id="LavalinkBuilder.set_shard_count" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#LavalinkBuilder.set_shard_count">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">set_shard_count</span><span class="signature">(self, shard_count, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Sets the number of shards. (Default to: 1)</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>shard_count</code> : <code>Unsigned 64 bit integer</code></li>
+</ul>
+
+<p>Returns: <code>Self</code></p>
+</div>
+
+
+                            </div>
+                            <div id="LavalinkBuilder.set_bot_id" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#LavalinkBuilder.set_bot_id">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">set_bot_id</span><span class="signature">(self, bot_id, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Sets the ID of the bot.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>bot_id</code> : <code>Unsigned 64 bit integer</code></li>
+</ul>
+
+<p>Returns: <code>Self</code></p>
+</div>
+
+
+                            </div>
+                            <div id="LavalinkBuilder.set_bot_token" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#LavalinkBuilder.set_bot_token">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">set_bot_token</span><span class="signature">(self, bot_token, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Sets the token of the bot.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>bot_token</code> : <code>String</code></li>
+</ul>
+
+<p>Returns: <code>Self</code></p>
+</div>
+
+
+                            </div>
+                            <div id="LavalinkBuilder.set_is_ssl" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#LavalinkBuilder.set_is_ssl">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">set_is_ssl</span><span class="signature">(self, is_ssl, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Sets if the lavalink server is behind SSL. (Default to: False)</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>is_ssl</code> : <code>bool</code></li>
+</ul>
+
+<p>Returns: <code>Self</code></p>
+</div>
+
+
+                            </div>
+                            <div id="LavalinkBuilder.set_start_gateway" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#LavalinkBuilder.set_start_gateway">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">set_start_gateway</span><span class="signature">(self, start_gateway, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Sets if the discord gateway for voice connections should start or not. (Default to: True)</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>start_gateway</code> : <code>bool</code></li>
+</ul>
+
+<p>Returns: <code>Self</code></p>
+</div>
+
+
+                            </div>
+                            <div id="LavalinkBuilder.set_gateway_start_wait_time_secs" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#LavalinkBuilder.set_gateway_start_wait_time_secs">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">set_gateway_start_wait_time_secs</span><span class="signature">(self, time, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Sets the time to wait before starting the first discord gateway connection. (Default to: 6
+seconds)</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>time</code> : <code>Unsigned 64 bit integer</code></li>
+</ul>
+
+<p>Returns: <code>Self</code></p>
+</div>
+
+
+                            </div>
+                            <div id="LavalinkBuilder.set_gateway_start_wait_time_millis" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#LavalinkBuilder.set_gateway_start_wait_time_millis">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">set_gateway_start_wait_time_millis</span><span class="signature">(self, time, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Sets the time to wait before starting the first discord gateway connection.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>time</code> : <code>Unsigned 64 bit integer</code></li>
+</ul>
+
+<p>Returns: <code>Self</code></p>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="PlayBuilder">
+                                <div class="attr class">
+        <a class="headerlink" href="#PlayBuilder">#&nbsp;&nbsp</a>
+
+        
+        <span class="def">class</span>
+        <span class="name">PlayBuilder</span>:
+    </div>
+
+        
+    
+
+                            <div id="PlayBuilder.__init__" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#PlayBuilder.__init__">#&nbsp;&nbsp</a>
+
+        
+            <span class="name">PlayBuilder</span><span class="signature">()</span>
+    </div>
+
+        
+    
+
+                            </div>
+                            <div id="PlayBuilder.start" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#PlayBuilder.start">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">start</span><span class="signature">(self, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Starts playing the track.</p>
+
+<p>Returns: <code>Future&lt;Result&lt;None, <a href="#NetworkError">lavasnek_rs.NetworkError</a>&gt;&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="PlayBuilder.queue" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#PlayBuilder.queue">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">queue</span><span class="signature">(self, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Adds the track to the node queue.</p>
+
+<p>If there's no queue loop running, this will start one up, and add it to the running loops
+on <code>Lavalink.loops()</code></p>
+
+<p>Needs for `<a href="#Lavalink.create_session">Lavalink.create_session()</a> to be called first.</p>
+
+<p>Returns: <code>Future&lt;Result&lt;None, [<a href="#NoSessionPresent">lavasnek_rs.NoSessionPresent</a>, <a href="#NetworkError">lavasnek_rs.NetworkError</a>]&gt;&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="PlayBuilder.requester" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#PlayBuilder.requester">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">requester</span><span class="signature">(self, requester, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Sets the person that requested the song</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code><a href="#PlayBuilder.requester">requester</a></code> : <code>Unsigned 64 bit integer</code> (User ID)</li>
+</ul>
+
+<p>Returns: <code>Self</code></p>
+</div>
+
+
+                            </div>
+                            <div id="PlayBuilder.replace" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#PlayBuilder.replace">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">replace</span><span class="signature">(self, replace, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Sets if the current playing track should be replaced with this new one.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code><a href="#PlayBuilder.replace">replace</a></code> : <code>bool</code></li>
+</ul>
+
+<p>Returns: <code>Self</code></p>
+</div>
+
+
+                            </div>
+                            <div id="PlayBuilder.start_time_secs" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#PlayBuilder.start_time_secs">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">start_time_secs</span><span class="signature">(self, start, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Sets the time the track will start at in seconds.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code><a href="#PlayBuilder.start">start</a></code> : <code>Unsigned 64 bit integer</code></li>
+</ul>
+
+<p>Returns: <code>Self</code></p>
+</div>
+
+
+                            </div>
+                            <div id="PlayBuilder.finish_time_secs" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#PlayBuilder.finish_time_secs">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">finish_time_secs</span><span class="signature">(self, finish, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Sets the time the track will finish at in seconds.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>finish</code> : <code>Unsigned 64 bit integer</code></li>
+</ul>
+
+<p>Returns: <code>Self</code></p>
+</div>
+
+
+                            </div>
+                            <div id="PlayBuilder.start_time_millis" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#PlayBuilder.start_time_millis">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">start_time_millis</span><span class="signature">(self, start, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Sets the time the track will start at in milliseconds.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code><a href="#PlayBuilder.start">start</a></code> : <code>Unsigned 64 bit integer</code></li>
+</ul>
+
+<p>Returns: <code>Self</code></p>
+</div>
+
+
+                            </div>
+                            <div id="PlayBuilder.finish_time_millis" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#PlayBuilder.finish_time_millis">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">finish_time_millis</span><span class="signature">(self, finish, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Sets the time the track will finish at in milliseconds.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>finish</code> : <code>Unsigned 64 bit integer</code></li>
+</ul>
+
+<p>Returns: <code>Self</code></p>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="LavalinkEventHandler">
+                                <div class="attr class">
+        <a class="headerlink" href="#LavalinkEventHandler">#&nbsp;&nbsp</a>
+
+        
+        <span class="def">class</span>
+        <span class="name">LavalinkEventHandler</span>:
+    </div>
+
+        
+            <div class="docstring"><p>The lavalink event handler. This is a trait, so it defines the structure a class should have.</p>
+
+<p>Make a class with the methods and signatures this class defines, and add that class to <code><a href="#LavalinkBuilder.build">LavalinkBuilder.build()</a></code></p>
+
+<p>Some examples:</p>
+
+<div class="codehilite"><pre><span></span><code><span class="c1"># Just a single event</span>
+<span class="k">class</span> <span class="nc">EventHandler</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">track_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lava_client</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+
+<span class="n">lavalink_client</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client_builder</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">EventHandler</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="c1"># No events</span>
+<span class="k">class</span> <span class="nc">EventHandler</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+<span class="n">lavalink_client</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client_builder</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">EventHandler</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="c1"># Just a single event</span>
+<span class="k">class</span> <span class="nc">EventHandler</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">stats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lava_client</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">player_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lava_client</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">track_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lava_client</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">track_finish</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lava_client</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">websocket_closed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lava_client</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">player_destroyed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lava_client</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+
+<span class="n">lavalink_client</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client_builder</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">EventHandler</span><span class="p">)</span>
+</code></pre></div>
+</div>
+
+
+                            <div id="LavalinkEventHandler.__init__" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#LavalinkEventHandler.__init__">#&nbsp;&nbsp</a>
+
+        
+            <span class="name">LavalinkEventHandler</span><span class="signature">()</span>
+    </div>
+
+        
+    
+
+                            </div>
+                            <div id="LavalinkEventHandler.stats" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#LavalinkEventHandler.stats">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">stats</span><span class="signature">(self, client, event, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Periodic event that returns the statistics of the server.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>client</code> : <code><a href="#Lavalink">Lavalink</a></code></li>
+<li><code>event</code> : <code><a href="#Stats">Stats</a></code></li>
+</ul>
+
+<p>Returns: <code>Future&lt;None&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="LavalinkEventHandler.player_update" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#LavalinkEventHandler.player_update">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">player_update</span><span class="signature">(self, client, event, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Event that triggers when a player updates.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>client</code> : <code><a href="#Lavalink">Lavalink</a></code></li>
+<li><code>event</code> : <code><a href="#PlayerUpdate">PlayerUpdate</a></code></li>
+</ul>
+
+<p>Returns: <code>Future&lt;None&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="LavalinkEventHandler.track_start" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#LavalinkEventHandler.track_start">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">track_start</span><span class="signature">(self, client, event, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Event that triggers when a track starts playing.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>client</code> : <code><a href="#Lavalink">Lavalink</a></code></li>
+<li><code>event</code> : <code><a href="#TrackStart">TrackStart</a></code></li>
+</ul>
+
+<p>Returns: <code>Future&lt;None&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="LavalinkEventHandler.track_finish" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#LavalinkEventHandler.track_finish">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">track_finish</span><span class="signature">(self, client, event, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Event that triggers when a track finishes playing.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>client</code> : <code><a href="#Lavalink">Lavalink</a></code></li>
+<li><code>event</code> : <code><a href="#TrackFinish">TrackFinish</a></code></li>
+</ul>
+
+<p>Returns: <code>Future&lt;None&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="LavalinkEventHandler.websocket_closed" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#LavalinkEventHandler.websocket_closed">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">websocket_closed</span><span class="signature">(self, client, event, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Event that triggers when the websocket connection to the voice channel closes.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>client</code> : <code><a href="#Lavalink">Lavalink</a></code></li>
+<li><code>event</code> : <code>WebsocketClosed</code></li>
+</ul>
+
+<p>Returns: <code>Future&lt;None&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="LavalinkEventHandler.player_destroyed" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#LavalinkEventHandler.player_destroyed">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">player_destroyed</span><span class="signature">(self, client, event, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Event that triggers when the player gets destroyed on a guild.</p>
+
+<p>Positional Arguments:</p>
+
+<ul>
+<li><code>client</code> : <code><a href="#Lavalink">Lavalink</a></code></li>
+<li><code>event</code> : <code><a href="#PlayerDestroyed">PlayerDestroyed</a></code></li>
+</ul>
+
+<p>Returns: <code>Future&lt;None&gt;</code></p>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="ConnectionInfo">
+                                <div class="attr class">
+        <a class="headerlink" href="#ConnectionInfo">#&nbsp;&nbsp</a>
+
+        
+        <span class="def">class</span>
+        <span class="name">ConnectionInfo</span>:
+    </div>
+
+        
+            <div class="docstring"><p>This is never actually used, a dictionary is used instead. If you use a 3rd party method of
+joining a voice channel, you can get this values from the <code>VOICE_STATE_UPDATE</code> and
+<code>VOICE_SERVER_UPDATE</code> events, and use raw_handle_event_voice_state_update() +
+raw_handle_event_voice_server_update() or manually build a dict with them.</p>
+
+<p>With hikari:</p>
+
+<div class="codehilite"><pre><span></span><code><span class="nd">@bot</span><span class="o">.</span><span class="n">listen</span><span class="p">()</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">voice_state_update</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n">hikari</span><span class="o">.</span><span class="n">VoiceStateUpdateEvent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">await</span> <span class="n">bot</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">lavalink</span><span class="o">.</span><span class="n">raw_handle_event_voice_state_update</span><span class="p">(</span>
+        <span class="n">event</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">guild_id</span><span class="p">,</span>
+        <span class="n">event</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">user_id</span><span class="p">,</span>
+        <span class="n">event</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">session_id</span><span class="p">,</span>
+        <span class="n">event</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">channel_id</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="nd">@bot</span><span class="o">.</span><span class="n">listen</span><span class="p">()</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">voice_server_update</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n">hikari</span><span class="o">.</span><span class="n">VoiceServerUpdateEvent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">await</span> <span class="n">bot</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">lavalink</span><span class="o">.</span><span class="n">raw_handle_event_voice_server_update</span><span class="p">(</span>
+        <span class="n">event</span><span class="o">.</span><span class="n">guild_id</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">token</span>
+    <span class="p">)</span>
+</code></pre></div>
+
+<p>Fields:</p>
+
+<ul>
+<li><code>guild_id</code> : <code>Unsigned 64 bit integer</code></li>
+<li><code>channel_id</code> : <code>Unsigned 64 bit integer</code></li>
+<li><code>endpoint</code> : <code>String</code></li>
+<li><code>token</code> : <code>String</code></li>
+<li><code>session_id</code> : <code>String</code></li>
+</ul>
+</div>
+
+
+                            <div id="ConnectionInfo.__init__" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#ConnectionInfo.__init__">#&nbsp;&nbsp</a>
+
+        
+            <span class="name">ConnectionInfo</span><span class="signature">()</span>
+    </div>
+
+        
+    
+
+                            </div>
+                </section>
+                <section id="Track">
+                                <div class="attr class">
+        <a class="headerlink" href="#Track">#&nbsp;&nbsp</a>
+
+        
+        <span class="def">class</span>
+        <span class="name">Track</span>:
+    </div>
+
+        
+    
+
+                            <div id="Track.__init__" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Track.__init__">#&nbsp;&nbsp</a>
+
+        
+            <span class="name">Track</span><span class="signature">()</span>
+    </div>
+
+        
+    
+
+                            </div>
+                            <div id="Track.track" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Track.track">#&nbsp;&nbsp</a>
+
+        <span class="name">track</span>
+    </div>
+
+            <div class="docstring"><p>The playable track.</p>
+
+<p>Contains <code>String</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Track.info" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Track.info">#&nbsp;&nbsp</a>
+
+        <span class="name">info</span>
+    </div>
+
+            <div class="docstring"><p>Information about the track.</p>
+
+<p>Contains <code>Option&lt;Info&gt;</code></p>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="Tracks">
+                                <div class="attr class">
+        <a class="headerlink" href="#Tracks">#&nbsp;&nbsp</a>
+
+        
+        <span class="def">class</span>
+        <span class="name">Tracks</span>:
+    </div>
+
+        
+    
+
+                            <div id="Tracks.__init__" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Tracks.__init__">#&nbsp;&nbsp</a>
+
+        
+            <span class="name">Tracks</span><span class="signature">()</span>
+    </div>
+
+        
+    
+
+                            </div>
+                            <div id="Tracks.load_type" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Tracks.load_type">#&nbsp;&nbsp</a>
+
+        <span class="name">load_type</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>String</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Tracks.playlist_info" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Tracks.playlist_info">#&nbsp;&nbsp</a>
+
+        <span class="name">playlist_info</span>
+    </div>
+
+            <div class="docstring"><p>Information about the playlist.</p>
+
+<p>Contains <code>Option&lt;PlaylistInfo&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Tracks.tracks" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Tracks.tracks">#&nbsp;&nbsp</a>
+
+        <span class="name">tracks</span>
+    </div>
+
+            <div class="docstring"><p>The tracks that can be played</p>
+
+<p>Contains <code>List&lt;Track&gt;</code></p>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="TrackQueue">
+                                <div class="attr class">
+        <a class="headerlink" href="#TrackQueue">#&nbsp;&nbsp</a>
+
+        
+        <span class="def">class</span>
+        <span class="name">TrackQueue</span>:
+    </div>
+
+        
+    
+
+                            <div id="TrackQueue.__init__" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#TrackQueue.__init__">#&nbsp;&nbsp</a>
+
+        
+            <span class="name">TrackQueue</span><span class="signature">()</span>
+    </div>
+
+        
+    
+
+                            </div>
+                            <div id="TrackQueue.track" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackQueue.track">#&nbsp;&nbsp</a>
+
+        <span class="name">track</span>
+    </div>
+
+            <div class="docstring"><p>The playable track.</p>
+
+<p>Contains <code><a href="#Track">Track</a></code></p>
+</div>
+
+
+                            </div>
+                            <div id="TrackQueue.end_time" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackQueue.end_time">#&nbsp;&nbsp</a>
+
+        <span class="name">end_time</span>
+    </div>
+
+            <div class="docstring"><p>The time the track will finish at.</p>
+
+<p>Contains <code>Option&lt;Unsigned 64 bit integer&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="TrackQueue.start_time" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackQueue.start_time">#&nbsp;&nbsp</a>
+
+        <span class="name">start_time</span>
+    </div>
+
+            <div class="docstring"><p>The time the track will start at.</p>
+
+<p>Contains <code>Unsigned 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="TrackQueue.requester" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackQueue.requester">#&nbsp;&nbsp</a>
+
+        <span class="name">requester</span>
+    </div>
+
+            <div class="docstring"><p>The user id who requested the track if set by the <code><a href="#PlayBuilder">PlayBuilder</a></code></p>
+
+<p>Contains <code>Option&lt;Unsigned 64 bit integer&gt;</code></p>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="Info">
+                                <div class="attr class">
+        <a class="headerlink" href="#Info">#&nbsp;&nbsp</a>
+
+        
+        <span class="def">class</span>
+        <span class="name">Info</span>:
+    </div>
+
+        
+    
+
+                            <div id="Info.__init__" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Info.__init__">#&nbsp;&nbsp</a>
+
+        
+            <span class="name">Info</span><span class="signature">()</span>
+    </div>
+
+        
+    
+
+                            </div>
+                            <div id="Info.author" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Info.author">#&nbsp;&nbsp</a>
+
+        <span class="name">author</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>String</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Info.is_stream" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Info.is_stream">#&nbsp;&nbsp</a>
+
+        <span class="name">is_stream</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>bool</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Info.title" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Info.title">#&nbsp;&nbsp</a>
+
+        <span class="name">title</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>String</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Info.length" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Info.length">#&nbsp;&nbsp</a>
+
+        <span class="name">length</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Unsigned 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Info.identifier" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Info.identifier">#&nbsp;&nbsp</a>
+
+        <span class="name">identifier</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>String</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Info.uri" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Info.uri">#&nbsp;&nbsp</a>
+
+        <span class="name">uri</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>String</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Info.is_seekable" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Info.is_seekable">#&nbsp;&nbsp</a>
+
+        <span class="name">is_seekable</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>bool</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Info.position" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Info.position">#&nbsp;&nbsp</a>
+
+        <span class="name">position</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Unsigned 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="PlaylistInfo">
+                                <div class="attr class">
+        <a class="headerlink" href="#PlaylistInfo">#&nbsp;&nbsp</a>
+
+        
+        <span class="def">class</span>
+        <span class="name">PlaylistInfo</span>:
+    </div>
+
+        
+    
+
+                            <div id="PlaylistInfo.__init__" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#PlaylistInfo.__init__">#&nbsp;&nbsp</a>
+
+        
+            <span class="name">PlaylistInfo</span><span class="signature">()</span>
+    </div>
+
+        
+    
+
+                            </div>
+                            <div id="PlaylistInfo.selected_track" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#PlaylistInfo.selected_track">#&nbsp;&nbsp</a>
+
+        <span class="name">selected_track</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Option&lt;Signed 64 bit integer&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="PlaylistInfo.name" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#PlaylistInfo.name">#&nbsp;&nbsp</a>
+
+        <span class="name">name</span>
+    </div>
+
+            <div class="docstring"><p>The name of the playlist.</p>
+
+<p>Contains <code>Option&lt;String&gt;</code></p>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="Node">
+                                <div class="attr class">
+        <a class="headerlink" href="#Node">#&nbsp;&nbsp</a>
+
+        
+        <span class="def">class</span>
+        <span class="name">Node</span>:
+    </div>
+
+        
+    
+
+                            <div id="Node.__init__" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Node.__init__">#&nbsp;&nbsp</a>
+
+        
+            <span class="name">Node</span><span class="signature">()</span>
+    </div>
+
+        
+    
+
+                            </div>
+                            <div id="Node.get_data" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Node.get_data">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">get_data</span><span class="signature">(self, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Use this to get the currently stored data on the Node.</p>
+
+<p><code>T</code> is whatever type you give to <code><a href="#Node.set_data">set_data</a></code>'s data parameter, but if you call this method before it,
+it will default to a Dict.</p>
+
+<p>Returns <code>Future&lt;T&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Node.set_data" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Node.set_data">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">set_data</span><span class="signature">(self, data, /)</span>:
+    </div>
+
+        
+            <div class="docstring"><p>Use this to set the tored data of the Node.</p>
+
+<p>Returns <code>Future&lt;None&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Node.now_playing" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Node.now_playing">#&nbsp;&nbsp</a>
+
+        <span class="name">now_playing</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Option&lt;TrackQueue&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Node.queue" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Node.queue">#&nbsp;&nbsp</a>
+
+        <span class="name">queue</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>List&lt;TrackQueue&gt;</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Node.volume" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Node.volume">#&nbsp;&nbsp</a>
+
+        <span class="name">volume</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Unsigned 16 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Node.is_paused" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Node.is_paused">#&nbsp;&nbsp</a>
+
+        <span class="name">is_paused</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>bool</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Node.guild" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Node.guild">#&nbsp;&nbsp</a>
+
+        <span class="name">guild</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Unsigned 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Node.is_on_loops" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Node.is_on_loops">#&nbsp;&nbsp</a>
+
+        <span class="name">is_on_loops</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>bool</code></p>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="Band">
+                                <div class="attr class">
+        <a class="headerlink" href="#Band">#&nbsp;&nbsp</a>
+
+        
+        <span class="def">class</span>
+        <span class="name">Band</span>:
+    </div>
+
+        
+            <div class="docstring"><p>See <code><a href="#Lavalink.equalize_all">Lavalink.equalize_all</a></code> for more info.</p>
+
+<div class="codehilite"><pre><span></span><code><span class="n">band_num</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">14</span> <span class="c1"># 0 to 14</span>
+<span class="n">bain</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.125</span> <span class="c1"># -0.25 to 1.0</span>
+
+<span class="n">band</span> <span class="o">=</span> <span class="n">Band</span><span class="p">(</span><span class="n">band_num</span><span class="p">,</span> <span class="n">gain</span><span class="p">)</span>
+</code></pre></div>
+</div>
+
+
+                            <div id="Band.__init__" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Band.__init__">#&nbsp;&nbsp</a>
+
+        
+            <span class="name">Band</span><span class="signature">()</span>
+    </div>
+
+        
+    
+
+                            </div>
+                            <div id="Band.band" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Band.band">#&nbsp;&nbsp</a>
+
+        <span class="name">band</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Unsigned 8 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Band.gain" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Band.gain">#&nbsp;&nbsp</a>
+
+        <span class="name">gain</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>64 bit float</code></p>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="Stats">
+                                <div class="attr class">
+        <a class="headerlink" href="#Stats">#&nbsp;&nbsp</a>
+
+        
+        <span class="def">class</span>
+        <span class="name">Stats</span>:
+    </div>
+
+        
+    
+
+                            <div id="Stats.__init__" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Stats.__init__">#&nbsp;&nbsp</a>
+
+        
+            <span class="name">Stats</span><span class="signature">()</span>
+    </div>
+
+        
+    
+
+                            </div>
+                            <div id="Stats.frame_stats_sent" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Stats.frame_stats_sent">#&nbsp;&nbsp</a>
+
+        <span class="name">frame_stats_sent</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Optional Signed 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Stats.frame_stats_deficit" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Stats.frame_stats_deficit">#&nbsp;&nbsp</a>
+
+        <span class="name">frame_stats_deficit</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Optional Signed 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Stats.memory_free" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Stats.memory_free">#&nbsp;&nbsp</a>
+
+        <span class="name">memory_free</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Signed 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Stats.uptime" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Stats.uptime">#&nbsp;&nbsp</a>
+
+        <span class="name">uptime</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Signed 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Stats.memory_reservable" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Stats.memory_reservable">#&nbsp;&nbsp</a>
+
+        <span class="name">memory_reservable</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Signed 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Stats.memory_allocated" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Stats.memory_allocated">#&nbsp;&nbsp</a>
+
+        <span class="name">memory_allocated</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Signed 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Stats.frame_stats_nulled" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Stats.frame_stats_nulled">#&nbsp;&nbsp</a>
+
+        <span class="name">frame_stats_nulled</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Optional Signed 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Stats.players" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Stats.players">#&nbsp;&nbsp</a>
+
+        <span class="name">players</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Signed 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Stats.cpu_system_load" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Stats.cpu_system_load">#&nbsp;&nbsp</a>
+
+        <span class="name">cpu_system_load</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>64 bit floating point</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Stats.cpu_cores" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Stats.cpu_cores">#&nbsp;&nbsp</a>
+
+        <span class="name">cpu_cores</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Signed 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Stats.cpu_lavalink_load" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Stats.cpu_lavalink_load">#&nbsp;&nbsp</a>
+
+        <span class="name">cpu_lavalink_load</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>64 bit floating point</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Stats.op" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Stats.op">#&nbsp;&nbsp</a>
+
+        <span class="name">op</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>String</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Stats.playing_players" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Stats.playing_players">#&nbsp;&nbsp</a>
+
+        <span class="name">playing_players</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Signed 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Stats.memory_used" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Stats.memory_used">#&nbsp;&nbsp</a>
+
+        <span class="name">memory_used</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Signed 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="PlayerUpdate">
+                                <div class="attr class">
+        <a class="headerlink" href="#PlayerUpdate">#&nbsp;&nbsp</a>
+
+        
+        <span class="def">class</span>
+        <span class="name">PlayerUpdate</span>:
+    </div>
+
+        
+    
+
+                            <div id="PlayerUpdate.__init__" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#PlayerUpdate.__init__">#&nbsp;&nbsp</a>
+
+        
+            <span class="name">PlayerUpdate</span><span class="signature">()</span>
+    </div>
+
+        
+    
+
+                            </div>
+                            <div id="PlayerUpdate.state_time" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#PlayerUpdate.state_time">#&nbsp;&nbsp</a>
+
+        <span class="name">state_time</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Signed 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="PlayerUpdate.state_position" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#PlayerUpdate.state_position">#&nbsp;&nbsp</a>
+
+        <span class="name">state_position</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Signed 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="PlayerUpdate.op" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#PlayerUpdate.op">#&nbsp;&nbsp</a>
+
+        <span class="name">op</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>String</code></p>
+</div>
+
+
+                            </div>
+                            <div id="PlayerUpdate.guild_id" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#PlayerUpdate.guild_id">#&nbsp;&nbsp</a>
+
+        <span class="name">guild_id</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Unsigned 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="TrackStart">
+                                <div class="attr class">
+        <a class="headerlink" href="#TrackStart">#&nbsp;&nbsp</a>
+
+        
+        <span class="def">class</span>
+        <span class="name">TrackStart</span>:
+    </div>
+
+        
+    
+
+                            <div id="TrackStart.__init__" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#TrackStart.__init__">#&nbsp;&nbsp</a>
+
+        
+            <span class="name">TrackStart</span><span class="signature">()</span>
+    </div>
+
+        
+    
+
+                            </div>
+                            <div id="TrackStart.op" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackStart.op">#&nbsp;&nbsp</a>
+
+        <span class="name">op</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>String</code></p>
+</div>
+
+
+                            </div>
+                            <div id="TrackStart.guild_id" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackStart.guild_id">#&nbsp;&nbsp</a>
+
+        <span class="name">guild_id</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Unsigned 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="TrackStart.track_start_type" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackStart.track_start_type">#&nbsp;&nbsp</a>
+
+        <span class="name">track_start_type</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>String</code></p>
+</div>
+
+
+                            </div>
+                            <div id="TrackStart.track" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackStart.track">#&nbsp;&nbsp</a>
+
+        <span class="name">track</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>String</code></p>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="TrackFinish">
+                                <div class="attr class">
+        <a class="headerlink" href="#TrackFinish">#&nbsp;&nbsp</a>
+
+        
+        <span class="def">class</span>
+        <span class="name">TrackFinish</span>:
+    </div>
+
+        
+    
+
+                            <div id="TrackFinish.__init__" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#TrackFinish.__init__">#&nbsp;&nbsp</a>
+
+        
+            <span class="name">TrackFinish</span><span class="signature">()</span>
+    </div>
+
+        
+    
+
+                            </div>
+                            <div id="TrackFinish.op" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackFinish.op">#&nbsp;&nbsp</a>
+
+        <span class="name">op</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>String</code></p>
+</div>
+
+
+                            </div>
+                            <div id="TrackFinish.guild_id" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackFinish.guild_id">#&nbsp;&nbsp</a>
+
+        <span class="name">guild_id</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Unsigned 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="TrackFinish.track" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackFinish.track">#&nbsp;&nbsp</a>
+
+        <span class="name">track</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>String</code></p>
+</div>
+
+
+                            </div>
+                            <div id="TrackFinish.track_finish_type" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackFinish.track_finish_type">#&nbsp;&nbsp</a>
+
+        <span class="name">track_finish_type</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>String</code></p>
+</div>
+
+
+                            </div>
+                            <div id="TrackFinish.reason" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackFinish.reason">#&nbsp;&nbsp</a>
+
+        <span class="name">reason</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>String</code></p>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="WebSocketClosed">
+                                <div class="attr class">
+        <a class="headerlink" href="#WebSocketClosed">#&nbsp;&nbsp</a>
+
+        
+        <span class="def">class</span>
+        <span class="name">WebSocketClosed</span>:
+    </div>
+
+        
+    
+
+                            <div id="WebSocketClosed.__init__" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#WebSocketClosed.__init__">#&nbsp;&nbsp</a>
+
+        
+            <span class="name">WebSocketClosed</span><span class="signature">()</span>
+    </div>
+
+        
+    
+
+                            </div>
+                            <div id="WebSocketClosed.by_remote" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#WebSocketClosed.by_remote">#&nbsp;&nbsp</a>
+
+        <span class="name">by_remote</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>bool</code></p>
+</div>
+
+
+                            </div>
+                            <div id="WebSocketClosed.guild_id" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#WebSocketClosed.guild_id">#&nbsp;&nbsp</a>
+
+        <span class="name">guild_id</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Unsigned 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="WebSocketClosed.op" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#WebSocketClosed.op">#&nbsp;&nbsp</a>
+
+        <span class="name">op</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>String</code></p>
+</div>
+
+
+                            </div>
+                            <div id="WebSocketClosed.user_id" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#WebSocketClosed.user_id">#&nbsp;&nbsp</a>
+
+        <span class="name">user_id</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Unsigned 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="WebSocketClosed.code" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#WebSocketClosed.code">#&nbsp;&nbsp</a>
+
+        <span class="name">code</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Unsigned 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="WebSocketClosed.websocket_closed_type" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#WebSocketClosed.websocket_closed_type">#&nbsp;&nbsp</a>
+
+        <span class="name">websocket_closed_type</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>String</code></p>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="PlayerDestroyed">
+                                <div class="attr class">
+        <a class="headerlink" href="#PlayerDestroyed">#&nbsp;&nbsp</a>
+
+        
+        <span class="def">class</span>
+        <span class="name">PlayerDestroyed</span>:
+    </div>
+
+        
+    
+
+                            <div id="PlayerDestroyed.__init__" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#PlayerDestroyed.__init__">#&nbsp;&nbsp</a>
+
+        
+            <span class="name">PlayerDestroyed</span><span class="signature">()</span>
+    </div>
+
+        
+    
+
+                            </div>
+                            <div id="PlayerDestroyed.guild_id" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#PlayerDestroyed.guild_id">#&nbsp;&nbsp</a>
+
+        <span class="name">guild_id</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Unsigned 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="PlayerDestroyed.op" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#PlayerDestroyed.op">#&nbsp;&nbsp</a>
+
+        <span class="name">op</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>String</code></p>
+</div>
+
+
+                            </div>
+                            <div id="PlayerDestroyed.player_destroyed_type" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#PlayerDestroyed.player_destroyed_type">#&nbsp;&nbsp</a>
+
+        <span class="name">player_destroyed_type</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>String</code></p>
+</div>
+
+
+                            </div>
+                            <div id="PlayerDestroyed.user_id" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#PlayerDestroyed.user_id">#&nbsp;&nbsp</a>
+
+        <span class="name">user_id</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Unsigned 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="PlayerDestroyed.cleanup" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#PlayerDestroyed.cleanup">#&nbsp;&nbsp</a>
+
+        <span class="name">cleanup</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>bool</code></p>
+</div>
+
+
+                            </div>
+                </section>
                 <section id="NoSessionPresent">
                                 <div class="attr class">
         <a class="headerlink" href="#NoSessionPresent">#&nbsp;&nbsp</a>
@@ -132,172 +3384,5 @@ lavasnek_rs    </h1>
                             </div>
                 </section>
     </main>
-<script>
-    function escapeHTML(html) {
-        return document.createElement('div').appendChild(document.createTextNode(html)).parentNode.innerHTML;
-    }
-
-    const originalContent = document.querySelector("main.pdoc");
-    let currentContent = originalContent;
-
-    function setContent(innerHTML) {
-        let elem;
-        if (innerHTML) {
-            elem = document.createElement("main");
-            elem.classList.add("pdoc");
-            elem.innerHTML = innerHTML;
-        } else {
-            elem = originalContent;
-        }
-        if (currentContent !== elem) {
-            currentContent.replaceWith(elem);
-            currentContent = elem;
-        }
-    }
-
-    function getSearchTerm() {
-        return (new URL(window.location)).searchParams.get("search");
-    }
-
-    const searchBox = document.querySelector(".pdoc input[type=search]");
-    searchBox.addEventListener("input", function () {
-        let url = new URL(window.location);
-        if (searchBox.value.trim()) {
-            url.hash = "";
-            url.searchParams.set("search", searchBox.value);
-        } else {
-            url.searchParams.delete("search");
-        }
-        history.replaceState("", "", url.toString());
-        onInput();
-    });
-    window.addEventListener("popstate", onInput);
-
-
-    let search, searchErr;
-
-    async function initialize() {
-        try {
-            search = await new Promise((resolve, reject) => {
-                const script = document.createElement("script");
-                script.type = "text/javascript";
-                script.async = true;
-                script.onload = () => resolve(window.pdocSearch);
-                script.onerror = (e) => reject(e);
-                script.src = "search.js";
-                document.getElementsByTagName("head")[0].appendChild(script);
-            });
-        } catch (e) {
-            console.error("Cannot fetch pdoc search index");
-            searchErr = "Cannot fetch search index.";
-        }
-        onInput();
-
-        document.querySelector("nav.pdoc").addEventListener("click", e => {
-            if (e.target.hash) {
-                searchBox.value = "";
-                searchBox.dispatchEvent(new Event("input"));
-            }
-        });
-    }
-
-    function onInput() {
-        setContent((() => {
-            const term = getSearchTerm();
-            if (!term) {
-                return null
-            }
-            if (searchErr) {
-                return `<h3>Error: ${searchErr}</h3>`
-            }
-            if (!search) {
-                return "<h3>Searching...</h3>"
-            }
-
-            window.scrollTo({top: 0, left: 0, behavior: 'auto'});
-
-            const results = search(term);
-
-            let html;
-            if (results.length === 0) {
-                html = `No search results for '${escapeHTML(term)}'.`
-            } else {
-                html = `<h4>${results.length} search result${results.length > 1 ? "s" : ""} for '${escapeHTML(term)}'.</h4>`;
-            }
-            for (let result of results.slice(0, 10)) {
-                let doc = result.doc;
-                let url = `${doc.modulename.replaceAll(".", "/")}.html`;
-                if (doc.qualname) {
-                    url += `#${doc.qualname}`;
-                }
-
-                let heading;
-                switch (result.doc.type) {
-                    case "function":
-                        heading = `<span class="def">${doc.funcdef}</span> <span class="name">${doc.fullname}</span><span class="signature">(${doc.parameters.join(", ")})</span>`;
-                        break;
-                    case "class":
-                        heading = `<span class="def">class</span> <span class="name">${doc.fullname}</span>`;
-                        break;
-                    default:
-                        heading = `<span class="name">${doc.fullname}</span>`;
-                        break;
-                }
-                html += `
-                        <section class="search-result">
-                        <a href="${url}" class="attr ${doc.type}">${heading}</a>
-                        <div class="docstring">${doc.doc}</div>
-                        </section>
-                    `;
-
-            }
-            return html;
-        })());
-    }
-
-    if (getSearchTerm()) {
-        initialize();
-        searchBox.value = getSearchTerm();
-        onInput();
-    } else {
-        searchBox.addEventListener("focus", initialize, {once: true});
-    }
-
-    searchBox.addEventListener("keydown", e => {
-        if (["ArrowDown", "ArrowUp", "Enter"].includes(e.key)) {
-            let focused = currentContent.querySelector(".search-result.focused");
-            if (!focused) {
-                currentContent.querySelector(".search-result").classList.add("focused");
-            } else if (
-                e.key === "ArrowDown"
-                && focused.nextElementSibling
-                && focused.nextElementSibling.classList.contains("search-result")
-            ) {
-                focused.classList.remove("focused");
-                focused.nextElementSibling.classList.add("focused");
-                focused.nextElementSibling.scrollIntoView({
-                    behavior: "smooth",
-                    block: "nearest",
-                    inline: "nearest"
-                });
-            } else if (
-                e.key === "ArrowUp"
-                && focused.previousElementSibling
-                && focused.previousElementSibling.classList.contains("search-result")
-            ) {
-                focused.classList.remove("focused");
-                focused.previousElementSibling.classList.add("focused");
-                focused.previousElementSibling.scrollIntoView({
-                    behavior: "smooth",
-                    block: "nearest",
-                    inline: "nearest"
-                });
-            } else if (
-                e.key === "Enter"
-            ) {
-                focused.querySelector("a").click();
-            }
-        }
-    });
-</script></body>
+</body>
 </html>
