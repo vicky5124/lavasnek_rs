@@ -152,7 +152,7 @@ impl Lavalink {
     /// this allows for reconnecting without losing data. If you are having issues with disconnecting
     /// and reconnecting the bot to a voice channel, remove the guild from the running event loops and
     /// reset the nodes.
-    /// 
+    ///
     /// ```py
     /// lavalink.remove_guild_node(guild_id)
     /// lavalink.remove_guild_from_loops(guild_id)
