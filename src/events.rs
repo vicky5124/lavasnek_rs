@@ -43,6 +43,8 @@ use lavalink_rs::{
 ///         print(event)
 ///     async def track_start(self, lava_client, event):
 ///         print(event)
+///     async def track_exception(self, lava_client, event):
+///         print(event)
 ///     async def track_finish(self, lava_client, event):
 ///         print(event)
 ///     async def websocket_closed(self, lava_client, event):
@@ -70,6 +72,10 @@ impl LavalinkEventHandlerTrait for LavalinkEventHandler {
     async fn track_start(&self, client: LavalinkClient, event: TrackStart) {
         let event = model::TrackStart { inner: event };
         call_event(self, client, event, "track_start");
+    }
+    async fn track_exception(&self, client: LavalinkClient, event: TrackException) {
+        let event = model::TrackException { inner: event };
+        call_event(self, client, event, "track_exception");
     }
     async fn track_finish(&self, client: LavalinkClient, event: TrackFinish) {
         let event = model::TrackFinish { inner: event };
@@ -123,6 +129,15 @@ impl LavalinkEventHandler {
     ///
     /// Returns: `Future<None>`
     fn track_finish(&self) {}
+    #[pyo3(text_signature = "($self, client, event, /)")]
+    /// Event that triggers when a track raises an exception on the Lavalink server.
+    ///
+    /// Positional Arguments:
+    /// - `client` : `Lavalink`
+    /// - `event` : `TrackException`
+    ///
+    /// Returns: `Future<None>`
+    fn track_exception(&self) {}
     #[pyo3(text_signature = "($self, client, event, /)")]
     /// Event that triggers when the websocket connection to the voice channel closes.
     ///

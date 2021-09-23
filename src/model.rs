@@ -1,8 +1,9 @@
 use lavalink_rs::model::{
     Band as LavaBand, Info as LavaInfo, Node as LavaNode, PlayerDestroyed as LavaPlayerDestroyed,
     PlayerUpdate as LavaPlayerUpdate, PlaylistInfo as LavaPlaylistInfo, Stats as LavaStats,
-    Track as LavaTrack, TrackFinish as LavaTrackFinish, TrackQueue as LavaTrackQueue,
-    TrackStart as LavaTrackStart, Tracks as LavaTracks, WebSocketClosed as LavaWebSocketClosed,
+    Track as LavaTrack, TrackException as LavaTrackException, TrackFinish as LavaTrackFinish,
+    TrackQueue as LavaTrackQueue, TrackStart as LavaTrackStart, Tracks as LavaTracks,
+    WebSocketClosed as LavaWebSocketClosed,
 };
 use lavalink_rs::typemap_rev::TypeMapKey;
 use pyo3::{prelude::*, types::PyDict};
@@ -597,6 +598,63 @@ impl TrackFinish {
     /// Contains `String`
     fn reason(&self) -> String {
         self.inner.reason.clone()
+    }
+}
+
+#[pyclass]
+#[derive(Clone)]
+pub struct TrackException {
+    pub inner: LavaTrackException,
+}
+
+#[pymethods]
+impl TrackException {
+    #[getter]
+    /// Contains `String`
+    fn op(&self) -> String {
+        self.inner.op.clone()
+    }
+
+    #[getter]
+    /// Contains `Unsigned 64 bit integer`
+    fn guild_id(&self) -> u64 {
+        self.inner.guild_id.0
+    }
+
+    #[getter]
+    /// Contains `String`
+    fn track_exception_type(&self) -> String {
+        self.inner.track_exception_type.clone()
+    }
+
+    #[getter]
+    /// Contains `String`
+    fn track(&self) -> String {
+        self.inner.track.clone()
+    }
+
+    #[getter]
+    /// Contains `String`
+    fn error(&self) -> String {
+        self.inner.track.clone()
+    }
+
+    #[getter]
+    /// Contains `String`
+    fn exception_severity(&self) -> String {
+        self.inner.exception.severity.clone()
+    }
+
+    #[getter]
+    /// Contains `String`
+    fn exception_cause(&self) -> String {
+        self.inner.exception.cause.clone()
+    }
+
+    #[getter]
+    /// Contains `String`
+    fn exception_message(&self) -> String {
+        self.inner.exception.message.clone()
     }
 }
 

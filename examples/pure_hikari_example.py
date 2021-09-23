@@ -48,6 +48,18 @@ class EventHandler:
     async def track_finish(self, _lava_client, event):
         logging.info("Track finished on guild: %s", event.guild_id)
 
+    async def track_exception(self, _lava_client, event):
+        logging.warning("Track exception event happened on guild: %d", event.guild_id)
+
+        skip = await bot.data.lavalink.skip(event.guild_id)
+        node = await bot.data.lavalink.get_guild_node(event.guild_id)
+
+        if not skip:
+            await event.message.respond("Nothing to skip")
+        else:
+            if not node.queue and not node.now_playing:
+                await bot.data.lavalink.stop(event.guild_id)
+
 
 bot = Bot(token=TOKEN)
 
