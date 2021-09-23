@@ -148,6 +148,16 @@ impl Lavalink {
 
     /// Stops the session in Lavalink of the guild. This also creates a Node and inserts it.
     ///
+    /// This method does not remove the guild from the running event loops, nor does it clear the Node,
+    /// this allows for reconnecting without losing data. If you are having issues with disconnecting
+    /// and reconnecting the bot to a voice channel, remove the guild from the running event loops and
+    /// reset the nodes.
+    /// 
+    /// ```py
+    /// lavalink.remove_guild_node(guild_id)
+    /// lavalink.remove_guild_from_loops(guild_id)
+    /// ```
+    ///
     /// This can raise an exception if a network error happens.
     ///
     /// Positional Arguments:
@@ -592,8 +602,24 @@ impl Lavalink {
         let lava_client = self.lava.clone();
 
         pyo3_asyncio::tokio::future_into_py(py, async move {
-            let loops = lava_client.loops().await;
-            loops.remove(&guild_id);
+            lava_client.loops().await.remove(&guild_id);
+
+            Ok(Python::with_gil(|py| py.None()))
+        })
+    }
+
+    /// Remove the guild node.
+    ///
+    /// Positional Arguments:
+    /// - `guild_id` : `Unsigned 64 bit integer`
+    ///
+    /// Returns: `Future<None>`
+    #[pyo3(text_signature = "($self, guild_id, /)")]
+    fn remove_guild_node<'a>(&self, py: Python<'a>, guild_id: u64) -> PyResult<&'a PyAny> {
+        let lava_client = self.lava.clone();
+
+        pyo3_asyncio::tokio::future_into_py(py, async move {
+            lava_client.nodes().await.remove(&guild_id);
 
             Ok(Python::with_gil(|py| py.None()))
         })

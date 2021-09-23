@@ -110,6 +110,9 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
             else:
                 await bot.data.lavalink.leave(event.guild_id)
 
+            await bot.data.lavalink.remove_guild_node(event.guild_id)
+            await bot.data.lavalink.remove_guild_from_loops(event.guild_id)
+
             await event.message.respond("Left voice channel")
 
         elif is_command("play", event.content):
@@ -144,7 +147,6 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
 
         elif is_command("stop", event.content):
             await bot.data.lavalink.stop(event.guild_id)
-            await bot.data.lavalink.remove_guild_from_loops(event.guild_id)
             await event.message.respond("Stopped playing")
 
         elif is_command("skip", event.content):
