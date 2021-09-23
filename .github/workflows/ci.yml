@@ -78,7 +78,7 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@master
         with:
-          name: lavasnek-rs ${{ matrix.os }} ${{ matrix.python-version }}
+          name: lavasnek-rs ${{ matrix.os }} for Python ${{ matrix.python-version }}
           path: target/wheels/lavasnek_rs
 
       # - name: pytest
@@ -123,5 +123,5 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@master
         with:
-          name: lavasnek-rs windows-latest 3.6-3.9
+          name: lavasnek-rs windows-latest for Python 3.6 to 3.9
           path: target/wheels/lavasnek_rs
