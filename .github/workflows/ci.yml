@@ -42,7 +42,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.6, 3.7, 3.8, 3.9]
+        python-version: [3.6, 3.7, 3.8, 3.9, 3.10.0-rc.2]
         os: [ubuntu-latest, macos-latest]
 
     steps:
@@ -94,10 +94,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: Set up Python 3.6-3.9
+      - name: Set up Python 3.6-3.9 and 3.10.0-rc.2
         uses: actions/setup-python@v1
         with:
-          python-version: 3.9
+          python-version: [3.9, 3.10.0-rc.2]
 
       - name: Install dependencies
         run: |
@@ -123,5 +123,5 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@master
         with:
-          name: lavasnek-rs windows-latest for Python 3.6 to 3.9
+          name: lavasnek-rs windows-latest for Python 3.6 to 3.9 and 3.10.0-rc.2
           path: target/wheels/lavasnek_rs
