@@ -86,7 +86,11 @@ async def _join(event: hikari.GuildMessageCreateEvent) -> int:
             event.guild_id
         )
     else:
-        connection_info = await bot.data.lavalink.join(event.guild_id, channel_id)
+        try:
+            connection_info = await bot.data.lavalink.join(event.guild_id, channel_id)
+        except TimeoutError:
+            await event.message.respond("I was unable to connect to the voice channel, maybe missing permissions? or some internal issue.")
+            return 0
 
     await bot.data.lavalink.create_session(connection_info)
 
