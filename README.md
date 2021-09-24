@@ -6,9 +6,11 @@
 
 ## Using the library
 
-The library is currently not yet on PyPi, but it will be when 0.1 releases.
+The library is available on PyPi, and you can install it via `pip install lavasnek_rs --pre -U --user`
 
-To install the library, go to the Actions tab on GitHub, select the latest commit, and download the Artifact that suits your needs. Extract the artifact, and install the .whl file with `pip install -U filename.whl`
+To install a developement release of the library, go to the Actions tab on GitHub, select the latest commit,
+and download the Artifact that suits your needs. Extract the artifact, and install the .whl file with
+`pip install -U --user filename.whl`
 
 Then you should be able to import the library and use it!
 
