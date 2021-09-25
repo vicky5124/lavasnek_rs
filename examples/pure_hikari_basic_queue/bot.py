@@ -67,7 +67,7 @@ bot = Bot(token=TOKEN)
 
 
 async def _join(event: hikari.GuildMessageCreateEvent) -> int:
-    """Join's the user's voice channel creating a lavalink session."""
+    """Join the user's voice channel and create a lavalink session."""
 
     states = bot.cache.get_voice_states_view_for_guild(event.get_guild())
     voice_state = list(
@@ -115,7 +115,7 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
                 "ping, join, leave, play <query>, stop, skip, pause, resume, data <key?> <value?>"
             )
 
-        # Join the voice channel the user is on.
+        # Join the voice channel the user is in.
         elif is_command("join", event.content):
             channel_id = await _join(event)
 
@@ -161,7 +161,7 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
                 return
 
             try:
-                # `.requester()` To add the requester, so you can show it on now-playing or queue.
+                # `.requester()` To set who requested the track, so you can show it on now-playing or queue.
                 # `.queue()` To add the track to the queue rather than starting to play the track now.
                 await bot.data.lavalink.play(
                     event.guild_id, query_information.tracks[0]
@@ -187,26 +187,26 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
             if not skip:
                 await event.message.respond("Nothing to skip")
             else:
-                # If the queue is empty, the next song won't start playing (because there's not one),
-                # so, we stop the player.
+                # If the queue is empty, the next track won't start playing (because there isn't any),
+                # so we stop the player.
                 if not node.queue and not node.now_playing:
                     await bot.data.lavalink.stop(event.guild_id)
 
                 await event.message.respond(f"Skipped: {skip.track.info.title}")
 
-        # Pause the current song.
+        # Pause the current track.
         elif is_command("pause", event.content):
             await bot.data.lavalink.pause(event.guild_id)
             await event.message.respond("Paused player")
 
-        # Resume playing the current song.
+        # Resume playing the current track.
         elif is_command("resume", event.content):
             await bot.data.lavalink.resume(event.guild_id)
             await event.message.respond("Resumed player")
 
         # Load or read data from the node.
         #
-        # if just `,data` is ran, it will show the current data, but if `,data key value` is ran, it
+        # if just `data` is ran, it will show the current data, but if `data <key> <value>` is ran, it
         # will insert that data to the node and display it.
         elif is_command("data", event.content):
             args = get_args("data", event.content, False)
