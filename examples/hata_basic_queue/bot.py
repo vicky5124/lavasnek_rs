@@ -56,8 +56,8 @@ bot = hata.Client(TOKEN, extensions="commands_v2", prefix=PREFIX)
 bot.data = Data()
 
 
-async def _join(ctx):
-    """Join's the user's voice channel creating a lavalink session."""
+async def _join(ctx) -> int:
+    """Join the user's voice channel and create a lavalink session."""
     voice_state = ctx.voice_state
     if voice_state is None:
         await ctx.reply("You are not at a voice channel!")
@@ -91,7 +91,7 @@ async def _join(ctx):
 @bot.commands
 @checks.guild_only()
 async def join(ctx):
-    """Join the voice channel the user is on."""
+    """Join the user's voice channel and create a lavalink session."""
     channel_id = await _join(ctx)
 
     if channel_id:
@@ -101,7 +101,7 @@ async def join(ctx):
 @bot.commands
 @checks.guild_only()
 async def leave(ctx):
-    """Leave the voice channel."""
+    """Leave the voice channel the bot is in and destroy the lavalink session."""
     if HATA_VOICE:
         voice_client = ctx.voice_client
         if voice_client is None:
@@ -124,7 +124,7 @@ async def leave(ctx):
 @bot.commands
 @checks.guild_only()
 async def play(ctx, query=None):
-    """Searches the query on youtube and adds it to the queue."""
+    """Add a track to the queue via a youtube url or search query."""
     con = await bot.data.lavalink.get_guild_gateway_connection_info(ctx.guild.id)
     # Join the user's voice channel if the bot is not in one.
     if not con:
@@ -153,16 +153,25 @@ async def play(ctx, query=None):
 
 @bot.commands
 @checks.guild_only()
+async def stop(ctx):
+    """Stop the current track (skip to continue)."""
+
+    await ctx.client.data.lavalink.stop(ctx.guild_id)
+    await ctx.reply("Stopped playing")
+
+
+@bot.commands
+@checks.guild_only()
 async def skip(ctx):
-    """Skip the current track"""
+    """Skip the current track."""
     skip = await ctx.client.data.lavalink.skip(ctx.guild.id)
     node = await ctx.client.data.lavalink.get_guild_node(ctx.guild.id)
 
     if not skip:
         await ctx.reply("Nothing to skip")
     else:
-        # If the queue is empty, the next song won't start playing (because there's not one),
-        # so, we stop the player.
+        # If the queue is empty, the next track won't start playing (because isn't any),
+        # so we stop the player.
         if not node.queue and not node.now_playing:
             await ctx.client.data.lavalink.stop(ctx.guild.id)
 
@@ -172,7 +181,7 @@ async def skip(ctx):
 @bot.commands
 @checks.guild_only()
 async def pause(ctx):
-    """Pause the current song."""
+    """Pause the current track."""
     await ctx.client.data.lavalink.pause(ctx.guild.id)
     await ctx.reply("Paused player")
 
@@ -180,7 +189,7 @@ async def pause(ctx):
 @bot.commands
 @checks.guild_only()
 async def resume(ctx):
-    """Resume playing the current song."""
+    """Resume playing the current track."""
     await ctx.client.data.lavalink.resume(ctx.guild.id)
     await ctx.reply("Resumed player")
 
