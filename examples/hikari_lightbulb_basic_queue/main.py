@@ -25,4 +25,9 @@ bot = MusicBot(token=TOKEN, command-prefix=PREFIX)
 async def starting_load_extensions(event):
     bot.load_extension('music_plugin')
 
+# "Typical" Ping-Pong command
+@bot.command()
+async def ping(ctx):
+    await ctx.respond("Ping?")
+
 bot.run()
