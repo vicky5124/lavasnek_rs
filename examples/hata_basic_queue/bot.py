@@ -101,7 +101,7 @@ async def join(ctx):
 @bot.commands
 @checks.guild_only()
 async def leave(ctx):
-    """Leave the voice channel the bot is in and destroy the lavalink session."""
+    """Leaves the voice channel the bot is in, clearing the queue."""
     if HATA_VOICE:
         voice_client = ctx.voice_client
         if voice_client is None:
