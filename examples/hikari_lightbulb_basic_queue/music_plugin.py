@@ -11,6 +11,7 @@ LAVALINK_PASSWORD = os.environ["LAVALINK_PASSWORD"]
 # if True connect to voice with the hikari gateway instead of lavasnek_rs's
 HIKARI_VOICE = False
 
+
 class EventHandler:
     """Events from the Lavalink server"""
 
@@ -32,6 +33,7 @@ class EventHandler:
         else:
             if not node.queue and not node.now_playing:
                 await lavalink.stop(event.guild_id)
+
 
 class Music(lightbulb.Plugin):
     def __init__(self, bot):
@@ -55,6 +57,8 @@ class Music(lightbulb.Plugin):
 
         self.bot.data.lavalink = lava_client
 
+
+    @lightbulb.check(lightbulb.guild_only)
     @lightbulb.command()
     async def join(self, ctx) -> int:
         """Join the user's voice channel and create a lavalink session."""
@@ -87,6 +91,8 @@ class Music(lightbulb.Plugin):
         if channel_id:
             await ctx.respond(f"Joined <#{channel_id}>")
 
+
+    @lightbulb.check(lightbulb.guild_only)
     @lightbulb.command()
     async def leave(self, ctx):
         """Leave the voice channel the bot is in and destroy the lavalink session."""
@@ -105,6 +111,8 @@ class Music(lightbulb.Plugin):
 
         await ctx.respond("Left voice channel")
 
+
+    @lightbulb.check(lightbulb.guild_only)
     @lightbulb.command()
     async def play(self, ctx, *, query):
         """Add a track to the queue via a youtube url or search query."""
@@ -140,6 +148,8 @@ class Music(lightbulb.Plugin):
             f"Added to queue: {query_information.tracks[0].info.title}"
         )
 
+
+    @lightbulb.check(lightbulb.guild_only)
     @lightbulb.command()
     async def stop(self, ctx):
         """Stop the current track (skip to continue)."""
@@ -147,6 +157,8 @@ class Music(lightbulb.Plugin):
         await self.bot.data.lavalink.stop(ctx.guild_id)
         await ctx.respond("Stopped playing")
 
+
+    @lightbulb.check(lightbulb.guild_only)
     @lightbulb.command()
     async def skip(self, ctx):
         """Skip the current track."""
@@ -164,6 +176,8 @@ class Music(lightbulb.Plugin):
 
             await ctx.respond(f"Skipped: {skip.track.info.title}")
 
+
+    @lightbulb.check(lightbulb.guild_only)
     @lightbulb.command()
     async def pause(self, ctx):
         """Pause the current track."""
@@ -171,6 +185,8 @@ class Music(lightbulb.Plugin):
         await self.bot.data.lavalink.pause(ctx.guild_id)
         await ctx.respond("Paused player")
 
+
+    @lightbulb.check(lightbulb.guild_only)
     @lightbulb.command()
     async def resume(self, ctx):
         """Resume playing the current track."""
@@ -178,6 +194,8 @@ class Music(lightbulb.Plugin):
         await self.bot.data.lavalink.resume(ctx.guild_id)
         await ctx.respond("Resumed player")
 
+
+    @lightbulb.check(lightbulb.guild_only)
     @lightbulb.command()
     async def now_playing(self, ctx):
         """Get the track that is currently playing."""
@@ -186,6 +204,8 @@ class Music(lightbulb.Plugin):
         current = node.queue[0]
         await ctx.respond(f"Now Playing: {current.info.title}"
 
+
+    @lightbulb.check(lightbulb.guild_only)
     @lightbulb.check(lightbulb.owner_only) # Optional
     @lightbulb.command()
     async def data(self, ctx, *args):
@@ -205,6 +225,7 @@ class Music(lightbulb.Plugin):
                 await node.set_data({args[0]: args[1]})
             await ctx.respond(await node.get_data())
 
+
     if HIKARI_VOICE:
         @lightbulb.listener(hikari.VoiceStateUpdateEvent)
         async def voice_state_update(self, event) -> None:
@@ -220,6 +241,7 @@ class Music(lightbulb.Plugin):
             await self.bot.data.lavalink.raw_handle_event_voice_server_update(
                 event.guild_id, event.endpoint, event.token
             )
+
 
 def load(bot):
     bot.add_plugin(Music(bot))	
