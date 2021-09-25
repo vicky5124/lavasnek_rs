@@ -191,7 +191,7 @@ class Music(lightbulb.Plugin):
     @lightbulb.check(lightbulb.guild_only)
     @lightbulb.command()
     async def resume(self, ctx):
-        """Resume playing the current track."""
+        """Resumes playing the current song."""
 
         await self.bot.data.lavalink.resume(ctx.guild_id)
         await ctx.respond("Resumed player")
