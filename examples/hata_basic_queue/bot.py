@@ -154,7 +154,7 @@ async def play(ctx, query=None):
 @bot.commands
 @checks.guild_only()
 async def stop(ctx):
-    """Stop the current track (skip to continue)."""
+    """Stops the current song (skip to continue)."""
 
     await ctx.client.data.lavalink.stop(ctx.guild_id)
     await ctx.reply("Stopped playing")
