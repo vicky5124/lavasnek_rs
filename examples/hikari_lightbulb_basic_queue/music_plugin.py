@@ -119,7 +119,7 @@ class Music(lightbulb.Plugin):
     @lightbulb.check(lightbulb.guild_only)
     @lightbulb.command()
     async def play(self, ctx, *, query):
-        """Add a track to the queue via a youtube url or search query."""
+        """Searches the query on youtube, or adds the URL to the queue."""
 
         con = await self.bot.data.lavalink.get_guild_gateway_connection_info(
             ctx.guild_id
