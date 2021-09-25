@@ -4,7 +4,7 @@ import hikari
 import lightbulb
 import lavasnek_rs
 
-PREFIX = "!" # Should probably set this to an environment variable
+PREFIX = "," # Should probably set this to an environment variable
 TOKEN = os.environ["DISCORD_TOKEN"]
 
 
