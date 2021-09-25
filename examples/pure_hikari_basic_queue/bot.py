@@ -217,7 +217,7 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
 
         # Load or read data from the node.
         #
-        # if just `data` is ran, it will show the current data, but if `data <key> <value>` is ran, it
+        # If just `data` is ran, it will show the current data, but if `data <key> <value>` is ran, it
         # will insert that data to the node and display it.
         elif is_command("data", event.content):
             args = get_args("data", event.content, False)
