@@ -156,7 +156,7 @@ async def play(ctx, query=None):
 @checks.guild_only()
 async def stop(ctx):
     """Stops the current song (skip to continue)."""
-    await ctx.client.data.lavalink.stop(ctx.guild_id)
+    await ctx.client.data.lavalink.stop(ctx.guild.id)
     await ctx.reply("Stopped playing")
 
 
@@ -215,7 +215,7 @@ async def data(ctx, *args):
     If just `data` is ran, it will show the current data, but if `data <key> <value>` is ran, it
     will insert that data to the node and display it."""
 
-    node = await ctx.client.data.lavalink.get_guild_node(ctx.guild_id)
+    node = await ctx.client.data.lavalink.get_guild_node(ctx.guild.id)
 
     if not args:
         await ctx.respond(await node.get_data())
