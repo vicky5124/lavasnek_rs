@@ -212,7 +212,7 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
                 await event.message.respond("Nothing is playing at the moment.")
                 return
 
-            # for queue, iterate over `node.queue`, 0 is now_playing.
+            # for queue, iterate over `node.queue`, where index 0 is now_playing.
             await event.message.respond(f"Now Playing: {node.now_playing.track.info.title}")
 
         # Load or read data from the node.
