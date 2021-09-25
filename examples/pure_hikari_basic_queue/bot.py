@@ -89,7 +89,9 @@ async def _join(event: hikari.GuildMessageCreateEvent) -> int:
         try:
             connection_info = await bot.data.lavalink.join(event.guild_id, channel_id)
         except TimeoutError:
-            await event.message.respond("I was unable to connect to the voice channel, maybe missing permissions? or some internal issue.")
+            await event.message.respond(
+                "I was unable to connect to the voice channel, maybe missing permissions? or some internal issue."
+            )
             return 0
 
     await bot.data.lavalink.create_session(connection_info)
@@ -205,7 +207,9 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
             await event.message.respond("Resumed player")
 
         # Resume playing the current song.
-        elif is_command("now_playing", event.content) or is_command("np", event.content):
+        elif is_command("now_playing", event.content) or is_command(
+            "np", event.content
+        ):
             node = await bot.data.lavalink.get_guild_node(event.guild_id)
 
             if not node or not node.now_playing:
@@ -213,7 +217,9 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
                 return
 
             # for queue, iterate over `node.queue`, where index 0 is now_playing.
-            await event.message.respond(f"Now Playing: {node.now_playing.track.info.title}")
+            await event.message.respond(
+                f"Now Playing: {node.now_playing.track.info.title}"
+            )
 
         # Load or read data from the node.
         #
@@ -241,8 +247,7 @@ async def on_ready(event: hikari.ShardReadyEvent) -> None:
         # TOKEN can be an empty string if you don't want to use lavasnek's discord gateway.
         lavasnek_rs.LavalinkBuilder(event.my_user.id, TOKEN)
         # This is the default value, so this is redundant, but it's here to show how to set a custom one.
-        .set_host("127.0.0.1")
-        .set_password(os.environ["LAVALINK_PASSWORD"])
+        .set_host("127.0.0.1").set_password(os.environ["LAVALINK_PASSWORD"])
     )
 
     if HIKARI_VOICE:

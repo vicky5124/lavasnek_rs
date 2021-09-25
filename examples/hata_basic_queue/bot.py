@@ -194,7 +194,7 @@ async def resume(ctx):
     await ctx.reply("Resumed player")
 
 
-@bot.commands(aliases=['np'])
+@bot.commands(aliases=["np"])
 @checks.guild_only()
 async def now_playing(ctx):
     """Gets the song that's currently playing."""
@@ -206,6 +206,7 @@ async def now_playing(ctx):
 
     # For queue, iterate over `node.queue`, where index 0 is now_playing.
     await ctx.reply(f"Now Playing: {node.now_playing.track.info.title}")
+
 
 @bot.commands
 @checks.guild_only()
@@ -225,6 +226,7 @@ async def data(ctx, *args):
         else:
             await node.set_data({args[0]: args[1]})
         await ctx.respond(await node.get_data())
+
 
 @bot.events
 async def ready(client):
@@ -247,6 +249,7 @@ async def ready(client):
 
 
 if HATA_VOICE:
+
     @bot.events
     async def user_voice_update(client, event, _old):
         await client.data.lavalink.raw_handle_event_voice_state_update(
