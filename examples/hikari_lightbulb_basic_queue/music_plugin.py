@@ -156,7 +156,7 @@ class Music(lightbulb.Plugin):
     @lightbulb.check(lightbulb.guild_only)
     @lightbulb.command()
     async def stop(self, ctx):
-        """Stop the current track (skip to continue)."""
+        """Stops the current song (skip to continue)."""
 
         await self.bot.data.lavalink.stop(ctx.guild_id)
         await ctx.respond("Stopped playing")
