@@ -189,7 +189,7 @@ async def pause(ctx):
 @bot.commands
 @checks.guild_only()
 async def resume(ctx):
-    """Resume playing the current track."""
+    """Resumes playing the current song."""
     await ctx.client.data.lavalink.resume(ctx.guild.id)
     await ctx.reply("Resumed player")
 
