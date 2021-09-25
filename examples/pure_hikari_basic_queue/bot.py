@@ -204,6 +204,17 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
             await bot.data.lavalink.resume(event.guild_id)
             await event.message.respond("Resumed player")
 
+        # Resume playing the current song.
+        elif is_command("now_plaing", event.content) or is_command("np", event.content):
+            node = await bot.data.lavalink.get_guild_node(event.guild_id)
+
+            if not node or not node.now_playing:
+                await event.message.respond("Nothing is playing at the moment.")
+                return
+
+            # for queue, iterate over `node.queue`, where index 0 is now_playing.
+            await event.message.respond(f"Now Playing: {node.now_playing.track.info.title}")
+
         # Load or read data from the node.
         #
         # if just `data` is ran, it will show the current data, but if `data <key> <value>` is ran, it

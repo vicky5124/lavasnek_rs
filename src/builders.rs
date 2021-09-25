@@ -1,10 +1,12 @@
 use crate::error;
 use crate::events;
 use crate::Lavalink;
+use crate::model::TrackQueue;
 
 use pyo3::prelude::*;
 
 use lavalink_rs::{
+    model::TrackQueue as LavaTrackQueue,
     builders::{LavalinkClientBuilder, PlayParameters},
     error::LavalinkError,
     LavalinkClient,
@@ -255,6 +257,25 @@ impl PlayBuilder {
             })?;
             Ok(Python::with_gil(|py| py.None()))
         })
+    }
+
+    /// Generates a TrackQueue from the builder.
+    ///
+    /// Returns: `TrackQueue`
+    #[pyo3(text_signature = "($self, /)")]
+    pub fn to_track_queue(&self) -> TrackQueue {
+        let track_queue = LavaTrackQueue {
+            track: self.builder.track.clone(),
+            start_time: self.builder.start,
+            end_time: if self.builder.finish == 0 {
+                None
+            } else {
+                Some(self.builder.finish)
+            },
+            requester: self.builder.requester,
+        };
+
+        TrackQueue { inner: track_queue }
     }
 
     /// Sets the person that requested the song
