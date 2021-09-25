@@ -65,7 +65,7 @@ class Music(lightbulb.Plugin):
     @lightbulb.check(lightbulb.guild_only)
     @lightbulb.command()
     async def join(self, ctx) -> int:
-        """Join the user's voice channel and create a lavalink session."""
+        """Joins the voice channel you are on."""
 
         states = self.bot.cache.get_voice_states_view_for_guild(ctx.get_guild())
         voice_state = list(
