@@ -182,7 +182,7 @@ class Music(lightbulb.Plugin):
     @lightbulb.check(lightbulb.guild_only)
     @lightbulb.command()
     async def pause(self, ctx):
-        """Pause the current track."""
+        """Pauses the current song."""
 
         await self.bot.data.lavalink.pause(ctx.guild_id)
         await ctx.respond("Paused player")
