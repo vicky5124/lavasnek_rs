@@ -1,10 +1,12 @@
 import os
 import logging
+from posix import environ
 
 import hikari
 import lightbulb
 import lavasnek_rs
 
+PREFIX = "!" # Should probably set this to an environment variable
 TOKEN = os.environ["DISCORD_TOKEN"]
 LAVALINK_PASSWORD = os.environ["LAVALINK_PASSWORD"]
 
@@ -45,7 +47,7 @@ class Music(lightbulb.Plugin):
         """Event that triggers when the hikari gateway is ready."""
 
         builder = (
-            lavasnek_rs.LavalinkBuilder(bot.get_me().id, TOKEN)
+            lavasnek_rs.LavalinkBuilder(self.bot.get_me().id, TOKEN)
             .set_host('127.0.0.1')
             .set_password(LAVALINK_PASSWORD)
         )
@@ -53,7 +55,7 @@ class Music(lightbulb.Plugin):
         if HIKARI_VOICE:
             builder.set_start_gateway(False)
 
-        lava_client = await builder.build(EventHandler(bot))
+        lava_client = await builder.build(EventHandler())
 
         self.bot.data.lavalink = lava_client
 
@@ -72,7 +74,7 @@ class Music(lightbulb.Plugin):
             await ctx.respond("Connect to a voice channel first")
             return 0
 
-        channel_id = user_voice_state[0].channel_id
+        channel_id = voice_state[0].channel_id
 
         if HIKARI_VOICE:
             await self.bot.update_voice_state(ctx.guild_id, channel_id, self_deaf=True)
@@ -80,11 +82,11 @@ class Music(lightbulb.Plugin):
                 ctx.guild_id
             )
         else:
-        try:
-            connection_info = await self.bot.data.lavalink.join(ctx.guild_id, channel_id)
-        except TimeoutError:
-            await ctx.respond("I was unable to connect to the voice channel, maybe missing permissions? or some internal issue.")
-            return 0
+            try:
+                connection_info = await self.bot.data.lavalink.join(ctx.guild_id, channel_id)
+            except TimeoutError:
+                await ctx.respond("I was unable to connect to the voice channel, maybe missing permissions? or some internal issue.")
+                return 0
 
         await self.bot.data.lavalink.create_session(connection_info)
 
@@ -202,7 +204,7 @@ class Music(lightbulb.Plugin):
         node = await self.bot.data.lavalink.get_guild_node(ctx.guild_id)
         # You could create a queue command buy iterating over `node.queue`.
         current = node.queue[0]
-        await ctx.respond(f"Now Playing: {current.info.title}"
+        await ctx.respond(f"Now Playing: {current.info.title}")
 
 
     @lightbulb.check(lightbulb.guild_only)
