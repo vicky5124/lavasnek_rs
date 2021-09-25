@@ -1,11 +1,10 @@
 import os
 
+from consts import TOKEN, PREFIX
+
 import hikari
 import lightbulb
 import lavasnek_rs
-
-PREFIX = "," # Should probably set this to an environment variable
-TOKEN = os.environ["DISCORD_TOKEN"]
 
 
 class Data:

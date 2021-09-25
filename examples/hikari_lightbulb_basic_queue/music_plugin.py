@@ -1,7 +1,7 @@
 import os
 import logging
 
-from main import TOKEN, PREFIX
+from consts import TOKEN, PREFIX
 
 import hikari
 import lightbulb
