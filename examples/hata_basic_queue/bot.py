@@ -124,7 +124,7 @@ async def leave(ctx):
 @bot.commands
 @checks.guild_only()
 async def play(ctx, query=None):
-    """Add a track to the queue via a youtube url or search query."""
+    """Searches the query on youtube, or adds the URL to the queue."""
     con = await bot.data.lavalink.get_guild_gateway_connection_info(ctx.guild.id)
     # Join the user's voice channel if the bot is not in one.
     if not con:
