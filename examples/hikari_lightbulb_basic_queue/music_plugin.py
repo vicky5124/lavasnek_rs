@@ -99,7 +99,7 @@ class Music(lightbulb.Plugin):
     @lightbulb.check(lightbulb.guild_only)
     @lightbulb.command()
     async def leave(self, ctx):
-        """Leave the voice channel the bot is in and destroy the lavalink session."""
+        """Leaves the voice channel the bot is in, clearing the queue."""
 
         await self.bot.data.lavalink.destroy(ctx.guild_id)
 
