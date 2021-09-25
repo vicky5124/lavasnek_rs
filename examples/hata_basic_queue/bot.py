@@ -194,6 +194,19 @@ async def resume(ctx):
     await ctx.reply("Resumed player")
 
 
+@lightbulb.check(lightbulb.guild_only)
+@lightbulb.command(name='now-playing', aliases=['np'])
+async def now_playing(self, ctx):
+    """Get the track that is currently playing."""
+    node = await ctx.client.data.lavalink.get_guild_node(ctx.guild_id)
+    # You could create a queue command buy iterating over `node.queue`.
+    if node.queue:
+        current = node.queue[0].track
+        await ctx.reply(f"Now Playing: {current.info.title}")
+    else:
+        await ctx.reply(f"The queue is empty")
+
+
 @bot.events
 async def ready(client):
     """Event that triggers when the hata gateway is ready."""
