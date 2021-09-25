@@ -1,14 +1,14 @@
 use crate::error;
 use crate::events;
-use crate::Lavalink;
 use crate::model::TrackQueue;
+use crate::Lavalink;
 
 use pyo3::prelude::*;
 
 use lavalink_rs::{
-    model::TrackQueue as LavaTrackQueue,
     builders::{LavalinkClientBuilder, PlayParameters},
     error::LavalinkError,
+    model::TrackQueue as LavaTrackQueue,
     LavalinkClient,
 };
 use std::net::SocketAddr;

@@ -652,6 +652,25 @@ impl Lavalink {
         })
     }
 
+    /// Set the node of a guild with a new one.
+    ///
+    /// Positional Arguments:
+    /// - `guild_id` : `Unsigned 64 bit integer`
+    /// - `node` : `Node`
+    ///
+    /// Returns: `Future<None>`
+    #[pyo3(text_signature = "($self, guild_id, node, /)")]
+    fn set_guild_node<'a>(&self, py: Python<'a>, guild_id: u64, node: Node) -> PyResult<&'a PyAny> {
+        let lava_client = self.lava.clone();
+
+        pyo3_asyncio::tokio::future_into_py(py, async move {
+            let nodes = lava_client.nodes().await;
+            nodes.insert(guild_id, node.inner);
+
+            Ok(Python::with_gil(|py| py.None()))
+        })
+    }
+
     /// Get the current guild from the queue nodes.
     ///
     /// Positional Arguments:
