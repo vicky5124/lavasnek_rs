@@ -47,6 +47,7 @@ class Music(lightbulb.Plugin):
         """Event that triggers when the hikari gateway is ready."""
 
         builder = (
+            # TOKEN can be an empty string if you don't want to use lavasnek's discord gateway.
             lavasnek_rs.LavalinkBuilder(self.bot.get_me().id, TOKEN)
             .set_host('127.0.0.1')
             .set_password(LAVALINK_PASSWORD)
