@@ -181,7 +181,7 @@ async def skip(ctx):
 @bot.commands
 @checks.guild_only()
 async def pause(ctx):
-    """Pause the current track."""
+    """Pauses the current song."""
     await ctx.client.data.lavalink.pause(ctx.guild.id)
     await ctx.reply("Paused player")
 
