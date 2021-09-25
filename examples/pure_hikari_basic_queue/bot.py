@@ -8,7 +8,7 @@ import lavasnek_rs
 PREFIX = ","
 TOKEN = os.environ["DISCORD_TOKEN"]
 
-# if True connect to voice with the hikari gateway instead of lavasnek_rs's
+# If True connect to voice with the hikari gateway instead of lavasnek_rs's
 HIKARI_VOICE = False
 
 
@@ -109,20 +109,20 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
         if is_command("ping", event.content):
             await event.message.respond("Ping?")
 
-        # List all of the commands
+        # Lists all the commands
         elif is_command("help", event.content):
             await event.message.respond(
                 "ping, join, leave, play <query>, stop, skip, pause, resume, data <key?> <value?>"
             )
 
-        # Join the voice channel the user is in.
+        # Joins the voice channel the user is in.
         elif is_command("join", event.content):
             channel_id = await _join(event)
 
             if channel_id:
                 await event.message.respond(f"Joined <#{channel_id}>")
 
-        # Leave the voice channel.
+        # Leaves the voice channel.
         elif is_command("leave", event.content):
             await bot.data.lavalink.destroy(event.guild_id)
 
@@ -138,7 +138,7 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
 
             await event.message.respond("Left voice channel")
 
-        # Search and add a track to the queue
+        # Searches and adds a track to the queue.
         elif is_command("play", event.content):
             con = await bot.data.lavalink.get_guild_gateway_connection_info(
                 event.guild_id
@@ -174,12 +174,12 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
                 f"Added to queue: {query_information.tracks[0].info.title}"
             )
 
-        # Stop the current track (skip to continue)
+        # Stops the current song (skip to continue).
         elif is_command("stop", event.content):
             await bot.data.lavalink.stop(event.guild_id)
             await event.message.respond("Stopped playing")
 
-        # Skip the current track
+        # Skips the current song.
         elif is_command("skip", event.content):
             skip = await bot.data.lavalink.skip(event.guild_id)
             node = await bot.data.lavalink.get_guild_node(event.guild_id)
@@ -194,12 +194,12 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
 
                 await event.message.respond(f"Skipped: {skip.track.info.title}")
 
-        # Pause the current track.
+        # Pauses the current song.
         elif is_command("pause", event.content):
             await bot.data.lavalink.pause(event.guild_id)
             await event.message.respond("Paused player")
 
-        # Resume playing the current track.
+        # Resumes playing the current song.
         elif is_command("resume", event.content):
             await bot.data.lavalink.resume(event.guild_id)
             await event.message.respond("Resumed player")
@@ -229,7 +229,7 @@ async def on_ready(event: hikari.ShardReadyEvent) -> None:
     builder = (
         # TOKEN can be an empty string if you don't want to use lavasnek's discord gateway.
         lavasnek_rs.LavalinkBuilder(event.my_user.id, TOKEN)
-        # this is the default value, so this is redundant, but it's here to show how to set a custom one.
+        # This is the default value, so this is redundant, but it's here to show how to set a custom one.
         .set_host("127.0.0.1")
         .set_password(os.environ["LAVALINK_PASSWORD"])
     )

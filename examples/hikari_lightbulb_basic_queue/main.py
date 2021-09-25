@@ -26,6 +26,7 @@ bot = MusicBot(token=TOKEN, prefix=PREFIX)
 
 @bot.listen(hikari.StartingEvent)
 async def starting_load_extensions(event):
+    """Load the music extension when Bot starts."""
     bot.load_extension('music_plugin')
 
 

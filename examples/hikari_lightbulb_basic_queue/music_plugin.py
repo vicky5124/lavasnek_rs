@@ -1,16 +1,15 @@
 import os
 import logging
-from posix import environ
+
+from main import TOKEN, PREFIX
 
 import hikari
 import lightbulb
 import lavasnek_rs
 
-PREFIX = "!" # Should probably set this to an environment variable
-TOKEN = os.environ["DISCORD_TOKEN"]
 LAVALINK_PASSWORD = os.environ["LAVALINK_PASSWORD"]
 
-# if True connect to voice with the hikari gateway instead of lavasnek_rs's
+# If True connect to voice with the hikari gateway instead of lavasnek_rs's
 HIKARI_VOICE = False
 
 
@@ -42,36 +41,12 @@ class Music(lightbulb.Plugin):
         super().__init__()
         self.bot = bot
 
-    @lightbulb.listener(hikari.ShardReadyEvent)
-    async def start_lavalink(self, event) -> None:
-        """Event that triggers when the hikari gateway is ready."""
-
-        builder = (
-            # TOKEN can be an empty string if you don't want to use lavasnek's discord gateway.
-            lavasnek_rs.LavalinkBuilder(self.bot.get_me().id, TOKEN)
-            # this is the default value, so this is redundant, but it's here to show how to set a custom one.
-            .set_host('127.0.0.1')
-            .set_password(LAVALINK_PASSWORD)
-        )
-
-        if HIKARI_VOICE:
-            builder.set_start_gateway(False)
-
-        lava_client = await builder.build(EventHandler())
-
-        self.bot.data.lavalink = lava_client
-
-
-    @lightbulb.check(lightbulb.guild_only)
-    @lightbulb.command()
-    async def join(self, ctx) -> int:
-        """Joins the voice channel you are on."""
-
+    async def _join(self, ctx) -> int:
         states = self.bot.cache.get_voice_states_view_for_guild(ctx.get_guild())
         voice_state = list(
             filter(lambda i: i.user_id == ctx.author.id, states.iterator())
         )
-        
+
         if not voice_state:
             await ctx.respond("Connect to a voice channel first")
             return 0
@@ -87,10 +62,41 @@ class Music(lightbulb.Plugin):
             try:
                 connection_info = await self.bot.data.lavalink.join(ctx.guild_id, channel_id)
             except TimeoutError:
-                await ctx.respond("I was unable to connect to the voice channel, maybe missing permissions? or some internal issue.")
+                await ctx.respond(
+                    "I was unable to connect to the voice channel, maybe missing permissions? or some internal issue."
+                )
                 return 0
 
         await self.bot.data.lavalink.create_session(connection_info)
+
+        return channel_id
+
+
+    @lightbulb.listener(hikari.ShardReadyEvent)
+    async def start_lavalink(self, event) -> None:
+        """Event that triggers when the hikari gateway is ready."""
+
+        builder = (
+            # TOKEN can be an empty string if you don't want to use lavasnek's discord gateway.
+            lavasnek_rs.LavalinkBuilder(self.bot.get_me().id, TOKEN)
+            # This is the default value, so this is redundant, but it's here to show how to set a custom one.
+            .set_host('127.0.0.1')
+            .set_password(LAVALINK_PASSWORD)
+        )
+
+        if HIKARI_VOICE:
+            builder.set_start_gateway(False)
+
+        lava_client = await builder.build(EventHandler())
+
+        self.bot.data.lavalink = lava_client
+
+
+    @lightbulb.check(lightbulb.guild_only)
+    @lightbulb.command()
+    async def join(self, ctx):
+        """Joins the voice channel you are in."""
+        channel_id = await self._join(ctx)
 
         if channel_id:
             await ctx.respond(f"Joined <#{channel_id}>")
@@ -126,7 +132,7 @@ class Music(lightbulb.Plugin):
         )
         # Join the user's voice channel if the bot is not in one.
         if not con:
-            await self.join.invoke(ctx)
+            await self._join(ctx)
 
         # Search the query, auto_search will get the track from a url if possible, otherwise,
         # it will search the query on youtube.
@@ -200,7 +206,7 @@ class Music(lightbulb.Plugin):
 
 
     @lightbulb.check(lightbulb.guild_only)
-    @lightbulb.command(name='now-playing', aliases=['np'])
+    @lightbulb.command(aliases=['np'])
     async def now_playing(self, ctx):
         """Gets the song that's currently playing."""
         node = await self.bot.data.lavalink.get_guild_node(ctx.guild_id)
@@ -209,7 +215,7 @@ class Music(lightbulb.Plugin):
             current = node.queue[0].track
             await ctx.respond(f"Now Playing: {current.info.title}")
         else:
-            await ctx.respond(f"The queue is empty")
+            await ctx.respond("The queue is empty")
 
 
     @lightbulb.check(lightbulb.guild_only)
@@ -251,7 +257,7 @@ class Music(lightbulb.Plugin):
 
 
 def load(bot):
-    bot.add_plugin(Music(bot))	
+    bot.add_plugin(Music(bot))
 
 def unload(bot):
     bot.remove_plugin("Music")
