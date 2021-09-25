@@ -198,13 +198,14 @@ async def resume(ctx):
 @lightbulb.command(name='now-playing', aliases=['np'])
 async def now_playing(self, ctx):
     """Gets the song that's currently playing."""
-    node = await ctx.client.data.lavalink.get_guild_node(ctx.guild_id)
-    # You could create a queue command buy iterating over `node.queue`.
-    if node.queue:
-        current = node.queue[0].track
-        await ctx.reply(f"Now Playing: {current.info.title}")
-    else:
-        await ctx.reply(f"The queue is empty")
+    node = await ctx.client.data.lavalink.get_guild_node(event.guild_id)
+        
+    if not node or not node.now_playing:
+        await ctx.reply("Nothing is playing at the moment.")
+        return
+
+    # for queue, iterate over `node.queue`, where index 0 is now_playing.
+    await ctx.reply(f"Now Playing: {node.now_playing.track.info.title}")
 
 
 @bot.events
