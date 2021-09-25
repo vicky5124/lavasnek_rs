@@ -49,6 +49,7 @@ class Music(lightbulb.Plugin):
         builder = (
             # TOKEN can be an empty string if you don't want to use lavasnek's discord gateway.
             lavasnek_rs.LavalinkBuilder(self.bot.get_me().id, TOKEN)
+            # this is the default value, so this is redundant, but it's here to show how to set a custom one.
             .set_host('127.0.0.1')
             .set_password(LAVALINK_PASSWORD)
         )
