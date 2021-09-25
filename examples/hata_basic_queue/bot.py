@@ -163,7 +163,7 @@ async def stop(ctx):
 @bot.commands
 @checks.guild_only()
 async def skip(ctx):
-    """Skip the current track."""
+    """Skips the current song."""
     skip = await ctx.client.data.lavalink.skip(ctx.guild.id)
     node = await ctx.client.data.lavalink.get_guild_node(ctx.guild.id)
 
