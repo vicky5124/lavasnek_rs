@@ -200,7 +200,7 @@ class Music(lightbulb.Plugin):
     @lightbulb.check(lightbulb.guild_only)
     @lightbulb.command(name='now-playing', aliases=['np'])
     async def now_playing(self, ctx):
-        """Get the track that is currently playing."""
+        """Gets the song that's currently playing."""
         node = await self.bot.data.lavalink.get_guild_node(ctx.guild_id)
         # You could create a queue command buy iterating over `node.queue`.
         if node.queue:
