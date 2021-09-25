@@ -21,7 +21,7 @@ class MusicBot(lightbulb.Bot):
         self.data = Data()
 
 # You may want to enable ALL intents here
-bot = MusicBot(token=TOKEN, command_prefix=PREFIX)
+bot = MusicBot(token=TOKEN, prefix=PREFIX)
 
 
 @bot.listen(hikari.StartingEvent)
