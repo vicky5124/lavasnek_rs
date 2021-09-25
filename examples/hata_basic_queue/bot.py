@@ -4,7 +4,7 @@ import logging
 
 import hata
 
-# not accessed, but needed to run asyncio stuff.
+# Not accessed, but needed to run asyncio stuff.
 from hata.ext import asyncio
 from hata.ext.commands_v2 import checks
 import lavasnek_rs
@@ -17,8 +17,9 @@ logging.getLogger().setLevel(logging.INFO)
 
 PREFIX = ","
 TOKEN = os.environ["DISCORD_TOKEN"]
+LAVALINK_PASSWORD = os.environ["LAVALINK_PASSWORD"]
 
-# if True connect to voice with the hata gateway instead of lavasnek_rs's
+# If True connect to voice with the hata gateway instead of lavasnek_rs's
 HATA_VOICE = False
 
 
@@ -56,8 +57,8 @@ bot = hata.Client(TOKEN, extensions="commands_v2", prefix=PREFIX)
 bot.data = Data()
 
 
-async def _join(ctx):
-    """Join's the user's voice channel creating a lavalink session."""
+async def _join(ctx) -> int:
+    """Join the user's voice channel and create a lavalink session."""
     voice_state = ctx.voice_state
     if voice_state is None:
         await ctx.reply("You are not at a voice channel!")
@@ -91,7 +92,7 @@ async def _join(ctx):
 @bot.commands
 @checks.guild_only()
 async def join(ctx):
-    """Join the voice channel the user is on."""
+    """Joins the voice channel you are in."""
     channel_id = await _join(ctx)
 
     if channel_id:
@@ -101,7 +102,7 @@ async def join(ctx):
 @bot.commands
 @checks.guild_only()
 async def leave(ctx):
-    """Leave the voice channel."""
+    """Leaves the voice channel the bot is in, clearing the queue."""
     if HATA_VOICE:
         voice_client = ctx.voice_client
         if voice_client is None:
@@ -124,7 +125,7 @@ async def leave(ctx):
 @bot.commands
 @checks.guild_only()
 async def play(ctx, query=None):
-    """Searches the query on youtube and adds it to the queue."""
+    """Searches the query on youtube, or adds the URL to the queue."""
     con = await bot.data.lavalink.get_guild_gateway_connection_info(ctx.guild.id)
     # Join the user's voice channel if the bot is not in one.
     if not con:
@@ -153,16 +154,24 @@ async def play(ctx, query=None):
 
 @bot.commands
 @checks.guild_only()
+async def stop(ctx):
+    """Stops the current song (skip to continue)."""
+    await ctx.client.data.lavalink.stop(ctx.guild.id)
+    await ctx.reply("Stopped playing")
+
+
+@bot.commands
+@checks.guild_only()
 async def skip(ctx):
-    """Skip the current track"""
+    """Skips the current song."""
     skip = await ctx.client.data.lavalink.skip(ctx.guild.id)
     node = await ctx.client.data.lavalink.get_guild_node(ctx.guild.id)
 
     if not skip:
         await ctx.reply("Nothing to skip")
     else:
-        # If the queue is empty, the next song won't start playing (because there's not one),
-        # so, we stop the player.
+        # If the queue is empty, the next track won't start playing (because isn't any),
+        # so we stop the player.
         if not node.queue and not node.now_playing:
             await ctx.client.data.lavalink.stop(ctx.guild.id)
 
@@ -172,7 +181,7 @@ async def skip(ctx):
 @bot.commands
 @checks.guild_only()
 async def pause(ctx):
-    """Pause the current song."""
+    """Pauses the current song."""
     await ctx.client.data.lavalink.pause(ctx.guild.id)
     await ctx.reply("Paused player")
 
@@ -180,10 +189,42 @@ async def pause(ctx):
 @bot.commands
 @checks.guild_only()
 async def resume(ctx):
-    """Resume playing the current song."""
+    """Resumes playing the current song."""
     await ctx.client.data.lavalink.resume(ctx.guild.id)
     await ctx.reply("Resumed player")
 
+
+@bot.commands(aliases=['np'])
+@checks.guild_only()
+async def now_playing(ctx):
+    """Gets the song that's currently playing."""
+    node = await ctx.client.data.lavalink.get_guild_node(ctx.guild.id)
+
+    if not node or not node.now_playing:
+        await ctx.reply("Nothing is playing at the moment.")
+        return
+
+    # For queue, iterate over `node.queue`, where index 0 is now_playing.
+    await ctx.reply(f"Now Playing: {node.now_playing.track.info.title}")
+
+@bot.commands
+@checks.guild_only()
+async def data(ctx, *args):
+    """Load or read data from the node.
+
+    If just `data` is ran, it will show the current data, but if `data <key> <value>` is ran, it
+    will insert that data to the node and display it."""
+
+    node = await ctx.client.data.lavalink.get_guild_node(ctx.guild.id)
+
+    if not args:
+        await ctx.respond(await node.get_data())
+    else:
+        if len(args) == 1:
+            await node.set_data({args[0]: args[0]})
+        else:
+            await node.set_data({args[0]: args[1]})
+        await ctx.respond(await node.get_data())
 
 @bot.events
 async def ready(client):
@@ -191,8 +232,8 @@ async def ready(client):
     builder = (
         # TOKEN can be an empty string if you don't want to use lavasnek's discord gateway.
         lavasnek_rs.LavalinkBuilder(client.id, TOKEN)
-        # this is the default value, so this is redundant, but it's here to show how to set a custom one.
-        .set_host("127.0.0.1").set_password(os.environ["LAVALINK_PASSWORD"])
+        # This is the default value, so this is redundant, but it's here to show how to set a custom one.
+        .set_host("127.0.0.1").set_password(LAVALINK_PASSWORD)
     )
 
     if HATA_VOICE:
@@ -206,7 +247,6 @@ async def ready(client):
 
 
 if HATA_VOICE:
-
     @bot.events
     async def user_voice_update(client, event, _old):
         await client.data.lavalink.raw_handle_event_voice_state_update(
