@@ -14,9 +14,10 @@ and download the Artifact that suits your needs. Extract the artifact, and insta
 
 Then you should be able to import the library and use it!
 
-## Building and Running
+## Building and Running the hikari example
 
-If you wanna build the project from source, you will need:
+If you wanna build the project from source, (for contributing, compiling to a different architecture than
+x86_64 or for python 3.10) you will need:
 
 ```bash
 # It is highly recommended that you use Linux, either natively or with WSL2
@@ -42,5 +43,5 @@ source .env/bin/activate
 pip install maturin
 
 maturin develop
-python examples/pure_hikari_example.py
+python examples/pure_hikari_basic_queue/bot.py
 ```
