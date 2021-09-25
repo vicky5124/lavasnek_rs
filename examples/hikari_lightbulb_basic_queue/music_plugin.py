@@ -163,7 +163,7 @@ class Music(lightbulb.Plugin):
     @lightbulb.check(lightbulb.guild_only)
     @lightbulb.command()
     async def skip(self, ctx):
-        """Skip the current track."""
+        """Skips the current song."""
 
         skip = await self.bot.data.lavalink.skip(ctx.guild_id)
         node = await self.bot.data.lavalink.get_guild_node(ctx.guild_id)
