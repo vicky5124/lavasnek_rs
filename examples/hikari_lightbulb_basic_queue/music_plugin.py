@@ -48,7 +48,7 @@ class Music(lightbulb.Plugin):
 
         if not voice_state:
             await ctx.respond("Connect to a voice channel first")
-            return
+            return None
 
         channel_id = voice_state[0].channel_id
 
@@ -62,7 +62,7 @@ class Music(lightbulb.Plugin):
                 await ctx.respond(
                     "I was unable to connect to the voice channel, maybe missing permissions? or some internal issue."
                 )
-                return
+                return None
 
         await self.bot.data.lavalink.create_session(connection_info)
 

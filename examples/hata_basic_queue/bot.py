@@ -256,10 +256,10 @@ if HATA_VOICE:
     )
     sys.exit(0)
 
-    # this is unreachable...
-    @bot.events
-    async def voice_server_update(client, event):
-        await client.data.lavalink.raw_handle_event_voice_server_update(event.guild_id, event.endpoint, event.token)
+    # This is commented out because the `voice_server_update` event is not exposed by HATA, so the only way to use lavasnek_rs with it RN is to use the lavasnek discord gateway to connect.
+    # @bot.events
+    # async def voice_server_update(client, event):
+    #    await client.data.lavalink.raw_handle_event_voice_server_update(event.guild_id, event.endpoint, event.token)
 
 
 if __name__ == "__main__":
