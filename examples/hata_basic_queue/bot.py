@@ -1,14 +1,14 @@
+import logging
 import os
 import sys
-import logging
 
 import hata
 
 # Not accessed, but needed to run asyncio stuff.
 from hata.ext import asyncio
 from hata.ext.commands_v2 import checks
-import lavasnek_rs
 
+import lavasnek_rs
 
 FORMAT = "%(levelname)s %(name)s %(asctime)-15s %(filename)s:%(lineno)d %(message)s"
 logging.basicConfig(format=FORMAT)
@@ -69,15 +69,9 @@ async def _join(ctx) -> int:
     try:
         if HATA_VOICE:
             await ctx.client.join_voice(voice_state.channel)
-            connection_info = (
-                await ctx.client.data.lavalink.wait_for_full_connection_info_insert(
-                    ctx.guild.id
-                )
-            )
+            connection_info = await ctx.client.data.lavalink.wait_for_full_connection_info_insert(ctx.guild.id)
         else:
-            connection_info = await ctx.client.data.lavalink.join(
-                ctx.guild.id, channel.id
-            )
+            connection_info = await ctx.client.data.lavalink.join(ctx.guild.id, channel.id)
     except TimeoutError:
         await ctx.reply(
             "I was unable to connect to the voice channel, maybe missing permissions? or some internal issue."
@@ -142,9 +136,7 @@ async def play(ctx, query=None):
     try:
         # `.requester()` To add the requester, so you can show it on now-playing or queue.
         # `.queue()` To add the track to the queue rather than starting to play the track now.
-        await ctx.client.data.lavalink.play(
-            ctx.guild.id, query_information.tracks[0]
-        ).requester(ctx.author.id).queue()
+        await ctx.client.data.lavalink.play(ctx.guild.id, query_information.tracks[0]).requester(ctx.author.id).queue()
     except lavasnek_rs.NoSessionPresent:
         await ctx.reply(f"Use `{PREFIX}join` first")
         return
@@ -194,7 +186,7 @@ async def resume(ctx):
     await ctx.reply("Resumed player")
 
 
-@bot.commands(aliases=['np'])
+@bot.commands(aliases=["np"])
 @checks.guild_only()
 async def now_playing(ctx):
     """Gets the song that's currently playing."""
@@ -206,6 +198,7 @@ async def now_playing(ctx):
 
     # For queue, iterate over `node.queue`, where index 0 is now_playing.
     await ctx.reply(f"Now Playing: {node.now_playing.track.info.title}")
+
 
 @bot.commands
 @checks.guild_only()
@@ -225,6 +218,7 @@ async def data(ctx, *args):
         else:
             await node.set_data({args[0]: args[1]})
         await ctx.respond(await node.get_data())
+
 
 @bot.events
 async def ready(client):
@@ -247,6 +241,7 @@ async def ready(client):
 
 
 if HATA_VOICE:
+
     @bot.events
     async def user_voice_update(client, event, _old):
         await client.data.lavalink.raw_handle_event_voice_state_update(
@@ -261,11 +256,11 @@ if HATA_VOICE:
     )
     sys.exit(0)
 
+    # this is unreachable...
     @bot.events
     async def voice_server_update(client, event):
-        await client.data.lavalink.raw_handle_event_voice_server_update(
-            event.guild_id, event.endpoint, event.token
-        )
+        await client.data.lavalink.raw_handle_event_voice_server_update(event.guild_id, event.endpoint, event.token)
 
 
-bot.start()
+if __name__ == "__main__":
+    bot.start()

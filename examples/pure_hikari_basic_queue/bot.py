@@ -1,8 +1,12 @@
-import os
 import logging
-from typing import Any, Union, List
+import os
+from typing import Any
+from typing import List
+from typing import Optional
+from typing import Union
 
 import hikari
+
 import lavasnek_rs
 
 PREFIX = ","
@@ -66,31 +70,29 @@ class EventHandler:
 bot = Bot(token=TOKEN)
 
 
-async def _join(event: hikari.GuildMessageCreateEvent) -> int:
+async def _join(event: hikari.GuildMessageCreateEvent) -> Optional[hikari.Snowflake]:
     """Join the user's voice channel and create a lavalink session."""
 
-    states = bot.cache.get_voice_states_view_for_guild(event.get_guild())
-    voice_state = list(
-        filter(lambda i: i.user_id == event.author_id, states.iterator())
-    )
+    states = bot.cache.get_voice_states_view_for_guild(event.guild_id)
+    voice_state = [state async for state in states.iterator().filter(lambda i: i.user_id == event.author_id)]
 
     if not voice_state:
         await event.message.respond("Connect to a voice channel first")
-        return 0
+        return
 
     channel_id = voice_state[0].channel_id
 
     if HIKARI_VOICE:
         await bot.update_voice_state(event.guild_id, channel_id, self_deaf=True)
-        connection_info = await bot.data.lavalink.wait_for_full_connection_info_insert(
-            event.guild_id
-        )
+        connection_info = await bot.data.lavalink.wait_for_full_connection_info_insert(event.guild_id)
     else:
         try:
             connection_info = await bot.data.lavalink.join(event.guild_id, channel_id)
         except TimeoutError:
-            await event.message.respond("I was unable to connect to the voice channel, maybe missing permissions? or some internal issue.")
-            return 0
+            await event.message.respond(
+                "I was unable to connect to the voice channel, maybe missing permissions? or some internal issue."
+            )
+            return
 
     await bot.data.lavalink.create_session(connection_info)
 
@@ -140,9 +142,7 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
 
         # Searches and adds a track to the queue.
         elif is_command("play", event.content):
-            con = await bot.data.lavalink.get_guild_gateway_connection_info(
-                event.guild_id
-            )
+            con = await bot.data.lavalink.get_guild_gateway_connection_info(event.guild_id)
             # Join the user's voice channel if the bot is not in one.
             if not con:
                 await _join(event)
@@ -155,24 +155,20 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
             query_information = await bot.data.lavalink.auto_search_tracks(query)
 
             if not query_information.tracks:  # tracks is empty
-                await event.message.respond(
-                    "Could not find any video of the search query."
-                )
+                await event.message.respond("Could not find any video of the search query.")
                 return
 
             try:
                 # `.requester()` To set who requested the track, so you can show it on now-playing or queue.
                 # `.queue()` To add the track to the queue rather than starting to play the track now.
-                await bot.data.lavalink.play(
-                    event.guild_id, query_information.tracks[0]
-                ).requester(event.author_id).queue()
+                await bot.data.lavalink.play(event.guild_id, query_information.tracks[0]).requester(
+                    event.author_id
+                ).queue()
             except lavasnek_rs.NoSessionPresent:
                 await event.message.respond(f"Use `{PREFIX}join` first")
                 return
 
-            await event.message.respond(
-                f"Added to queue: {query_information.tracks[0].info.title}"
-            )
+            await event.message.respond(f"Added to queue: {query_information.tracks[0].info.title}")
 
         # Stops the current song (skip to continue).
         elif is_command("stop", event.content):
@@ -241,8 +237,7 @@ async def on_ready(event: hikari.ShardReadyEvent) -> None:
         # TOKEN can be an empty string if you don't want to use lavasnek's discord gateway.
         lavasnek_rs.LavalinkBuilder(event.my_user.id, TOKEN)
         # This is the default value, so this is redundant, but it's here to show how to set a custom one.
-        .set_host("127.0.0.1")
-        .set_password(os.environ["LAVALINK_PASSWORD"])
+        .set_host("127.0.0.1").set_password(os.environ["LAVALINK_PASSWORD"])
     )
 
     if HIKARI_VOICE:
@@ -266,9 +261,13 @@ if HIKARI_VOICE:
 
     @bot.listen()
     async def voice_server_update(event: hikari.VoiceServerUpdateEvent) -> None:
-        await bot.data.lavalink.raw_handle_event_voice_server_update(
-            event.guild_id, event.endpoint, event.token
-        )
+        await bot.data.lavalink.raw_handle_event_voice_server_update(event.guild_id, event.endpoint, event.token)
 
 
-bot.run()
+if __name__ == "__main__":
+    if os.name != "nt":
+        import uvloop
+
+        uvloop.install()
+
+    bot.run()
