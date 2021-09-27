@@ -47,13 +47,13 @@ class Bot(hikari.GatewayBot):
 class EventHandler:
     """Events from the Lavalink server"""
 
-    async def track_start(self, _lava_client, event):
+    async def track_start(self, _: lavasnek_rs.Lavalink, event: lavasnek_rs.TrackStart) -> None:
         logging.info("Track started on guild: %s", event.guild_id)
 
-    async def track_finish(self, _lava_client, event):
+    async def track_finish(self, _: lavasnek_rs.Lavalink, event: lavasnek_rs.TrackFinish) -> None:
         logging.info("Track finished on guild: %s", event.guild_id)
 
-    async def track_exception(self, lavalink, event):
+    async def track_exception(self, lavalink: lavasnek_rs.Lavalink, event: lavasnek_rs.TrackException) -> None:
         logging.warning("Track exception event happened on guild: %d", event.guild_id)
 
         # If a track was unable to be played, skip it
@@ -78,7 +78,7 @@ async def _join(event: hikari.GuildMessageCreateEvent) -> Optional[hikari.Snowfl
 
     if not voice_state:
         await event.message.respond("Connect to a voice channel first")
-        return
+        return None
 
     channel_id = voice_state[0].channel_id
 
@@ -92,7 +92,7 @@ async def _join(event: hikari.GuildMessageCreateEvent) -> Optional[hikari.Snowfl
             await event.message.respond(
                 "I was unable to connect to the voice channel, maybe missing permissions? or some internal issue."
             )
-            return
+            return None
 
     await bot.data.lavalink.create_session(connection_info)
 
