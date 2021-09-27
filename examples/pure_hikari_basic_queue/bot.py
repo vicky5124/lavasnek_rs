@@ -100,7 +100,7 @@ async def _join(event: hikari.GuildMessageCreateEvent) -> Optional[hikari.Snowfl
 
 
 @bot.listen()
-async def on_message(event: hikari.GuildMessageCreateEvent) -> None:
+async def on_message(event: hikari.GuildMessageCreateEvent) -> None:  # noqa: C901
     """Event that triggers on every new message."""
 
     if event.is_bot or not event.content or not event.guild_id:
