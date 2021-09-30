@@ -19,13 +19,13 @@ class EventHandler:
     """Events from the Lavalink server"""
 
     async def track_start(self, _lava_client, event):
-        logger.info("Track started on guild: %s", event.guild_id)
+        logger.info(f"Track started on guild: {event.guild_id}")
 
     async def track_finish(self, _lava_client, event):
-        logger.info("Track finished on guild: %s", event.guild_id)
+        logger.info(f"Track finished on guild: {event.guild_id}")
 
     async def track_exception(self, lavalink, event):
-        logger.warning("Track exception event happened on guild: %d", event.guild_id)
+        logger.warning(f"Track exception event happened on guild: {event.guild_id}")
 
         # If a track was unable to be played, skip it
         skip = await lavalink.skip(event.guild_id)
@@ -154,7 +154,7 @@ class Music(lightbulb.Plugin):
 
     @lightbulb.check(lightbulb.guild_only)
     @lightbulb.command()
-    async def stop(self, ctx: lightbulb.Context):
+    async def stop(self, ctx: lightbulb.Context) -> None:
         """Stops the current song (skip to continue)."""
 
         await self.bot.data.lavalink.stop(ctx.guild_id)
@@ -162,7 +162,7 @@ class Music(lightbulb.Plugin):
 
     @lightbulb.check(lightbulb.guild_only)
     @lightbulb.command()
-    async def skip(self, ctx: lightbulb.Context):
+    async def skip(self, ctx: lightbulb.Context) -> None:
         """Skips the current song."""
 
         skip = await self.bot.data.lavalink.skip(ctx.guild_id)
@@ -180,7 +180,7 @@ class Music(lightbulb.Plugin):
 
     @lightbulb.check(lightbulb.guild_only)
     @lightbulb.command()
-    async def pause(self, ctx: lightbulb.Context):
+    async def pause(self, ctx: lightbulb.Context) -> None:
         """Pauses the current song."""
 
         await self.bot.data.lavalink.pause(ctx.guild_id)
@@ -188,7 +188,7 @@ class Music(lightbulb.Plugin):
 
     @lightbulb.check(lightbulb.guild_only)
     @lightbulb.command()
-    async def resume(self, ctx: lightbulb.Context):
+    async def resume(self, ctx: lightbulb.Context) -> None:
         """Resumes playing the current song."""
 
         await self.bot.data.lavalink.resume(ctx.guild_id)
@@ -196,7 +196,7 @@ class Music(lightbulb.Plugin):
 
     @lightbulb.check(lightbulb.guild_only)
     @lightbulb.command(aliases=["np"])
-    async def now_playing(self, ctx: lightbulb.Context):
+    async def now_playing(self, ctx: lightbulb.Context) -> None:
         """Gets the song that's currently playing."""
 
         node = await self.bot.data.lavalink.get_guild_node(ctx.guild_id)
@@ -210,7 +210,7 @@ class Music(lightbulb.Plugin):
     @lightbulb.check(lightbulb.guild_only)
     @lightbulb.check(lightbulb.owner_only)  # Optional
     @lightbulb.command()
-    async def data(self, ctx: lightbulb.Context, *args):
+    async def data(self, ctx: lightbulb.Context, *args) -> None:
         """Load or read data from the node.
 
         If just `data` is ran, it will show the current data, but if `data <key> <value>` is ran, it
