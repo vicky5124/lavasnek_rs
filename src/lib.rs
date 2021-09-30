@@ -627,6 +627,9 @@ impl Lavalink {
 
     /// Get the current guild from the queue nodes.
     ///
+    /// This returns a clone of the node, so modifying it won't change the real node, for that you
+    /// will need to re-set the new node with `set_guild_node()`.
+    ///
     /// Positional Arguments:
     /// - `guild_id` : `Unsigned 64 bit integer`
     ///
@@ -672,6 +675,8 @@ impl Lavalink {
     }
 
     /// Get the current guild from the queue nodes.
+    ///
+    /// This returns a clone of the value, modifying it won't change it internally.
     ///
     /// Positional Arguments:
     /// - `guild_id` : `Unsigned 64 bit integer`
