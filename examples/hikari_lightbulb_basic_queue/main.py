@@ -1,10 +1,10 @@
 import os
+from asyncio import Future
 from typing import Any
 
 import hikari
 import lightbulb
-from consts import PREFIX
-from consts import TOKEN
+from consts import PREFIX, TOKEN
 
 import lavasnek_rs
 

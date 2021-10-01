@@ -1,12 +1,9 @@
 import logging
-from typing import Any
-from typing import Optional
+from typing import Any, Optional
 
 import hikari
 import lightbulb
-from consts import LAVALINK_PASSWORD
-from consts import PREFIX
-from consts import TOKEN
+from consts import LAVALINK_PASSWORD, PREFIX, TOKEN
 
 import lavasnek_rs
 

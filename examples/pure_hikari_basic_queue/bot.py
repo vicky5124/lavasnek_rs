@@ -1,9 +1,6 @@
 import logging
 import os
-from typing import Any
-from typing import List
-from typing import Optional
-from typing import Union
+from typing import Any, List, Optional, Union
 
 import hikari
 
