@@ -1,5 +1,4 @@
 import os
-from asyncio import Future
 from typing import Any
 
 import hikari

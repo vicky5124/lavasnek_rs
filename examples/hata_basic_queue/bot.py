@@ -26,7 +26,7 @@ HATA_VOICE = False
 class Data:
     """Global data shared across the entire bot, used to store dashboard values."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.lavalink: lavasnek_rs.Lavalink = None
 
 
@@ -252,11 +252,15 @@ if HATA_VOICE:
         )
 
     logging.error(
-        "The `voice_server_update` event is not exposed by HATA, so the only way to use lavasnek_rs with it RN is to use the lavasnek discord gateway to connect."
+        (
+            "The `voice_server_update` event is not exposed by HATA,"
+            " so the only way to use lavasnek_rs with it RN is to use the lavasnek discord gateway to connect."
+        )
     )
     sys.exit(0)
 
-    # This is commented out because the `voice_server_update` event is not exposed by HATA, so the only way to use lavasnek_rs with it RN is to use the lavasnek discord gateway to connect.
+    # This is commented out because the `voice_server_update` event is not exposed by HATA,
+    # so the only way to use lavasnek_rs with it RN is to use the lavasnek discord gateway to connect.
     # @bot.events
     # async def voice_server_update(client, event):
     #    await client.data.lavalink.raw_handle_event_voice_server_update(event.guild_id, event.endpoint, event.token)
