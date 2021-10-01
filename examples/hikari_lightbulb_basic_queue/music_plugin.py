@@ -27,9 +27,7 @@ class EventHandler:
         skip = await lavalink.skip(event.guild_id)
         node = await lavalink.get_guild_node(event.guild_id)
 
-        if not skip:
-            await event.message.respond("Nothing to skip")
-        else:
+        if skip:
             if not node.queue and not node.now_playing:
                 await lavalink.stop(event.guild_id)
 
@@ -54,7 +52,9 @@ class Music(lightbulb.Plugin):
             connection_info = await self.bot.data.lavalink.wait_for_full_connection_info_insert(ctx.guild_id)
         else:
             try:
-                connection_info = await self.bot.data.lavalink.join(ctx.guild_id, channel_id)
+                connection_info = await self.bot.data.lavalink.join(
+                    ctx.guild_id, channel_id
+                )
             except TimeoutError:
                 await ctx.respond(
                     "I was unable to connect to the voice channel, maybe missing permissions? or some internal issue."

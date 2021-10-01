@@ -46,9 +46,7 @@ class EventHandler:
         skip = await lavalink.skip(event.guild_id)
         node = await lavalink.get_guild_node(event.guild_id)
 
-        if not skip:
-            await event.message.respond("Nothing to skip")
-        else:
+        if skip:
             if not node.queue and not node.now_playing:
                 await lavalink.stop(event.guild_id)
 

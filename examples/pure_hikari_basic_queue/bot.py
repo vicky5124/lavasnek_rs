@@ -57,9 +57,7 @@ class EventHandler:
         skip = await lavalink.skip(event.guild_id)
         node = await lavalink.get_guild_node(event.guild_id)
 
-        if not skip:
-            await event.message.respond("Nothing to skip")
-        else:
+        if skip:
             if not node.queue and not node.now_playing:
                 await lavalink.stop(event.guild_id)
 
@@ -198,7 +196,9 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:  # noqa: C9
             await event.message.respond("Resumed player")
 
         # Resume playing the current song.
-        elif is_command("now_playing", event.content) or is_command("np", event.content):
+        elif is_command("now_playing", event.content) or is_command(
+            "np", event.content
+        ):
             node = await bot.data.lavalink.get_guild_node(event.guild_id)
 
             if not node or not node.now_playing:
@@ -206,7 +206,22 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:  # noqa: C9
                 return
 
             # for queue, iterate over `node.queue`, where index 0 is now_playing.
-            await event.message.respond(f"Now Playing: {node.now_playing.track.info.title}")
+            await event.message.respond(
+                f"Now Playing: {node.now_playing.track.info.title}"
+            )
+
+        # Clears the current queue, stopping the current song.
+        elif is_command("clear_queue", event.content):
+            await bot.data.lavalink.stop(event.guild_id)
+            node = await bot.data.lavalink.get_guild_node(event.guild_id)
+
+            tempq = node.queue
+            tempq.clear()
+            node.now_playing = None
+            node.queue = tempq
+
+            await bot.data.lavalink.set_guild_node(event.guild_id, node)
+            await event.message.respond("Cleared queue.")
 
         # Load or read data from the node.
         #
