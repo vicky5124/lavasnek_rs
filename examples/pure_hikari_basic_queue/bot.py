@@ -21,9 +21,9 @@ def is_command(cmd_name: str, content: str) -> bool:
 def get_args(cmd_name: str, content: str, is_text: bool) -> Union[str, List[str]]:
     """Return the arguments of a command."""
     if is_text:
-        return content[len(f"{PREFIX}{cmd_name}") :].rstrip()
+        return content[len(f"{PREFIX}{cmd_name}") :].rstrip()  # noqa: E203
     else:
-        return list(filter(lambda i: i, content[len(f"{PREFIX}{cmd_name}") :].split()))
+        return list(filter(lambda i: i, content[len(f"{PREFIX}{cmd_name}") :].split()))  # noqa: E203
 
 
 class Data:
