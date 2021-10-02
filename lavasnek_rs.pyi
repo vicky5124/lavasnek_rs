@@ -145,10 +145,10 @@ class Lavalink:
         self, guild_id: int
     ) -> t.Optional[ConnectionInfo]: ...
     async def wait_for_full_connection_info_insert(
-        self, guild_id: int, event_count: int=10
+        self, guild_id: int, event_count: int = 10
     ) -> ConnectionInfo: ...
     async def wait_for_connection_info_remove(
-        self, guild_id: int, event_count: int=10
+        self, guild_id: int, event_count: int = 10
     ) -> None: ...
     async def raw_handle_event_voice_server_update(
         self, guild_id: int, endpoint: str, token: str
