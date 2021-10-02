@@ -1,14 +1,14 @@
+import logging
 import os
 import sys
-import logging
 
 import hata
 
 # Not accessed, but needed to run asyncio stuff.
 from hata.ext import asyncio
 from hata.ext.commands_v2 import checks
-import lavasnek_rs
 
+import lavasnek_rs
 
 FORMAT = "%(levelname)s %(name)s %(asctime)-15s %(filename)s:%(lineno)d %(message)s"
 logging.basicConfig(format=FORMAT)
@@ -26,7 +26,7 @@ HATA_VOICE = False
 class Data:
     """Global data shared across the entire bot, used to store dashboard values."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.lavalink: lavasnek_rs.Lavalink = None
 
 
@@ -67,15 +67,9 @@ async def _join(ctx) -> int:
     try:
         if HATA_VOICE:
             await ctx.client.join_voice(voice_state.channel)
-            connection_info = (
-                await ctx.client.data.lavalink.wait_for_full_connection_info_insert(
-                    ctx.guild.id
-                )
-            )
+            connection_info = await ctx.client.data.lavalink.wait_for_full_connection_info_insert(ctx.guild.id)
         else:
-            connection_info = await ctx.client.data.lavalink.join(
-                ctx.guild.id, channel.id
-            )
+            connection_info = await ctx.client.data.lavalink.join(ctx.guild.id, channel.id)
     except TimeoutError:
         await ctx.reply(
             "I was unable to connect to the voice channel, maybe missing permissions? or some internal issue."
@@ -140,9 +134,7 @@ async def play(ctx, query=None):
     try:
         # `.requester()` To add the requester, so you can show it on now-playing or queue.
         # `.queue()` To add the track to the queue rather than starting to play the track now.
-        await ctx.client.data.lavalink.play(
-            ctx.guild.id, query_information.tracks[0]
-        ).requester(ctx.author.id).queue()
+        await ctx.client.data.lavalink.play(ctx.guild.id, query_information.tracks[0]).requester(ctx.author.id).queue()
     except lavasnek_rs.NoSessionPresent:
         await ctx.reply(f"Use `{PREFIX}join` first")
         return
@@ -258,15 +250,19 @@ if HATA_VOICE:
         )
 
     logging.error(
-        "The `voice_server_update` event is not exposed by HATA, so the only way to use lavasnek_rs with it RN is to use the lavasnek discord gateway to connect."
+        (
+            "The `voice_server_update` event is not exposed by HATA,"
+            " so the only way to use lavasnek_rs with it RN is to use the lavasnek discord gateway to connect."
+        )
     )
     sys.exit(0)
 
-    @bot.events
-    async def voice_server_update(client, event):
-        await client.data.lavalink.raw_handle_event_voice_server_update(
-            event.guild_id, event.endpoint, event.token
-        )
+    # This is commented out because the `voice_server_update` event is not exposed by HATA,
+    # so the only way to use lavasnek_rs with it RN is to use the lavasnek discord gateway to connect.
+    # @bot.events
+    # async def voice_server_update(client, event):
+    #    await client.data.lavalink.raw_handle_event_voice_server_update(event.guild_id, event.endpoint, event.token)
 
 
-bot.start()
+if __name__ == "__main__":
+    bot.start()

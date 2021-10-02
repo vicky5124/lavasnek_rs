@@ -1,9 +1,10 @@
 import os
-
-from consts import TOKEN, PREFIX
+from typing import Any
 
 import hikari
 import lightbulb
+from consts import PREFIX, TOKEN
+
 import lavasnek_rs
 
 
@@ -17,7 +18,7 @@ class Data:
 class MusicBot(lightbulb.Bot):
     """Subclass of lightbulb's Bot object, used to store the lavalink client."""
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: Any, **kwargs: Any):
         super().__init__(*args, **kwargs)
         self.data = Data()
 
@@ -26,16 +27,22 @@ class MusicBot(lightbulb.Bot):
 bot = MusicBot(token=TOKEN, prefix=PREFIX)
 
 
-@bot.listen(hikari.StartingEvent)
-async def starting_load_extensions(event):
+@bot.listen()
+async def starting_load_extensions(_: hikari.StartingEvent) -> None:
     """Load the music extension when Bot starts."""
     bot.load_extension("music_plugin")
 
 
 @bot.command()
-async def ping(ctx):
+async def ping(ctx: lightbulb.Context) -> None:
     """Typical Ping-Pong command"""
     await ctx.respond("Ping?")
 
 
-bot.run()
+if __name__ == "__main__":
+    if os.name != "nt":
+        import uvloop
+
+        uvloop.install()
+
+    bot.run()

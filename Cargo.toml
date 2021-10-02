@@ -37,7 +37,7 @@ version = "1.4"
 git = "https://gitlab.com/vicky5124/lavalink-rs"
 #path = "../lavalink-rs"
 default-features = false
-features = ["rustls", "simple-gateway", "normal-log"]
+features = ["rustls", "discord-gateway", "normal-log"]
 
 #[profile.release]
 #strip = "symbols"
