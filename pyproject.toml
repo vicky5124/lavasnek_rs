@@ -19,3 +19,8 @@ pytest = "^6.1"
 [build-system]
 requires = ["maturin>=0.11,<0.12"]
 build-backend = "maturin"
+
+[tool.black]
+line-length     = 120
+include         = ".*pyi?$"
+target-version  = ["py36"]
