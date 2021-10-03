@@ -47,8 +47,9 @@ class Node:
     async def set_data(self, data: t.Union[t.Any, t.Dict]): ...
 
 class Band:
-    gain: int
+    gain: float
     band: int
+    def __new__(cls, band: int, gain: float): ...
 
 class Stats:
     frame_stats_deficit: t.Optional[int]
