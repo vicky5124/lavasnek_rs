@@ -1,0 +1,3 @@
+hikari==2.0.0.dev102
+hikari-tanjun==2.1.0a1
+uvloop>=0.16; sys_platform != 'nt'

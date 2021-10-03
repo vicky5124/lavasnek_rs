@@ -36,55 +36,8 @@ class EventHandler:
                 await lavalink.stop(event.guild_id)
 
 
-class Client(tanjun.Client):
-    def __init__(self, *args: typing.Any, **kwargs: typing.Any) -> None:
-        super().__init__(*args, **kwargs)
-        # Tanjun has a metadata property to store any general data
-        # We will store the lavalink client there
-        self.metadata["lavalink"] = None
-
-        (  # Listen for voice and ready events
-            self.add_listener(hikari.ShardReadyEvent, self.on_shard_ready)
-            .add_listener(hikari.VoiceStateUpdateEvent, self.on_voice_state_update)
-            .add_listener(hikari.VoiceServerUpdateEvent, self.on_voice_server_update)
-        )
-
-    async def on_shard_ready(self, event: hikari.ShardReadyEvent) -> None:
-        """Event that triggers when the hikari gateway is ready."""
-        builder = (
-            lavasnek_rs.LavalinkBuilder(event.my_user.id, TOKEN)
-            .set_host(os.environ["LAVALINK_HOST"])
-            .set_password(os.environ["LAVALINK_PASSWORD"])
-            .set_port(int(os.environ["LAVALINK_PORT"]))
-            .set_start_gateway(False)
-            # We set start gateway False because hikari can handle
-            # voice events for us.
-        )
-
-        self.metadata["lavalink"] = await builder.build(EventHandler)
-
-    async def on_voice_state_update(self, event: hikari.VoiceStateUpdateEvent) -> None:
-        """Passes voice state updates to lavalink."""
-        if self.metadata["lavalink"]:
-            await self.metadata["lavalink"].raw_handle_event_voice_state_update(
-                event.state.guild_id,
-                event.state.user_id,
-                event.state.session_id,
-                event.state.channel_id,
-            )
-
-    async def on_voice_server_update(self, event: hikari.VoiceServerUpdateEvent) -> None:
-        """Passes voice server updates to lavalink."""
-        if self.metadata["lavalink"]:
-            await self.metadata["lavalink"].raw_handle_event_voice_server_update(
-                event.guild_id,
-                event.endpoint,
-                event.token,
-            )
-
-
 client = (
-    Client.from_gateway_bot(
+    tanjun.Client.from_gateway_bot(
         bot := hikari.GatewayBot(token=TOKEN),
         mention_prefix=True,
     )
@@ -95,6 +48,54 @@ client = (
     # Load the music module
     .load_modules("music")
 )
+
+
+@client.with_listener(hikari.ShardReadyEvent)
+async def on_shard_ready(
+    event: hikari.ShardReadyEvent,
+    client_: tanjun.Client = tanjun.injected(type=tanjun.Client),
+) -> None:
+    """Event that triggers when the hikari gateway is ready."""
+    builder = (
+        lavasnek_rs.LavalinkBuilder(event.my_user.id, TOKEN)
+        .set_host(os.environ["LAVALINK_HOST"])
+        .set_password(os.environ["LAVALINK_PASSWORD"])
+        .set_port(int(os.environ["LAVALINK_PORT"]))
+        .set_start_gateway(False)
+        # We set start gateway False because hikari can handle
+        # voice events for us.
+    )
+
+    # Here we add lavasnek_rs.Lavalink as a type dependency to the client
+    # We will use this later to have access to it in all our commands
+    client_.set_type_dependency(lavasnek_rs.Lavalink, await builder.build(EventHandler))
+
+
+@client.with_listener(hikari.VoiceStateUpdateEvent)
+async def on_voice_state_update(
+    event: hikari.VoiceStateUpdateEvent,
+    lavalink: lavasnek_rs.Lavalink = tanjun.injected(type=lavasnek_rs.Lavalink),
+) -> None:
+    """Passes voice state updates to lavalink."""
+    await lavalink.raw_handle_event_voice_state_update(
+        event.state.guild_id,
+        event.state.user_id,
+        event.state.session_id,
+        event.state.channel_id,
+    )
+
+
+@client.with_listener(hikari.VoiceServerUpdateEvent)
+async def on_voice_server_update(
+    event: hikari.VoiceServerUpdateEvent,
+    lavalink: lavasnek_rs.Lavalink = tanjun.injected(type=lavasnek_rs.Lavalink),
+) -> None:
+    """Passes voice server updates to lavalink."""
+    await lavalink.raw_handle_event_voice_server_update(
+        event.guild_id,
+        event.endpoint,
+        event.token,
+    )
 
 
 if __name__ == "__main__":

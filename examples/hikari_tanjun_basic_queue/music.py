@@ -12,20 +12,23 @@ music = tanjun.Component()
 @tanjun.as_slash_command("join", "Connect the bot to a voice channel.")
 async def join_as_slash(
     ctx: tanjun.abc.SlashContext,
+    lavalink: lavasnek_rs.Lavalink = tanjun.injected(type=lavasnek_rs.Lavalink),
 ) -> None:
-    await _join_voice(ctx)
+    await _join_voice(ctx, lavalink)
 
 
 @music.with_message_command
 @tanjun.as_message_command("join")
-async def join_as_message(ctx: tanjun.abc.MessageContext) -> None:
+async def join_as_message(
+    ctx: tanjun.abc.MessageContext,
+    lavalink: lavasnek_rs.Lavalink = tanjun.injected(type=lavasnek_rs.Lavalink),
+) -> None:
     """Connect the bot to a voice channel."""
-    await _join_voice(ctx)
+    await _join_voice(ctx, lavalink)
 
 
-async def _join_voice(ctx: tanjun.abc.Context) -> int:
+async def _join_voice(ctx: tanjun.abc.Context, lavalink: lavasnek_rs.Lavalink) -> int:
     """Joins your voice channel."""
-    player: lavasnek_rs.Lavalink = ctx.client.metadata["lavalink"]
     assert ctx.guild_id is not None
 
     if ctx.client.cache and ctx.client.shards:
@@ -53,9 +56,9 @@ async def _join_voice(ctx: tanjun.abc.Context) -> int:
             ctx.guild_id, voice_state.channel_id, self_deaf=True
         )
         # Lavasnek waits for the data on the event
-        conn = await player.wait_for_full_connection_info_insert(ctx.guild_id)
+        conn = await lavalink.wait_for_full_connection_info_insert(ctx.guild_id)
         # Lavasnek tells lavalink to connect
-        await player.create_session(conn)
+        await lavalink.create_session(conn)
 
         await ctx.respond(f"Connected to <#{voice_state.channel_id}>")
         return 0
@@ -67,34 +70,41 @@ async def _join_voice(ctx: tanjun.abc.Context) -> int:
 @music.with_slash_command
 @tanjun.with_str_slash_option("song", "The title or youtube link of the song you want to play.")
 @tanjun.as_slash_command("play", "Play a song, or add it to the queue.")
-async def play_as_slash(ctx: tanjun.abc.SlashContext, song: str) -> None:
-    await _play_track(ctx, song)
+async def play_as_slash(
+    ctx: tanjun.abc.SlashContext,
+    song: str,
+    lavalink: lavasnek_rs.Lavalink = tanjun.injected(type=lavasnek_rs.Lavalink),
+) -> None:
+    await _play_track(ctx, song, lavalink)
 
 
 @music.with_message_command
 @tanjun.with_greedy_argument("song")  # Set song to be greedy
 @tanjun.with_parser  # Add an argument parser to the command
 @tanjun.as_message_command("play")
-async def play_as_message(ctx: tanjun.abc.MessageContext, song: str) -> None:
+async def play_as_message(
+    ctx: tanjun.abc.MessageContext,
+    song: str,
+    lavalink: lavasnek_rs.Lavalink = tanjun.injected(type=lavasnek_rs.Lavalink),
+) -> None:
     """Play a song, or add it to the queue."""
-    await _play_track(ctx, song)
+    await _play_track(ctx, song, lavalink)
 
 
-async def _play_track(ctx: tanjun.abc.Context, song: str) -> None:
+async def _play_track(ctx: tanjun.abc.Context, song: str, lavalink: lavasnek_rs.Lavalink) -> None:
     """Attempts to play the song from youtube."""
-    player: lavasnek_rs.Lavalink = ctx.client.metadata["lavalink"]
     assert ctx.guild_id is not None
 
     # Check if we are connected to voice
-    conn = await player.get_guild_gateway_connection_info(ctx.guild_id)
+    conn = await lavalink.get_guild_gateway_connection_info(ctx.guild_id)
 
     if not conn:
         # Join the users voice channel if we are not already connected
-        if await _join_voice(ctx):
+        if await _join_voice(ctx, lavalink):
             # Return out of the function if joining vc failed
             return
 
-    if not (tracks := (await player.auto_search_tracks(song)).tracks):
+    if not (tracks := (await lavalink.auto_search_tracks(song)).tracks):
         # We didnt find any tracks
         await ctx.respond(f"No tracks found found song: <{song}>")
         return
@@ -102,7 +112,7 @@ async def _play_track(ctx: tanjun.abc.Context, song: str) -> None:
     try:
         # Play the first track in tracks
         # Set the requester, and queue the song
-        await player.play(ctx.guild_id, tracks[0]).requester(ctx.author.id).queue()
+        await lavalink.play(ctx.guild_id, tracks[0]).requester(ctx.author.id).queue()
     except lavasnek_rs.NoSessionPresent:
         # This shouldnt really ever happen
         await ctx.respond("Unable to join voice. This may be an internal error.")
@@ -113,34 +123,39 @@ async def _play_track(ctx: tanjun.abc.Context, song: str) -> None:
 
 @music.with_slash_command
 @tanjun.as_slash_command("leave", "Leaves the voice channel and clears the queue.")
-async def leave_as_slash(ctx: tanjun.abc.SlashContext) -> None:
-    await _leave_voice(ctx)
+async def leave_as_slash(
+    ctx: tanjun.abc.SlashContext,
+    lavalink: lavasnek_rs.Lavalink = tanjun.injected(type=lavasnek_rs.Lavalink),
+) -> None:
+    await _leave_voice(ctx, lavalink)
 
 
 @music.with_message_command
 @tanjun.as_message_command("leave")
-async def leave_as_message(ctx: tanjun.abc.MessageContext) -> None:
+async def leave_as_message(
+    ctx: tanjun.abc.MessageContext,
+    lavalink: lavasnek_rs.Lavalink = tanjun.injected(type=lavasnek_rs.Lavalink),
+) -> None:
     """Leaves the voice channel and clears the queue."""
-    await _leave_voice(ctx)
+    await _leave_voice(ctx, lavalink)
 
 
-async def _leave_voice(ctx: tanjun.abc.Context) -> None:
+async def _leave_voice(ctx: tanjun.abc.Context, lavalink: lavasnek_rs.Lavalink) -> None:
     """Stops playback of the current song."""
-    player: lavasnek_rs.Lavalink = ctx.client.metadata["lavalink"]
     assert ctx.guild_id is not None
 
-    if await player.get_guild_gateway_connection_info(ctx.guild_id):
+    if await lavalink.get_guild_gateway_connection_info(ctx.guild_id):
         # If were connected, destroy the connection
-        await player.destroy(ctx.guild_id)
+        await lavalink.destroy(ctx.guild_id)
 
         if ctx.client.shards:
             # Set voice channel to None
             await ctx.client.shards.update_voice_state(ctx.guild_id, None)
-            await player.wait_for_connection_info_remove(ctx.guild_id)
+            await lavalink.wait_for_connection_info_remove(ctx.guild_id)
 
         # We must manually remove the node and queue loop from lavasnek
-        await player.remove_guild_node(ctx.guild_id)
-        await player.remove_guild_from_loops(ctx.guild_id)
+        await lavalink.remove_guild_node(ctx.guild_id)
+        await lavalink.remove_guild_from_loops(ctx.guild_id)
 
         await ctx.respond("Disconnected from voice.")
         return
@@ -150,80 +165,95 @@ async def _leave_voice(ctx: tanjun.abc.Context) -> None:
 
 @music.with_slash_command
 @tanjun.as_slash_command("stop", "Stops the currently playing song, skip to play again.")
-async def stop_as_slash(ctx: tanjun.abc.SlashContext) -> None:
-    await _stop_playback(ctx)
+async def stop_as_slash(
+    ctx: tanjun.abc.SlashContext,
+    lavalink: lavasnek_rs.Lavalink = tanjun.injected(type=lavasnek_rs.Lavalink),
+) -> None:
+    await _stop_playback(ctx, lavalink)
 
 
 @music.with_message_command
 @tanjun.as_message_command("stop")
-async def stop_as_message(ctx: tanjun.abc.MessageContext) -> None:
+async def stop_as_message(
+    ctx: tanjun.abc.MessageContext,
+    lavalink: lavasnek_rs.Lavalink = tanjun.injected(type=lavasnek_rs.Lavalink),
+) -> None:
     """Stops the currently playing song, skip to play again."""
-    await _stop_playback(ctx)
+    await _stop_playback(ctx, lavalink)
 
 
-async def _stop_playback(ctx: tanjun.abc.Context) -> None:
+async def _stop_playback(ctx: tanjun.abc.Context, lavalink: lavasnek_rs.Lavalink) -> None:
     """Stops the currently playing song."""
-    player: lavasnek_rs.Lavalink = ctx.client.metadata["lavalink"]
     assert ctx.guild_id is not None
 
-    await player.stop(ctx.guild_id)  # Stop the player
+    await lavalink.stop(ctx.guild_id)  # Stop the player
     await ctx.respond("Stopped playback.")
 
 
 @music.with_slash_command
 @tanjun.as_slash_command("skip", "Skips the current song.")
-async def skip_as_slash(ctx: tanjun.abc.SlashContext) -> None:
-    await _skip_track(ctx)
+async def skip_as_slash(
+    ctx: tanjun.abc.SlashContext,
+    lavalink: lavasnek_rs.Lavalink = tanjun.injected(type=lavasnek_rs.Lavalink),
+) -> None:
+    await _skip_track(ctx, lavalink)
 
 
 @music.with_message_command
 @tanjun.as_message_command("skip")
-async def skip_as_message(ctx: tanjun.abc.MessageContext) -> None:
+async def skip_as_message(
+    ctx: tanjun.abc.MessageContext,
+    lavalink: lavasnek_rs.Lavalink = tanjun.injected(type=lavasnek_rs.Lavalink),
+) -> None:
     """Skips the current song."""
-    await _skip_track(ctx)
+    await _skip_track(ctx, lavalink)
 
 
-async def _skip_track(ctx: tanjun.abc.Context) -> None:
+async def _skip_track(ctx: tanjun.abc.Context, lavalink: lavasnek_rs.Lavalink) -> None:
     """Skips the current song."""
-    player: lavasnek_rs.Lavalink = ctx.client.metadata["lavalink"]
     assert ctx.guild_id is not None
 
-    if not (skip := await player.skip(ctx.guild_id)):
+    if not (skip := await lavalink.skip(ctx.guild_id)):
         await ctx.respond("No tracks left to skip.")
 
-    elif node := await player.get_guild_node(ctx.guild_id):
+    elif node := await lavalink.get_guild_node(ctx.guild_id):
         # If we skipped and the queue is empty we need to
         # stop the player
         if not node.queue and not node.now_playing:
-            await player.stop(ctx.guild_id)
+            await lavalink.stop(ctx.guild_id)
 
         await ctx.respond(f"Skipped: {skip.track.info.title}")
 
 
 @music.with_slash_command
 @tanjun.as_slash_command("pause", "Pauses the current song.")
-async def pause_as_slash(ctx: tanjun.abc.SlashContext) -> None:
-    await _pause_playback(ctx)
+async def pause_as_slash(
+    ctx: tanjun.abc.SlashContext,
+    lavalink: lavasnek_rs.Lavalink = tanjun.injected(type=lavasnek_rs.Lavalink),
+) -> None:
+    await _pause_playback(ctx, lavalink)
 
 
 @music.with_message_command
 @tanjun.as_message_command("pause")
-async def pause_as_message(ctx: tanjun.abc.MessageContext) -> None:
+async def pause_as_message(
+    ctx: tanjun.abc.MessageContext,
+    lavalink: lavasnek_rs.Lavalink = tanjun.injected(type=lavasnek_rs.Lavalink),
+) -> None:
     """Pauses the current song."""
-    await _pause_playback(ctx)
+    await _pause_playback(ctx, lavalink)
 
 
-async def _pause_playback(ctx: tanjun.abc.Context) -> None:
+async def _pause_playback(ctx: tanjun.abc.Context, lavalink: lavasnek_rs.Lavalink) -> None:
     """Pauses the current song."""
-    player: lavasnek_rs.Lavalink = ctx.client.metadata["lavalink"]
     assert ctx.guild_id is not None
 
-    if node := await player.get_guild_node(ctx.guild_id):
+    if node := await lavalink.get_guild_node(ctx.guild_id):
         # Use node data to check if we are paused
         if not (await node.get_data()).get("pause"):
             # If we are playing, pause.
             await node.set_data({"pause": True})
-            await player.pause(ctx.guild_id)
+            await lavalink.pause(ctx.guild_id)
             await ctx.respond("Paused playback.")
             return
 
@@ -237,28 +267,33 @@ async def _pause_playback(ctx: tanjun.abc.Context) -> None:
 
 @music.with_slash_command
 @tanjun.as_slash_command("resume", "Resumes the current song.")
-async def resume_as_slash(ctx: tanjun.abc.SlashContext) -> None:
-    await _resume_playback(ctx)
+async def resume_as_slash(
+    ctx: tanjun.abc.SlashContext,
+    lavalink: lavasnek_rs.Lavalink = tanjun.injected(type=lavasnek_rs.Lavalink),
+) -> None:
+    await _resume_playback(ctx, lavalink)
 
 
 @music.with_message_command
 @tanjun.as_message_command("resume")
-async def resume_as_message(ctx: tanjun.abc.MessageContext) -> None:
+async def resume_as_message(
+    ctx: tanjun.abc.MessageContext,
+    lavalink: lavasnek_rs.Lavalink = tanjun.injected(type=lavasnek_rs.Lavalink),
+) -> None:
     """Resumes the current song."""
-    await _resume_playback(ctx)
+    await _resume_playback(ctx, lavalink)
 
 
-async def _resume_playback(ctx: tanjun.abc.Context) -> None:
+async def _resume_playback(ctx: tanjun.abc.Context, lavalink: lavasnek_rs.Lavalink) -> None:
     """Resumes playing the current song."""
-    player: lavasnek_rs.Lavalink = ctx.client.metadata["lavalink"]
     assert ctx.guild_id is not None
 
-    if node := await player.get_guild_node(ctx.guild_id):
+    if node := await lavalink.get_guild_node(ctx.guild_id):
         # Use node data to check if we are paused
         if (await node.get_data()).get("pause"):
             # We are paused, lets resume playback
             await node.set_data({"pause": False})
-            await player.resume(ctx.guild_id)
+            await lavalink.resume(ctx.guild_id)
             await ctx.respond("Resuming playback.")
             return
 
@@ -272,23 +307,28 @@ async def _resume_playback(ctx: tanjun.abc.Context) -> None:
 
 @music.with_slash_command
 @tanjun.as_slash_command("playing", "Displays info on the currently playing song.")
-async def playing_as_slash(ctx: tanjun.abc.Context) -> None:
-    await _playing(ctx)
+async def playing_as_slash(
+    ctx: tanjun.abc.Context,
+    lavalink: lavasnek_rs.Lavalink = tanjun.injected(type=lavasnek_rs.Lavalink),
+) -> None:
+    await _playing(ctx, lavalink)
 
 
 @music.with_message_command
 @tanjun.as_message_command("playing")
-async def playing_as_message(ctx: tanjun.abc.MessageContext) -> None:
+async def playing_as_message(
+    ctx: tanjun.abc.MessageContext,
+    lavalink: lavasnek_rs.Lavalink = tanjun.injected(type=lavasnek_rs.Lavalink),
+) -> None:
     """Displays info on the currently playing song."""
-    await _playing(ctx)
+    await _playing(ctx, lavalink)
 
 
-async def _playing(ctx: tanjun.abc.Context) -> None:
+async def _playing(ctx: tanjun.abc.Context, lavalink: lavasnek_rs.Lavalink) -> None:
     """Displays info on the currently playing song."""
-    player: lavasnek_rs.Lavalink = ctx.client.metadata["lavalink"]
     assert ctx.guild_id is not None
 
-    if not (node := await player.get_guild_node(ctx.guild_id)):
+    if not (node := await lavalink.get_guild_node(ctx.guild_id)):
         # No node, means no music
         await ctx.respond("Unable to connect to the node.")
         return
