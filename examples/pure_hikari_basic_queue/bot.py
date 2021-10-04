@@ -5,6 +5,7 @@ from typing import Any, List, Optional, Union
 import hikari
 
 import lavasnek_rs
+from ctypes import pointer
 
 PREFIX = ","
 TOKEN = os.environ["DISCORD_TOKEN"]
@@ -30,7 +31,7 @@ class Data:
     """Global data shared across the entire bot, used to store dashboard values."""
 
     def __init__(self) -> None:
-        self.lavalink: lavasnek_rs.Lavalink = None
+        self.lavalink: lavasnek_rs.Lavalink
 
 
 class Bot(hikari.GatewayBot):
@@ -57,6 +58,9 @@ class EventHandler:
         skip = await lavalink.skip(event.guild_id)
         node = await lavalink.get_guild_node(event.guild_id)
 
+        if not node:
+            return
+
         if skip:
             if not node.queue and not node.now_playing:
                 await lavalink.stop(event.guild_id)
@@ -76,6 +80,10 @@ async def _join(event: hikari.GuildMessageCreateEvent) -> Optional[hikari.Snowfl
         return None
 
     channel_id = voice_state[0].channel_id
+
+    if not channel_id:
+        await event.message.respond("You are in a voice channel but not in a voie channel?")
+        return None
 
     if HIKARI_VOICE:
         await bot.update_voice_state(event.guild_id, channel_id, self_deaf=True)
@@ -175,7 +183,7 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:  # noqa: C9
             skip = await bot.data.lavalink.skip(event.guild_id)
             node = await bot.data.lavalink.get_guild_node(event.guild_id)
 
-            if not skip:
+            if not skip or not node:
                 await event.message.respond("Nothing to skip")
             else:
                 # If the queue is empty, the next track won't start playing (because there isn't any),
@@ -211,6 +219,10 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:  # noqa: C9
             await bot.data.lavalink.stop(event.guild_id)
             node = await bot.data.lavalink.get_guild_node(event.guild_id)
 
+            if not node:
+                await event.message.respond("Nothing to clear.")
+                return
+
             tempq = node.queue
             tempq.clear()
             node.now_playing = None
@@ -226,6 +238,10 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:  # noqa: C9
         elif is_command("data", event.content):
             args = get_args("data", event.content, False)
             node = await bot.data.lavalink.get_guild_node(event.guild_id)
+
+            if not node:
+                await event.message.respond("No data present.")
+                return
 
             if not args:
                 await event.message.respond(await node.get_data())
@@ -269,6 +285,10 @@ if HIKARI_VOICE:
 
     @bot.listen()
     async def voice_server_update(event: hikari.VoiceServerUpdateEvent) -> None:
+        if not event.endpoint:
+            logging.warning("Endpoint should never be None!")
+            return
+
         await bot.data.lavalink.raw_handle_event_voice_server_update(event.guild_id, event.endpoint, event.token)
 
 

@@ -49,7 +49,7 @@ class Node:
 class Band:
     gain: float
     band: int
-    def __new__(cls, band: int, gain: float): ...
+    def __new__(cls, band: int, gain: float) -> Band: ...
 
 class Stats:
     frame_stats_deficit: t.Optional[int]

@@ -81,8 +81,17 @@ jobs:
           name: lavasnek-rs ${{ matrix.os }} for Python ${{ matrix.python-version }}
           path: target/wheels/lavasnek_rs
 
-      # - name: pytest
-      #   run: poetry run pytest tests
+      - name: pytest
+        run: poetry run pytest tests
+
+      - name: fmt-black
+        run: poetry run black --check examples
+
+      - name: mypy-pure-hikari
+        run: poetry run mypy --strict examples/pure_hikari_basic_queue
+
+      - name: mypy-hikari-tanjun
+        run: poetry run mypy --strict examples/hikari_tanjun_basic_queue
 
   build-windows:
     runs-on: windows-latest
