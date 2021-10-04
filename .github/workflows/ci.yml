@@ -75,12 +75,6 @@ jobs:
       - name: Build Python package
         run: poetry run maturin build --no-sdist --strip --release -o target/wheels/lavasnek_rs -i python${{ matrix.python-version }}
 
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@master
-        with:
-          name: lavasnek-rs ${{ matrix.os }} for Python ${{ matrix.python-version }}
-          path: target/wheels/lavasnek_rs
-
       - name: pytest
         run: poetry run pytest tests
 
@@ -95,6 +89,12 @@ jobs:
 
       - name: flake8-examples
         run: poetry run flake8 examples
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@master
+        with:
+          name: lavasnek-rs ${{ matrix.os }} for Python ${{ matrix.python-version }}
+          path: target/wheels/lavasnek_rs
 
   build-windows:
     runs-on: windows-latest
@@ -133,6 +133,21 @@ jobs:
 
       - name: Build Python package
         run: poetry run maturin build --no-sdist --strip --release -o target/wheels/lavasnek_rs
+
+      - name: pytest
+        run: poetry run pytest tests
+
+      - name: fmt-black-examples
+        run: poetry run black --check examples
+
+      - name: mypy-pure-hikari
+        run: poetry run mypy --strict examples/pure_hikari_basic_queue
+
+      - name: mypy-hikari-tanjun
+        run: poetry run mypy --strict examples/hikari_tanjun_basic_queue
+
+      - name: flake8-examples
+        run: poetry run flake8 examples
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@master
