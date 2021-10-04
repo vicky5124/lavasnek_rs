@@ -74,8 +74,9 @@ jobs:
           override: true
 
       - name: Build Python package
-        run: poetry run maturn develop --release
-        run: poetry run maturin build --no-sdist --strip --release -o target/wheels/lavasnek_rs -i python${{ matrix.python-version }}
+        run: |
+          poetry run maturn develop --release
+          poetry run maturin build --no-sdist --strip --release -o target/wheels/lavasnek_rs -i python${{ matrix.python-version }}
 
       - name: pytest
         run: poetry run pytest tests
@@ -137,8 +138,9 @@ jobs:
           override: true
 
       - name: Build Python package
-        run: poetry run maturn develop --release
-        run: poetry run maturin build --no-sdist --strip --release -o target/wheels/lavasnek_rs
+        run: |
+          poetry run maturn develop --release
+          poetry run maturin build --no-sdist --strip --release -o target/wheels/lavasnek_rs
 
       - name: pytest
         run: poetry run pytest tests
