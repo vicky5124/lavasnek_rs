@@ -5,7 +5,6 @@ from typing import Any, List, Optional, Union
 import hikari
 
 import lavasnek_rs
-from ctypes import pointer
 
 PREFIX = ","
 TOKEN = os.environ["DISCORD_TOKEN"]

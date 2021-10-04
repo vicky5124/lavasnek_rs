@@ -84,7 +84,7 @@ jobs:
       - name: pytest
         run: poetry run pytest tests
 
-      - name: fmt-black
+      - name: fmt-black-examples
         run: poetry run black --check examples
 
       - name: mypy-pure-hikari
@@ -92,6 +92,9 @@ jobs:
 
       - name: mypy-hikari-tanjun
         run: poetry run mypy --strict examples/hikari_tanjun_basic_queue
+
+      - name: flake8-examples
+        run: poetry run flake8 examples
 
   build-windows:
     runs-on: windows-latest
