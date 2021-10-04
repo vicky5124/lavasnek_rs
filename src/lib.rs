@@ -203,7 +203,7 @@ impl Lavalink {
     /// - `track` : `Track` - From the track search methods, it's a value from the "tracks" field.
     ///
     /// Returns: `PlayBuilder`
-    #[pyo3(text_signature = "($self, track, /)")]
+    #[pyo3(text_signature = "($self, guild_id, track, /)")]
     fn play(&self, guild_id: u64, track: Track) -> PlayBuilder {
         PlayBuilder {
             builder: self.lava.play(guild_id, track.inner),
