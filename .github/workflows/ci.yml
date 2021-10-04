@@ -75,7 +75,7 @@ jobs:
 
       - name: Build Python package
         run: |
-          poetry run maturn develop --release
+          poetry run maturin develop --release
           poetry run maturin build --no-sdist --strip --release -o target/wheels/lavasnek_rs -i python${{ matrix.python-version }}
 
       - name: pytest
@@ -93,6 +93,7 @@ jobs:
         run: poetry run mypy --strict examples/hikari_tanjun_basic_queue
 
       - name: flake8-examples
+        if:  matrix.python-version == '3.9'
         run: poetry run flake8 examples
 
       - name: Upload Artifacts
@@ -139,7 +140,7 @@ jobs:
 
       - name: Build Python package
         run: |
-          poetry run maturn develop --release
+          poetry run maturin develop --release
           poetry run maturin build --no-sdist --strip --release -o target/wheels/lavasnek_rs
 
       - name: pytest
