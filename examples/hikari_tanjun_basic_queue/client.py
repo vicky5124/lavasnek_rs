@@ -1,5 +1,4 @@
 import os
-import typing
 
 import hikari
 import tanjun
@@ -91,11 +90,12 @@ async def on_voice_server_update(
     lavalink: lavasnek_rs.Lavalink = tanjun.injected(type=lavasnek_rs.Lavalink),
 ) -> None:
     """Passes voice server updates to lavalink."""
-    await lavalink.raw_handle_event_voice_server_update(
-        event.guild_id,
-        event.endpoint,
-        event.token,
-    )
+    if event.endpoint is not None:
+        await lavalink.raw_handle_event_voice_server_update(
+            event.guild_id,
+            event.endpoint,
+            event.token,
+        )
 
 
 if __name__ == "__main__":

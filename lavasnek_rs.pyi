@@ -155,7 +155,7 @@ class Lavalink:
         self, guild_id: int, endpoint: str, token: str
     ) -> None: ...
     async def raw_handle_event_voice_state_update(
-        self, guild_id: int, user_id: int, session_id: str, channel_id: int
+        self, guild_id: int, user_id: int, session_id: str, channel_id: t.Optional[int]
     ) -> None: ...
 
 class LavalinkBuilder:

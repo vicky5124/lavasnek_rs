@@ -14,7 +14,8 @@ async def join_as_slash(
     ctx: tanjun.abc.SlashContext,
     lavalink: lavasnek_rs.Lavalink = tanjun.injected(type=lavasnek_rs.Lavalink),
 ) -> None:
-    await _join_voice(ctx, lavalink)
+    if channel := await _join_voice(ctx, lavalink):
+        await ctx.respond(f"Connected to <#{channel}>")
 
 
 @music.with_message_command
@@ -24,34 +25,23 @@ async def join_as_message(
     lavalink: lavasnek_rs.Lavalink = tanjun.injected(type=lavasnek_rs.Lavalink),
 ) -> None:
     """Connect the bot to a voice channel."""
-    await _join_voice(ctx, lavalink)
+    if channel := await _join_voice(ctx, lavalink):
+        await ctx.respond(f"Connected to <#{channel}>")
 
 
-async def _join_voice(ctx: tanjun.abc.Context, lavalink: lavasnek_rs.Lavalink) -> int:
+async def _join_voice(
+    ctx: tanjun.abc.Context, lavalink: lavasnek_rs.Lavalink
+) -> typing.Optional[hikari.Snowflake]:
     """Joins your voice channel."""
     assert ctx.guild_id is not None
 
     if ctx.client.cache and ctx.client.shards:
-        # Get the users voice state if they didnt pass a channel
-        if not (voice_state := ctx.client.cache.get_voice_state(ctx.guild_id, ctx.author)):
+        # Get the users voice state
+        if (voice_state := ctx.client.cache.get_voice_state(ctx.guild_id, ctx.author)) is None:
             await ctx.respond("Please connect to a voice channel.")
-            return 1
+            return None
 
-        # Make sure our user is cached
-        elif own_user := ctx.client.shards.get_me():
-            # Check if there is a voice channel for the author
-            if voice_state.channel_id and own_user.id in (
-                # Check if we are in that channel
-                ctx.client.cache.get_voice_states_view_for_channel(
-                    ctx.guild_id,
-                    voice_state.channel_id,
-                )
-            ):
-                # We are in the channel already
-                await ctx.respond(f"I am already connected to <#{voice_state.channel_id}>.")
-                return 1
-
-        # Bot joins voice
+        # Join the voice channel
         await ctx.client.shards.update_voice_state(
             ctx.guild_id, voice_state.channel_id, self_deaf=True
         )
@@ -59,12 +49,10 @@ async def _join_voice(ctx: tanjun.abc.Context, lavalink: lavasnek_rs.Lavalink) -
         conn = await lavalink.wait_for_full_connection_info_insert(ctx.guild_id)
         # Lavasnek tells lavalink to connect
         await lavalink.create_session(conn)
-
-        await ctx.respond(f"Connected to <#{voice_state.channel_id}>")
-        return 0
+        return voice_state.channel_id
 
     await ctx.respond("Unable to join voice. The cache is disabled or shards are down.")
-    return 1
+    return None
 
 
 @music.with_slash_command
@@ -100,7 +88,7 @@ async def _play_track(ctx: tanjun.abc.Context, song: str, lavalink: lavasnek_rs.
 
     if not conn:
         # Join the users voice channel if we are not already connected
-        if await _join_voice(ctx, lavalink):
+        if not await _join_voice(ctx, lavalink):
             # Return out of the function if joining vc failed
             return
 
@@ -114,7 +102,7 @@ async def _play_track(ctx: tanjun.abc.Context, song: str, lavalink: lavasnek_rs.
         # Set the requester, and queue the song
         await lavalink.play(ctx.guild_id, tracks[0]).requester(ctx.author.id).queue()
     except lavasnek_rs.NoSessionPresent:
-        # This shouldnt really ever happen
+        # Occurs if lavalink crashes
         await ctx.respond("Unable to join voice. This may be an internal error.")
         return
 
@@ -215,6 +203,7 @@ async def _skip_track(ctx: tanjun.abc.Context, lavalink: lavasnek_rs.Lavalink) -
 
     if not (skip := await lavalink.skip(ctx.guild_id)):
         await ctx.respond("No tracks left to skip.")
+        return
 
     elif node := await lavalink.get_guild_node(ctx.guild_id):
         # If we skipped and the queue is empty we need to
@@ -222,7 +211,7 @@ async def _skip_track(ctx: tanjun.abc.Context, lavalink: lavasnek_rs.Lavalink) -
         if not node.queue and not node.now_playing:
             await lavalink.stop(ctx.guild_id)
 
-        await ctx.respond(f"Skipped: {skip.track.info.title}")
+    await ctx.respond(f"Skipped: {skip.track.info.title}")
 
 
 @music.with_slash_command
@@ -248,21 +237,8 @@ async def _pause_playback(ctx: tanjun.abc.Context, lavalink: lavasnek_rs.Lavalin
     """Pauses the current song."""
     assert ctx.guild_id is not None
 
-    if node := await lavalink.get_guild_node(ctx.guild_id):
-        # Use node data to check if we are paused
-        if not (await node.get_data()).get("pause"):
-            # If we are playing, pause.
-            await node.set_data({"pause": True})
-            await lavalink.pause(ctx.guild_id)
-            await ctx.respond("Paused playback.")
-            return
-
-        else:
-            await ctx.respond("Playback is already paused.")
-            return
-
-    # We are not playing a track.
-    await ctx.respond("No song to pause, try playing one.")
+    await lavalink.pause(ctx.guild_id)
+    await ctx.respond("Paused playback.")
 
 
 @music.with_slash_command
@@ -288,21 +264,8 @@ async def _resume_playback(ctx: tanjun.abc.Context, lavalink: lavasnek_rs.Lavali
     """Resumes playing the current song."""
     assert ctx.guild_id is not None
 
-    if node := await lavalink.get_guild_node(ctx.guild_id):
-        # Use node data to check if we are paused
-        if (await node.get_data()).get("pause"):
-            # We are paused, lets resume playback
-            await node.set_data({"pause": False})
-            await lavalink.resume(ctx.guild_id)
-            await ctx.respond("Resuming playback.")
-            return
-
-        else:
-            # The track is already playing - do nothing
-            return
-
-    # We are not paused, no songs are playing
-    await ctx.respond("No song to resume, try playing one.")
+    await lavalink.resume(ctx.guild_id)
+    await ctx.respond("Resuming playback.")
 
 
 @music.with_slash_command
