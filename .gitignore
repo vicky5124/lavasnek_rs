@@ -3,3 +3,4 @@
 .env
 commands.sh
 .vim
+__pycache__

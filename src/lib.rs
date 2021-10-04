@@ -134,7 +134,7 @@ impl Lavalink {
     #[pyo3(text_signature = "($self, connection_info, /)")]
     fn create_session<'a>(&self, py: Python<'a>, connection_info: PyObject) -> PyResult<&'a PyAny> {
         let lava_client = self.lava.clone();
-        let connection_info: LavaConnectionInfo = depythonize(connection_info.as_ref(py)).unwrap();
+        let connection_info: LavaConnectionInfo = depythonize(connection_info.as_ref(py))?;
 
         pyo3_asyncio::tokio::future_into_py(py, async move {
             lava_client

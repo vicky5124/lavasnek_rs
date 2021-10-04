@@ -13,7 +13,12 @@ use lavalink_rs::{
 #[derive(Clone)]
 /// The lavalink event handler. This is a trait, so it defines the structure a class should have.
 ///
-/// Make a class with the methods and signatures this class defines, and add that class to `LavalinkBuilder.build()`
+/// Make a class with the methods and signatures this class defines, and add that class to
+/// `LavalinkBuilder.build()`
+///
+/// If code inside any of the event raises an error, the traceback will be printed to stderr, and
+/// the variables `sys.last_type`, `sys.last_value` and `sys.last_traceback` will be set to the type, value
+/// and traceback of the printed exception respectively.
 ///
 /// Some examples:
 ///
@@ -184,7 +189,11 @@ fn call_event<T: Send + Sync + pyo3::IntoPy<PyObject> + 'static>(
             });
 
             if let Ok(f) = future {
-                f.await.unwrap();
+                if let Err(e) = f.await {
+                    Python::with_gil(|py| {
+                        e.print_and_set_sys_last_vars(py);
+                    });
+                }
             }
 
             Ok(Python::with_gil(|py| py.None()))
