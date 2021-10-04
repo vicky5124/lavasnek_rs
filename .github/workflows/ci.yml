@@ -65,6 +65,7 @@ jobs:
       - name: Install package deps
         run: |
           poetry install
+          poetry run pip install -r dev-requirements.txt
 
       - name: Install latest stable
         uses: actions-rs/toolchain@v1
@@ -127,6 +128,7 @@ jobs:
       - name: Install package deps
         run: |
           poetry install
+          poetry run pip install -r dev-requirements.txt
 
       - name: Install latest stable
         uses: actions-rs/toolchain@v1
