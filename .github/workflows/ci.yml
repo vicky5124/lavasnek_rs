@@ -73,6 +73,7 @@ jobs:
           override: true
 
       - name: Build Python package
+        run: poetry run maturn develop --release
         run: poetry run maturin build --no-sdist --strip --release -o target/wheels/lavasnek_rs -i python${{ matrix.python-version }}
 
       - name: pytest
@@ -82,9 +83,11 @@ jobs:
         run: poetry run black --check examples
 
       - name: mypy-pure-hikari
+        if:  matrix.python-version == '3.9'
         run: poetry run mypy --strict examples/pure_hikari_basic_queue
 
       - name: mypy-hikari-tanjun
+        if:  matrix.python-version == '3.9'
         run: poetry run mypy --strict examples/hikari_tanjun_basic_queue
 
       - name: flake8-examples
@@ -132,6 +135,7 @@ jobs:
           override: true
 
       - name: Build Python package
+        run: poetry run maturn develop --release
         run: poetry run maturin build --no-sdist --strip --release -o target/wheels/lavasnek_rs
 
       - name: pytest
