@@ -16,7 +16,7 @@ python = "^3.6"
 maturin = "==0.9.0"
 pytest = "^6.1"
 black = "*"
-flake8 = "*"
+#flake8 = "*"
 
 [build-system]
 requires = ["maturin>=0.11,<0.12"]
