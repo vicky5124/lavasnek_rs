@@ -196,9 +196,7 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:  # noqa: C9
             await event.message.respond("Resumed player")
 
         # Resume playing the current song.
-        elif is_command("now_playing", event.content) or is_command(
-            "np", event.content
-        ):
+        elif is_command("now_playing", event.content) or is_command("np", event.content):
             node = await bot.data.lavalink.get_guild_node(event.guild_id)
 
             if not node or not node.now_playing:
@@ -206,9 +204,7 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:  # noqa: C9
                 return
 
             # for queue, iterate over `node.queue`, where index 0 is now_playing.
-            await event.message.respond(
-                f"Now Playing: {node.now_playing.track.info.title}"
-            )
+            await event.message.respond(f"Now Playing: {node.now_playing.track.info.title}")
 
         # Clears the current queue, stopping the current song.
         elif is_command("clear_queue", event.content):

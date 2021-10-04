@@ -52,9 +52,7 @@ class Music(lightbulb.Plugin):
             connection_info = await self.bot.data.lavalink.wait_for_full_connection_info_insert(ctx.guild_id)
         else:
             try:
-                connection_info = await self.bot.data.lavalink.join(
-                    ctx.guild_id, channel_id
-                )
+                connection_info = await self.bot.data.lavalink.join(ctx.guild_id, channel_id)
             except TimeoutError:
                 await ctx.respond(
                     "I was unable to connect to the voice channel, maybe missing permissions? or some internal issue."

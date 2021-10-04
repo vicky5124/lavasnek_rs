@@ -29,9 +29,7 @@ async def join_as_message(
         await ctx.respond(f"Connected to <#{channel}>")
 
 
-async def _join_voice(
-    ctx: tanjun.abc.Context, lavalink: lavasnek_rs.Lavalink
-) -> typing.Optional[hikari.Snowflake]:
+async def _join_voice(ctx: tanjun.abc.Context, lavalink: lavasnek_rs.Lavalink) -> typing.Optional[hikari.Snowflake]:
     """Joins your voice channel."""
     assert ctx.guild_id is not None
 
@@ -42,9 +40,7 @@ async def _join_voice(
             return None
 
         # Join the voice channel
-        await ctx.client.shards.update_voice_state(
-            ctx.guild_id, voice_state.channel_id, self_deaf=True
-        )
+        await ctx.client.shards.update_voice_state(ctx.guild_id, voice_state.channel_id, self_deaf=True)
         # Lavasnek waits for the data on the event
         conn = await lavalink.wait_for_full_connection_info_insert(ctx.guild_id)
         # Lavasnek tells lavalink to connect
@@ -304,8 +300,7 @@ async def _playing(ctx: tanjun.abc.Context, lavalink: lavasnek_rs.Lavalink) -> N
     if node.now_playing:
         # Info on the current track
         await ctx.respond(
-            f"Title: {node.now_playing.track.info.title}\n"
-            f"Requested by: <@!{node.queue[0].requester}>"
+            f"Title: {node.now_playing.track.info.title}\n" f"Requested by: <@!{node.queue[0].requester}>"
         )
 
 

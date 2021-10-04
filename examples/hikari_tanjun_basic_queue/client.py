@@ -20,9 +20,7 @@ class EventHandler:
         """Handles track finish events."""
         print(f"Track finished on guild: {event.guild_id}")
 
-    async def track_exception(
-        self, lavalink: lavasnek_rs.Lavalink, event: lavasnek_rs.TrackException
-    ) -> None:
+    async def track_exception(self, lavalink: lavasnek_rs.Lavalink, event: lavasnek_rs.TrackException) -> None:
         """Handles track exception events."""
         print(f"Track exception event happened on guild: {event.guild_id}")
 
