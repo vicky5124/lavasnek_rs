@@ -22,6 +22,11 @@ black   = "^21.9b0"
 requires      = ["maturin>=0.11,<0.12"]
 build-backend = "maturin"
 
+[tool.flake8]
+python         = ">=3.6.2,<4.0"
+version        = "^3.9.2"
+target-version = ["py36"]
+
 [tool.black]
 python         = ">=3.6.2,<4.0"
 version        = "^21.9b0"
