@@ -5,7 +5,7 @@ import sys
 import hata
 
 # Not accessed, but needed to run asyncio stuff.
-from hata.ext import asyncio
+from hata.ext import asyncio  # noqa: F401
 from hata.ext.commands_v2 import checks
 
 import lavasnek_rs
@@ -27,7 +27,7 @@ class Data:
     """Global data shared across the entire bot, used to store dashboard values."""
 
     def __init__(self) -> None:
-        self.lavalink: lavasnek_rs.Lavalink = None
+        self.lavalink: lavasnek_rs.Lavalink
 
 
 class EventHandler:
