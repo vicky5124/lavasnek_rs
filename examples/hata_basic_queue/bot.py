@@ -1,6 +1,5 @@
 import logging
 import os
-import sys
 
 import hata
 
@@ -66,7 +65,8 @@ async def _join(ctx) -> int:
 
     try:
         if HATA_VOICE:
-            await ctx.client.join_voice(voice_state.channel)
+            gateway = ctx.client.gateway_for(ctx.guild.id)
+            await gateway.change_voice_state(ctx.guild.id, channel.id)
             connection_info = await ctx.client.data.lavalink.wait_for_full_connection_info_insert(ctx.guild.id)
         else:
             connection_info = await ctx.client.data.lavalink.join(ctx.guild.id, channel.id)
@@ -96,13 +96,9 @@ async def join(ctx):
 async def leave(ctx):
     """Leaves the voice channel the bot is in, clearing the queue."""
     if HATA_VOICE:
-        voice_client = ctx.voice_client
-        if voice_client is None:
-            await ctx.reply("There is no voice client at your guild.")
-            return
-
         await ctx.client.data.lavalink.destroy(ctx.guild.id)
-        await voice_client.disconnect()
+        gateway = ctx.client.gateway_for(ctx.guild.id)
+        await gateway.change_voice_state(ctx.guild.id, 0)
         await ctx.client.data.lavalink.wait_for_connection_info_remove(ctx.guild.id)
     else:
         await ctx.client.data.lavalink.leave(ctx.guild.id)
@@ -219,7 +215,7 @@ async def data(ctx, *args):
 
 
 @bot.events
-async def ready(client):
+async def launch(client):
     """Event that triggers when the hata gateway is ready."""
     builder = (
         # TOKEN can be an empty string if you don't want to use lavasnek's discord gateway.
@@ -240,28 +236,29 @@ async def ready(client):
 
 if HATA_VOICE:
 
-    @bot.events
-    async def user_voice_update(client, event, _old):
+    @bot.events(name="voice_client_update")
+    @bot.events(name="voice_client_ghost")
+    @bot.events(name="voice_client_leave")
+    @bot.events(name="voice_client_join")
+    @bot.events(name="voice_client_move")
+    @bot.events(name="user_voice_update")
+    @bot.events(name="user_voice_leave")
+    @bot.events(name="user_voice_join")
+    @bot.events(name="user_voice_move")
+    async def voice_state_update(client, event, *_args):
+        if not event.channel_id:
+            event.channel_id = None
+
         await client.data.lavalink.raw_handle_event_voice_state_update(
-            event.guild.id,
-            event.user.id,
+            event.guild_id,
+            event.user_id,
             event.session_id,
-            event.channel.id,
+            event.channel_id,
         )
 
-    logging.error(
-        (
-            "The `voice_server_update` event is not exposed by HATA,"
-            " so the only way to use lavasnek_rs with it RN is to use the lavasnek discord gateway to connect."
-        )
-    )
-    sys.exit(0)
-
-    # This is commented out because the `voice_server_update` event is not exposed by HATA,
-    # so the only way to use lavasnek_rs with it RN is to use the lavasnek discord gateway to connect.
-    # @bot.events
-    # async def voice_server_update(client, event):
-    #    await client.data.lavalink.raw_handle_event_voice_server_update(event.guild_id, event.endpoint, event.token)
+    @bot.events
+    async def voice_server_update(client, event):
+        await client.data.lavalink.raw_handle_event_voice_server_update(event.guild_id, event.endpoint, event.token)
 
 
 if __name__ == "__main__":

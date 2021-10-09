@@ -91,9 +91,9 @@ checksum = "c4872d67bab6358e59559027aa3b9157c53d9358c51423c17554809a8858e0f8"
 
 [[package]]
 name = "cc"
-version = "1.0.70"
+version = "1.0.71"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d26a6ce4b6a484fa3edb70f7efa6fc430fd2b87285fe8b84304fd0936faa0dc0"
+checksum = "79c2681d6594606957bbb8631c4b90a7fcaaa72cdb714743a437b156d6a7eedd"
 
 [[package]]
 name = "cfg-if"
@@ -509,7 +509,7 @@ dependencies = [
 [[package]]
 name = "lavalink-rs"
 version = "0.9.0-rc.2"
-source = "git+https://gitlab.com/vicky5124/lavalink-rs#2fe074da5a697086f32181aac8bc20e9a94c57ec"
+source = "git+https://gitlab.com/vicky5124/lavalink-rs#f6b1d83f41629336f66b461ca07df1418e7933f0"
 dependencies = [
  "async-trait",
  "async-tungstenite",
