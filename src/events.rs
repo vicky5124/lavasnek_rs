@@ -48,9 +48,11 @@ use lavalink_rs::{
 ///         print(event)
 ///     async def track_start(self, lava_client, event):
 ///         print(event)
+///     async def track_finish(self, lava_client, event):
+///         print(event)
 ///     async def track_exception(self, lava_client, event):
 ///         print(event)
-///     async def track_finish(self, lava_client, event):
+///     async def track_stuck(self, lava_client, event):
 ///         print(event)
 ///     async def websocket_closed(self, lava_client, event):
 ///         print(event)
@@ -78,13 +80,17 @@ impl LavalinkEventHandlerTrait for LavalinkEventHandler {
         let event = model::TrackStart { inner: event };
         call_event(self, client, event, "track_start");
     }
+    async fn track_finish(&self, client: LavalinkClient, event: TrackFinish) {
+        let event = model::TrackFinish { inner: event };
+        call_event(self, client, event, "track_finish");
+    }
     async fn track_exception(&self, client: LavalinkClient, event: TrackException) {
         let event = model::TrackException { inner: event };
         call_event(self, client, event, "track_exception");
     }
-    async fn track_finish(&self, client: LavalinkClient, event: TrackFinish) {
-        let event = model::TrackFinish { inner: event };
-        call_event(self, client, event, "track_finish");
+    async fn track_stuck(&self, client: LavalinkClient, event: TrackStuck) {
+        let event = model::TrackStuck { inner: event };
+        call_event(self, client, event, "track_stuck");
     }
     async fn websocket_closed(&self, client: LavalinkClient, event: WebSocketClosed) {
         let event = model::WebSocketClosed { inner: event };
@@ -143,6 +149,15 @@ impl LavalinkEventHandler {
     ///
     /// Returns: `Future<None>`
     fn track_exception(&self) {}
+    #[pyo3(text_signature = "($self, client, event, /)")]
+    /// Event that triggers when a track gets stuck while playing.
+    ///
+    /// Positional Arguments:
+    /// - `client` : `Lavalink`
+    /// - `event` : `TrackStuck`
+    ///
+    /// Returns: `Future<None>`
+    fn track_stuck(&self) {}
     #[pyo3(text_signature = "($self, client, event, /)")]
     /// Event that triggers when the websocket connection to the voice channel closes.
     ///

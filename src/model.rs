@@ -1,7 +1,7 @@
 use lavalink_rs::model::{
     Band as LavaBand, Info as LavaInfo, Node as LavaNode, PlayerDestroyed as LavaPlayerDestroyed,
     PlayerUpdate as LavaPlayerUpdate, PlaylistInfo as LavaPlaylistInfo, Stats as LavaStats,
-    Track as LavaTrack, TrackException as LavaTrackException, TrackFinish as LavaTrackFinish,
+    Track as LavaTrack, TrackException as LavaTrackException, TrackFinish as LavaTrackFinish, TrackStuck as LavaTrackStuck,
     TrackQueue as LavaTrackQueue, TrackStart as LavaTrackStart, Tracks as LavaTracks,
     WebSocketClosed as LavaWebSocketClosed,
 };
@@ -656,6 +656,46 @@ impl TrackException {
     fn exception_message(&self) -> String {
         self.inner.exception.message.clone()
     }
+}
+
+#[pyclass]
+#[derive(Clone)]
+pub struct TrackStuck {
+    pub inner: LavaTrackStuck,
+}
+
+#[pymethods]
+impl TrackStuck {
+    #[getter]
+    /// Contains `String`
+    fn op(&self) -> String {
+        self.inner.op.clone()
+    }
+
+    #[getter]
+    /// Contains `Unsigned 64 bit integer`
+    fn guild_id(&self) -> u64 {
+        self.inner.guild_id.0
+    }
+
+    #[getter]
+    /// Contains `String`
+    fn track_stuck_type(&self) -> String {
+        self.inner.track_stuck_type.clone()
+    }
+
+    #[getter]
+    /// Contains `String`
+    fn track(&self) -> String {
+        self.inner.track.clone()
+    }
+
+    #[getter]
+    /// Contains `Unsigned 64 bit integer`
+    fn threshold_ms(&self) -> u64 {
+        self.inner.threshold_ms
+    }
+
 }
 
 #[pyclass]
