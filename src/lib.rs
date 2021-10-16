@@ -277,6 +277,28 @@ impl Lavalink {
         })
     }
 
+    /// Returns information from a track.
+    ///
+    /// This can raise an exception if a network error happens.
+    ///
+    /// Positional Arguments:
+    /// - `track` : `String` -- base 64
+    ///
+    /// Returns: `Future<Result<Info, lavasnek_rs.NetworkError>>`
+    #[pyo3(text_signature = "($self, track, /)")]
+    fn decode_track<'a>(&self, py: Python<'a>, track: String) -> PyResult<&'a PyAny> {
+        let lava_client = self.lava.clone();
+
+        pyo3_asyncio::tokio::future_into_py(py, async move {
+            let track_decode = lava_client
+                .decode_track(track)
+                .await
+                .map_err(|e| error::NetworkError::new_err(e.to_string()))?;
+
+            Ok(Python::with_gil(|py| Info { inner: track_decode }.into_py(py)))
+        })
+    }
+
     /// Stops the current player.
     ///
     /// This can raise an exception if a network error happens.

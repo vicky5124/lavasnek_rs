@@ -509,7 +509,7 @@ dependencies = [
 [[package]]
 name = "lavalink-rs"
 version = "0.9.0-rc.2"
-source = "git+https://gitlab.com/vicky5124/lavalink-rs#9da256093c0a411f7298d2b24176990e23b72d13"
+source = "git+https://gitlab.com/vicky5124/lavalink-rs#4dd034fda6a97d0d6a5075ba663ff7401819b23e"
 dependencies = [
  "async-trait",
  "async-tungstenite",
