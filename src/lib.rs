@@ -914,6 +914,7 @@ fn lavasnek_rs(py: Python, m: &PyModule) -> PyResult<()> {
     m.add_class::<TrackStart>()?;
     m.add_class::<TrackFinish>()?;
     m.add_class::<TrackException>()?;
+    m.add_class::<TrackStuck>()?;
     m.add_class::<WebSocketClosed>()?;
     m.add_class::<PlayerDestroyed>()?;
 

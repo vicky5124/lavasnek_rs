@@ -163,7 +163,7 @@ impl LavalinkEventHandler {
     ///
     /// Positional Arguments:
     /// - `client` : `Lavalink`
-    /// - `event` : `WebsocketClosed`
+    /// - `event` : `WebSocketClosed`
     ///
     /// Returns: `Future<None>`
     fn websocket_closed(&self) {}
