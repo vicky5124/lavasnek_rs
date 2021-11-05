@@ -1,6 +1,6 @@
 import logging
 import os
-from typing import Any, List, Optional, Union
+from typing import Any, List, Optional
 
 import hikari
 
@@ -18,12 +18,9 @@ def is_command(cmd_name: str, content: str) -> bool:
     return content.startswith(f"{PREFIX}{cmd_name}")
 
 
-def get_args(cmd_name: str, content: str, is_text: bool) -> Union[str, List[str]]:
+def get_args(cmd_name: str, content: str) -> List[str]:
     """Return the arguments of a command."""
-    if is_text:
-        return content[len(f"{PREFIX}{cmd_name}") :].rstrip()  # noqa: E203
-    else:
-        return list(filter(lambda i: i, content[len(f"{PREFIX}{cmd_name}") :].split()))  # noqa: E203
+    return list(filter(lambda i: i, content[len(f"{PREFIX}{cmd_name}") :].split()))  # noqa: E203
 
 
 class Data:
@@ -149,7 +146,7 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:  # noqa: C9
             if not con:
                 await _join(event)
 
-            args = get_args("play", event.content, False)
+            args = get_args("play", event.content)
             query = " ".join(args)
 
             # Search the query, auto_search will get the track from a url if possible, otherwise,
@@ -235,7 +232,7 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:  # noqa: C9
         # If just `data` is ran, it will show the current data, but if `data <key> <value>` is ran, it
         # will insert that data to the node and display it.
         elif is_command("data", event.content):
-            args = get_args("data", event.content, False)
+            args = get_args("data", event.content)
             node = await bot.data.lavalink.get_guild_node(event.guild_id)
 
             if not node:
