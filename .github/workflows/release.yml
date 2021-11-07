@@ -6,104 +6,6 @@ on:
       - "*"
 
 jobs:
-  publish-posix:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: [3.6, 3.7, 3.8, 3.9, "3.10"]
-        os: [ubuntu-latest, macos-latest]
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Install latest stable
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          override: true
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install poetry
-          poetry install
-
-      - name: Build Python package
-        run: poetry run maturin build --release --no-sdist --strip --interpreter python${{matrix.python-version}}
-
-      - name: List wheels
-        run: find ./target/wheels/
-
-      - name: Install wheels
-        run: pip install target/wheels/lavasnek_rs*.whl
-
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: target/wheels/lavasnek_rs*.whl
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: PyPi publish
-        env:
-          MATURIN_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-        run: poetry run maturin publish --no-sdist --interpreter python${{matrix.python-version}} --username __token__
-
-  publish-windows:
-    runs-on: windows-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: [3.6, 3.7, 3.8, 3.9, "3.10"]
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Install latest stable
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          override: true
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install poetry
-          poetry install
-
-      - name: Build Python package (win)
-        run: poetry run maturin build --release --no-sdist --strip --interpreter python
-
-      - name: List wheels (win)
-        run: dir target\wheels\
-
-      # Note: Windows doesn't support glob
-      # https://stackoverflow.com/a/52481267/270334
-      - name: Install wheels (win)
-        run: pip install --find-links=target\wheels lavasnek_rs
-
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: target/wheels/lavasnek_rs*.whl
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: PyPi publish (win)
-        env:
-          MATURIN_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-        run: poetry run maturin publish --no-sdist --interpreter python --username __token__
-
-jobs:
   build_wheels:
     name: Build wheels on ${{ matrix.os }}  - ${{ matrix.vers }}
     runs-on: ${{ matrix.os }}
@@ -126,7 +28,7 @@ jobs:
 
     env:
       SCCACHE_VERSION: 0.2.13
-      CIBW_BEFORE_ALL_LINUX: "curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y
+      CIBW_BEFORE_ALL_LINUX: "curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y"
       CIBW_BUILD_VERBOSITY: "1" # Make some more noise to not stall, and extra debugging.
       CIBW_ENVIRONMENT: 'PATH="$PATH:$HOME/.cargo/bin"'
       CIBW_SKIP: "cp27-* cp34-* cp35-* pp* *-win32"
@@ -187,7 +89,7 @@ jobs:
       - uses: actions/setup-python@v2
         name: Install Python
         with:
-          python-version: "3.10"
+          python-version: "3.8"
 
       - name: Build sdist
         run: |
@@ -212,7 +114,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: pypa/gh-action-pypi-publish@master
-        with:
-          user: __token__
-          password: ${{ secrets.PYPI_TOKEN }}
+      # - uses: pypa/gh-action-pypi-publish@master
+      #   wiusth:
+      #     ususer: __token__
+      #     uspassword: ${{ secrets.PYPI_TOKEN }}
