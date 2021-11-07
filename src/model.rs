@@ -1,9 +1,9 @@
 use lavalink_rs::model::{
     Band as LavaBand, Info as LavaInfo, Node as LavaNode, PlayerDestroyed as LavaPlayerDestroyed,
     PlayerUpdate as LavaPlayerUpdate, PlaylistInfo as LavaPlaylistInfo, Stats as LavaStats,
-    Track as LavaTrack, TrackException as LavaTrackException, TrackFinish as LavaTrackFinish, TrackStuck as LavaTrackStuck,
-    TrackQueue as LavaTrackQueue, TrackStart as LavaTrackStart, Tracks as LavaTracks,
-    WebSocketClosed as LavaWebSocketClosed,
+    Track as LavaTrack, TrackException as LavaTrackException, TrackFinish as LavaTrackFinish,
+    TrackQueue as LavaTrackQueue, TrackStart as LavaTrackStart, TrackStuck as LavaTrackStuck,
+    Tracks as LavaTracks, WebSocketClosed as LavaWebSocketClosed,
 };
 use lavalink_rs::typemap_rev::TypeMapKey;
 use pyo3::{prelude::*, types::PyDict};
@@ -695,7 +695,6 @@ impl TrackStuck {
     fn threshold_ms(&self) -> u64 {
         self.inner.threshold_ms
     }
-
 }
 
 #[pyclass]

@@ -295,7 +295,12 @@ impl Lavalink {
                 .await
                 .map_err(|e| error::NetworkError::new_err(e.to_string()))?;
 
-            Ok(Python::with_gil(|py| Info { inner: track_decode }.into_py(py)))
+            Ok(Python::with_gil(|py| {
+                Info {
+                    inner: track_decode,
+                }
+                .into_py(py)
+            }))
         })
     }
 

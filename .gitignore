@@ -1,6 +1,11 @@
 /target
-#Cargo.lock
+Cargo.lock
 .env
 commands.sh
 .vim
 __pycache__
+lavasnek_rs.egg-info/
+dist/
+build/
+.mypy_cache
+*.so
