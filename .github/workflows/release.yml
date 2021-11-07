@@ -7,7 +7,7 @@ on:
 
 jobs:
   build_wheels:
-    name: Build wheels on ${{ matrix.os }}  - ${{ matrix.vers }}
+    name: Build wheels on ${{ matrix.os }} - ${{ matrix.vers }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -41,10 +41,9 @@ jobs:
         with:
           python-version: "3.8"
 
-      # because it's smaller than newer versions and still works, even though we don't provide 2.7 wheels.
-      - name: Install Visual C++ for Python 2.7
-        if: runner.os == 'Windows'
-        run: choco install vcpython27 -f -y
+      #- name: Install Visual C++ Build Tools
+      #  if: runner.os == 'Windows'
+      #  run: choco install microsoft-visual-cpp-build-tools -f -y
 
       - name: Set up QEMU
         if: runner.os == 'Linux'
@@ -98,6 +97,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           path: dist/*.tar.gz
+
   release:
     needs: [build_wheels, build_sdist]
     runs-on: ubuntu-latest
