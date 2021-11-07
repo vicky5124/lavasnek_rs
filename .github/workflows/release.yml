@@ -115,6 +115,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: pypa/gh-action-pypi-publish@master
-        wiusth:
+        with:
           ususer: __token__
           uspassword: ${{ secrets.PYPI_TOKEN }}
