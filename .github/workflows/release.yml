@@ -116,5 +116,5 @@ jobs:
 
       - uses: pypa/gh-action-pypi-publish@master
         with:
-          ususer: __token__
-          uspassword: ${{ secrets.PYPI_TOKEN }}
+          user: __token__
+          password: ${{ secrets.PYPI_TOKEN }}
