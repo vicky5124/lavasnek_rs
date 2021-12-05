@@ -190,7 +190,7 @@ fn call_event<T: Send + Sync + pyo3::IntoPy<PyObject> + 'static>(
     Python::with_gil(|py| {
         let current_loop = slf1.current_loop.as_ref(py);
 
-        pyo3_asyncio::tokio::future_into_py_with_loop(current_loop, async move {
+        pyo3_asyncio::tokio::future_into_py_with_locals(py, pyo3_asyncio::TaskLocals::new(current_loop), async move {
             let future = Python::with_gil(|py| {
                 let py_event_handler = slf2.inner.as_ref(py);
                 let coro_result =
