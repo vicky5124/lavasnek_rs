@@ -63,7 +63,7 @@ class EventHandler:
 
 
 bot = Bot(token=TOKEN)
-#logging.getLogger("lavalink_rs.event_loops").setLevel(logging.DEBUG)
+# logging.getLogger("lavalink_rs.event_loops").setLevel(logging.DEBUG)
 
 
 async def _join(event: hikari.GuildMessageCreateEvent) -> Optional[hikari.Snowflake]:

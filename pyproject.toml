@@ -11,6 +11,7 @@ documentation = "https://5124.mywire.org:5124/docs/"
 
 [tool.poetry.dependencies]
 python = "^3.6.2"
+black = "^21.12b0"
 
 [tool.poetry.dev-dependencies]
 maturin = ">=0.11"
