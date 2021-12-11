@@ -1,6 +1,6 @@
 [tool.poetry]
 name          = "lavasnek_rs"
-version       = "0.1.0-alpha.2"
+version       = "0.1.0-alpha.3"
 description   = "A lavalink-rs wrapper for any python async library"
 authors       = ["vicky5124 <vickyf5124@gmail.com>"]
 readme        = "README.md"
