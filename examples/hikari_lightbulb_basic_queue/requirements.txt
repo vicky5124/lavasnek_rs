@@ -1,3 +1,3 @@
 hikari==2.0.0.dev102
-hikari-lightbulb==1.3.1
+hikari-lightbulb>=2.1.0
 uvloop>=0.16; sys_platform != 'win32'
