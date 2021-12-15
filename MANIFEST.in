@@ -1,2 +1,5 @@
 include pyproject.toml Cargo.toml
+include lavasnek_rs/__init__.py
+include lavasnek_rs/__init__.pyi
+include lavasnek_rs/py.typed
 recursive-include src *
