@@ -88,6 +88,10 @@ jobs:
         if:  matrix.python-version == '3.9'
         run: poetry run mypy --strict examples/pure_hikari_basic_queue
 
+      - name: mypy-hikari-lightbulb
+        if:  matrix.python-version == '3.9'
+        run: poetry run mypy --strict examples/hikari_lightbulb_basic_queue
+
       - name: mypy-hikari-tanjun
         if:  matrix.python-version == '3.9'
         run: poetry run mypy --strict examples/hikari_tanjun_basic_queue
@@ -151,6 +155,9 @@ jobs:
 
       - name: mypy-pure-hikari
         run: poetry run mypy --strict examples/pure_hikari_basic_queue
+
+      - name: mypy-hikari-lightbulb
+        run: poetry run mypy --strict examples/hikari_lightbulb_basic_queue
 
       - name: mypy-hikari-tanjun
         run: poetry run mypy --strict examples/hikari_tanjun_basic_queue

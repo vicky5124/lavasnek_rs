@@ -28,7 +28,7 @@ class EventHandler:
         node = await lavalink.get_guild_node(event.guild_id)
 
         if not node:
-            return None
+            return
 
         if skip and not node.queue and not node.now_playing:
             await lavalink.stop(event.guild_id)
@@ -38,13 +38,9 @@ plugin = lightbulb.Plugin("Music")
 
 
 async def _join(ctx: lightbulb.Context) -> Optional[hikari.Snowflake]:
-    guild = ctx.get_guild()
+    assert ctx.guild_id is not None
 
-    if not guild:
-        await ctx.respond("Could not get guild.")
-        return None
-
-    states = plugin.bot.cache.get_voice_states_view_for_guild(guild)
+    states = plugin.bot.cache.get_voice_states_view_for_guild(ctx.guild_id)
     voice_state = [state async for state in states.iterator().filter(lambda i: i.user_id == ctx.author.id)]
 
     if not voice_state:
@@ -54,9 +50,10 @@ async def _join(ctx: lightbulb.Context) -> Optional[hikari.Snowflake]:
     channel_id = voice_state[0].channel_id
 
     if HIKARI_VOICE:
-        if ctx.guild_id is not None:
-            await plugin.bot.update_voice_state(ctx.guild_id, channel_id, self_deaf=True)
-            connection_info = await plugin.bot.d.lavalink.wait_for_full_connection_info_insert(ctx.guild_id)
+        assert ctx.guild_id is not None
+
+        await plugin.bot.update_voice_state(ctx.guild_id, channel_id, self_deaf=True)
+        connection_info = await plugin.bot.d.lavalink.wait_for_full_connection_info_insert(ctx.guild_id)
 
     else:
         try:
@@ -73,15 +70,12 @@ async def _join(ctx: lightbulb.Context) -> Optional[hikari.Snowflake]:
 
 
 @plugin.listener(hikari.ShardReadyEvent)
-async def start_lavalink(_: hikari.ShardReadyEvent) -> None:
+async def start_lavalink(event: hikari.ShardReadyEvent) -> None:
     """Event that triggers when the hikari gateway is ready."""
-
-    if not (bot := plugin.bot.get_me()):
-        return None
 
     builder = (
         # TOKEN can be an empty string if you don't want to use lavasnek's discord gateway.
-        lavasnek_rs.LavalinkBuilder(bot.id, TOKEN)
+        lavasnek_rs.LavalinkBuilder(event.my_user.id, TOKEN)
         # This is the default value, so this is redundant, but it's here to show how to set a custom one.
         .set_host("127.0.0.1").set_password(LAVALINK_PASSWORD)
     )
