@@ -43,7 +43,7 @@ async def _join(ctx: lightbulb.Context) -> Optional[hikari.Snowflake]:
     if not guild:
         await ctx.respond("Could not get guild.")
         return None
-    
+
     states = plugin.bot.cache.get_voice_states_view_for_guild(guild)
     voice_state = [state async for state in states.iterator().filter(lambda i: i.user_id == ctx.author.id)]
 
@@ -242,10 +242,7 @@ async def now_playing(ctx: lightbulb.Context) -> None:
 @lightbulb.add_checks(lightbulb.guild_only)
 @lightbulb.add_checks(lightbulb.owner_only)  # Optional
 @lightbulb.option(
-    "args",
-    "The arguments to write to the node data.",
-    required=False,
-    modifier=lightbulb.OptionModifier.CONSUME_REST
+    "args", "The arguments to write to the node data.", required=False, modifier=lightbulb.OptionModifier.CONSUME_REST
 )
 @lightbulb.command("data", "Load or read data from the node.")
 @lightbulb.implements(lightbulb.PrefixCommand, lightbulb.SlashCommand)
