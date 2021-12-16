@@ -43,7 +43,7 @@ async def _join(ctx: lightbulb.Context) -> Optional[hikari.Snowflake]:
     if not guild:
         await ctx.respond("Could not get guild.")
         return None
-
+    
     states = plugin.bot.cache.get_voice_states_view_for_guild(guild)
     voice_state = [state async for state in states.iterator().filter(lambda i: i.user_id == ctx.author.id)]
 
@@ -263,6 +263,7 @@ async def data(ctx: lightbulb.Context) -> None:
 
     if args := ctx.options.args:
         args = args.split(" ")
+
         if len(args) == 1:
             await node.set_data({args[0]: args[0]})
         else:
