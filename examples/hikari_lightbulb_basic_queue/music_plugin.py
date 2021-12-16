@@ -1,5 +1,5 @@
 import logging
-from typing import Any, Optional
+from typing import Optional
 
 import hikari
 import lightbulb
@@ -27,6 +27,9 @@ class EventHandler:
         skip = await lavalink.skip(event.guild_id)
         node = await lavalink.get_guild_node(event.guild_id)
 
+        if not node:
+            return
+
         if skip and not node.queue and not node.now_playing:
             await lavalink.stop(event.guild_id)
 
@@ -35,7 +38,9 @@ plugin = lightbulb.Plugin("Music")
 
 
 async def _join(ctx: lightbulb.Context) -> Optional[hikari.Snowflake]:
-    states = plugin.bot.cache.get_voice_states_view_for_guild(ctx.get_guild())
+    assert ctx.guild_id is not None
+
+    states = plugin.bot.cache.get_voice_states_view_for_guild(ctx.guild_id)
     voice_state = [state async for state in states.iterator().filter(lambda i: i.user_id == ctx.author.id)]
 
     if not voice_state:
@@ -45,8 +50,11 @@ async def _join(ctx: lightbulb.Context) -> Optional[hikari.Snowflake]:
     channel_id = voice_state[0].channel_id
 
     if HIKARI_VOICE:
+        assert ctx.guild_id is not None
+
         await plugin.bot.update_voice_state(ctx.guild_id, channel_id, self_deaf=True)
         connection_info = await plugin.bot.d.lavalink.wait_for_full_connection_info_insert(ctx.guild_id)
+
     else:
         try:
             connection_info = await plugin.bot.d.lavalink.join(ctx.guild_id, channel_id)
@@ -61,13 +69,13 @@ async def _join(ctx: lightbulb.Context) -> Optional[hikari.Snowflake]:
     return channel_id
 
 
-@lightbulb.listener(hikari.ShardReadyEvent)
-async def start_lavalink(_: hikari.ShardReadyEvent) -> None:
+@plugin.listener(hikari.ShardReadyEvent)
+async def start_lavalink(event: hikari.ShardReadyEvent) -> None:
     """Event that triggers when the hikari gateway is ready."""
 
     builder = (
         # TOKEN can be an empty string if you don't want to use lavasnek's discord gateway.
-        lavasnek_rs.LavalinkBuilder(plugin.bot.get_me().id, TOKEN)
+        lavasnek_rs.LavalinkBuilder(event.my_user.id, TOKEN)
         # This is the default value, so this is redundant, but it's here to show how to set a custom one.
         .set_host("127.0.0.1").set_password(LAVALINK_PASSWORD)
     )
@@ -80,6 +88,7 @@ async def start_lavalink(_: hikari.ShardReadyEvent) -> None:
     plugin.bot.d.lavalink = lava_client
 
 
+@plugin.command()
 @lightbulb.add_checks(lightbulb.guild_only)
 @lightbulb.command("join", "Joins the voice channel you are in.")
 @lightbulb.implements(lightbulb.PrefixCommand, lightbulb.SlashCommand)
@@ -91,6 +100,7 @@ async def join(ctx: lightbulb.Context) -> None:
         await ctx.respond(f"Joined <#{channel_id}>")
 
 
+@plugin.command()
 @lightbulb.add_checks(lightbulb.guild_only)
 @lightbulb.command("leave", "Leaves the voice channel the bot is in, clearing the queue.")
 @lightbulb.implements(lightbulb.PrefixCommand, lightbulb.SlashCommand)
@@ -100,8 +110,9 @@ async def leave(ctx: lightbulb.Context) -> None:
     await plugin.bot.d.lavalink.destroy(ctx.guild_id)
 
     if HIKARI_VOICE:
-        await plugin.bot.update_voice_state(ctx.guild_id, None)
-        await plugin.bot.d.lavalink.wait_for_connection_info_remove(ctx.guild_id)
+        if ctx.guild_id is not None:
+            await plugin.bot.update_voice_state(ctx.guild_id, None)
+            await plugin.bot.d.lavalink.wait_for_connection_info_remove(ctx.guild_id)
     else:
         await plugin.bot.d.lavalink.leave(ctx.guild_id)
 
@@ -112,12 +123,19 @@ async def leave(ctx: lightbulb.Context) -> None:
     await ctx.respond("Left voice channel")
 
 
+@plugin.command()
 @lightbulb.add_checks(lightbulb.guild_only)
-@lightbulb.option("query", "The query to search for.")
+@lightbulb.option("query", "The query to search for.", modifier=lightbulb.OptionModifier.CONSUME_REST)
 @lightbulb.command("play", "Searches the query on youtube, or adds the URL to the queue.")
 @lightbulb.implements(lightbulb.PrefixCommand, lightbulb.SlashCommand)
 async def play(ctx: lightbulb.Context) -> None:
     """Searches the query on youtube, or adds the URL to the queue."""
+
+    query = ctx.options.query
+
+    if not query:
+        await ctx.respond("Please specify a query.")
+        return None
 
     con = await plugin.bot.d.lavalink.get_guild_gateway_connection_info(ctx.guild_id)
     # Join the user's voice channel if the bot is not in one.
@@ -126,7 +144,7 @@ async def play(ctx: lightbulb.Context) -> None:
 
     # Search the query, auto_search will get the track from a url if possible, otherwise,
     # it will search the query on youtube.
-    query_information = await plugin.bot.d.lavalink.auto_search_tracks(ctx.options.query)
+    query_information = await plugin.bot.d.lavalink.auto_search_tracks(query)
 
     if not query_information.tracks:  # tracks is empty
         await ctx.respond("Could not find any video of the search query.")
@@ -143,6 +161,7 @@ async def play(ctx: lightbulb.Context) -> None:
     await ctx.respond(f"Added to queue: {query_information.tracks[0].info.title}")
 
 
+@plugin.command()
 @lightbulb.add_checks(lightbulb.guild_only)
 @lightbulb.command("stop", "Stops the current song (skip to continue).")
 @lightbulb.implements(lightbulb.PrefixCommand, lightbulb.SlashCommand)
@@ -153,6 +172,7 @@ async def stop(ctx: lightbulb.Context) -> None:
     await ctx.respond("Stopped playing")
 
 
+@plugin.command()
 @lightbulb.add_checks(lightbulb.guild_only)
 @lightbulb.command("skip", "Skips the current song.")
 @lightbulb.implements(lightbulb.PrefixCommand, lightbulb.SlashCommand)
@@ -173,6 +193,7 @@ async def skip(ctx: lightbulb.Context) -> None:
         await ctx.respond(f"Skipped: {skip.track.info.title}")
 
 
+@plugin.command()
 @lightbulb.add_checks(lightbulb.guild_only)
 @lightbulb.command("pause", "Pauses the current song.")
 @lightbulb.implements(lightbulb.PrefixCommand, lightbulb.SlashCommand)
@@ -183,6 +204,7 @@ async def pause(ctx: lightbulb.Context) -> None:
     await ctx.respond("Paused player")
 
 
+@plugin.command()
 @lightbulb.add_checks(lightbulb.guild_only)
 @lightbulb.command("resume", "Resumes playing the current song.")
 @lightbulb.implements(lightbulb.PrefixCommand, lightbulb.SlashCommand)
@@ -193,8 +215,10 @@ async def resume(ctx: lightbulb.Context) -> None:
     await ctx.respond("Resumed player")
 
 
+@plugin.command()
 @lightbulb.add_checks(lightbulb.guild_only)
 @lightbulb.command("nowplaying", "Gets the song that's currently playing.", aliases=["np"])
+@lightbulb.implements(lightbulb.PrefixCommand, lightbulb.SlashCommand)
 async def now_playing(ctx: lightbulb.Context) -> None:
     """Gets the song that's currently playing."""
 
@@ -208,11 +232,15 @@ async def now_playing(ctx: lightbulb.Context) -> None:
     await ctx.respond(f"Now Playing: {node.now_playing.track.info.title}")
 
 
+@plugin.command()
 @lightbulb.add_checks(lightbulb.guild_only)
 @lightbulb.add_checks(lightbulb.owner_only)  # Optional
+@lightbulb.option(
+    "args", "The arguments to write to the node data.", required=False, modifier=lightbulb.OptionModifier.CONSUME_REST
+)
 @lightbulb.command("data", "Load or read data from the node.")
 @lightbulb.implements(lightbulb.PrefixCommand, lightbulb.SlashCommand)
-async def data(ctx: lightbulb.Context, *args: Any) -> None:
+async def data(ctx: lightbulb.Context) -> None:
     """Load or read data from the node.
 
     If just `data` is ran, it will show the current data, but if `data <key> <value>` is ran, it
@@ -220,7 +248,13 @@ async def data(ctx: lightbulb.Context, *args: Any) -> None:
 
     node = await plugin.bot.d.lavalink.get_guild_node(ctx.guild_id)
 
-    if args:
+    if not node:
+        await ctx.respond("No node found.")
+        return None
+
+    if args := ctx.options.args:
+        args = args.split(" ")
+
         if len(args) == 1:
             await node.set_data({args[0]: args[0]})
         else:
@@ -230,7 +264,7 @@ async def data(ctx: lightbulb.Context, *args: Any) -> None:
 
 if HIKARI_VOICE:
 
-    @lightbulb.listener(hikari.VoiceStateUpdateEvent)
+    @plugin.listener(hikari.VoiceStateUpdateEvent)
     async def voice_state_update(event: hikari.VoiceStateUpdateEvent) -> None:
         await plugin.bot.d.lavalink.raw_handle_event_voice_state_update(
             event.state.guild_id,
@@ -239,7 +273,7 @@ if HIKARI_VOICE:
             event.state.channel_id,
         )
 
-    @lightbulb.listener(hikari.VoiceServerUpdateEvent)
+    @plugin.listener(hikari.VoiceServerUpdateEvent)
     async def voice_server_update(event: hikari.VoiceServerUpdateEvent) -> None:
         await plugin.bot.d.lavalink.raw_handle_event_voice_server_update(event.guild_id, event.endpoint, event.token)
 
