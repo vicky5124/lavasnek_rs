@@ -2,4 +2,4 @@ hata==1.1.109
 hikari==2.0.0.dev104; python_version >= "3.8"
 uvloop>=0.16; sys_platform != "win32" and python_version >= "3.8"
 hikari-tanjun==2.1.0a1; python_version >= "3.9"
-hikari-lightbulb==2.1.0; python_version == "3.8" or python_version == "3.9"
+hikari-lightbulb==2.1.0; python_version >= "3.8"
