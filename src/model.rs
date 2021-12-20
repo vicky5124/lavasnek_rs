@@ -97,7 +97,7 @@ impl Track {
     /// The playable track.
     ///
     /// Contains `String`
-    fn track(&self) -> String {
+    fn get_track(&self) -> String {
         self.inner.track.clone()
     }
 
@@ -105,8 +105,18 @@ impl Track {
     /// Information about the track.
     ///
     /// Contains `Option<Info>`
-    fn info(&self) -> Option<Info> {
+    fn get_info(&self) -> Option<Info> {
         self.inner.info.as_ref().map(|i| Info { inner: i.clone() })
+    }
+
+    #[setter]
+    fn set_track(&mut self, track: String) {
+        self.inner.track = track;
+    }
+
+    #[setter]
+    fn set_info(&mut self, info: Option<Info>) {
+        self.inner.info = info.map(|i| i.inner);
     }
 }
 
