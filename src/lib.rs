@@ -708,27 +708,23 @@ impl Lavalink {
     /// Positional Arguments:
     /// - `guild_id` : `Unsigned 64 bit integer`
     ///
-    /// Returns: `Future<Option<ConnectionInfo>>`
+    /// Returns: `Option<ConnectionInfo>`
     #[pyo3(text_signature = "($self, guild_id, /)")]
     fn get_guild_gateway_connection_info<'a>(
         &self,
         py: Python<'a>,
         guild_id: u64,
-    ) -> PyResult<&'a PyAny> {
+    ) -> Py<PyAny> {
         let lava_client = self.lava.clone();
 
-        pyo3_asyncio::tokio::future_into_py(py, async move {
-            let connections = lava_client.discord_gateway_connections().await;
-            let connection = connections.get(&guild_id.into());
+        let connections = lava_client.discord_gateway_connections();
+        let connection = connections.get(&guild_id.into());
 
-            Ok(Python::with_gil(|py| {
-                if let Some(con) = connection {
-                    pythonize(py, &con.to_owned()).unwrap()
-                } else {
-                    py.None()
-                }
-            }))
-        })
+        if let Some(con) = connection {
+            pythonize(py, &con.to_owned()).unwrap()
+        } else {
+            py.None()
+        }
     }
 
     /// Waits until the ConnectionInfo is complete and returns it.
@@ -833,30 +829,25 @@ impl Lavalink {
     /// - `session_id` : `String`
     /// - `channel_id` : `Optional Unsigned 64 bit integer`
     ///
-    /// Returns: `Future<None>`
+    /// Returns: `None`
     #[pyo3(text_signature = "($self, guild_id, user_id, session_id, channel_id/)")]
-    fn raw_handle_event_voice_state_update<'a>(
+    fn raw_handle_event_voice_state_update(
         &self,
-        py: Python<'a>,
+        _py: Python,
         guild_id: u64,
         user_id: u64,
         session_id: String,
         channel_id: Option<u64>,
-    ) -> PyResult<&'a PyAny> {
+    ) {
         let lava_client = self.lava.clone();
 
-        pyo3_asyncio::tokio::future_into_py(py, async move {
-            lavalink_rs::voice::raw_handle_event_voice_state_update(
-                &lava_client,
-                guild_id,
-                channel_id,
-                user_id,
-                session_id,
-            )
-            .await;
-
-            Ok(Python::with_gil(|py| py.None()))
-        })
+        lavalink_rs::voice::raw_handle_event_voice_state_update(
+            &lava_client,
+            guild_id,
+            channel_id,
+            user_id,
+            session_id,
+        );
     }
 }
 

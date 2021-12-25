@@ -137,7 +137,7 @@ async def play(ctx: lightbulb.Context) -> None:
         await ctx.respond("Please specify a query.")
         return None
 
-    con = await plugin.bot.d.lavalink.get_guild_gateway_connection_info(ctx.guild_id)
+    con = plugin.bot.d.lavalink.get_guild_gateway_connection_info(ctx.guild_id)
     # Join the user's voice channel if the bot is not in one.
     if not con:
         await _join(ctx)
@@ -256,17 +256,17 @@ async def data(ctx: lightbulb.Context) -> None:
         args = args.split(" ")
 
         if len(args) == 1:
-            await node.set_data({args[0]: args[0]})
+            node.set_data({args[0]: args[0]})
         else:
-            await node.set_data({args[0]: args[1]})
-    await ctx.respond(await node.get_data())
+            node.set_data({args[0]: args[1]})
+    await ctx.respond(node.get_data())
 
 
 if HIKARI_VOICE:
 
     @plugin.listener(hikari.VoiceStateUpdateEvent)
     async def voice_state_update(event: hikari.VoiceStateUpdateEvent) -> None:
-        await plugin.bot.d.lavalink.raw_handle_event_voice_state_update(
+        plugin.bot.d.lavalink.raw_handle_event_voice_state_update(
             event.state.guild_id,
             event.state.user_id,
             event.state.session_id,

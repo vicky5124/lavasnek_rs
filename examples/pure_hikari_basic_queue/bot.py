@@ -142,7 +142,7 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:  # noqa: C9
 
         # Searches and adds a track to the queue.
         elif is_command("play", event.content):
-            con = await bot.data.lavalink.get_guild_gateway_connection_info(event.guild_id)
+            con = bot.data.lavalink.get_guild_gateway_connection_info(event.guild_id)
             # Join the user's voice channel if the bot is not in one.
             if not con:
                 await _join(event)
@@ -241,13 +241,13 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:  # noqa: C9
                 return
 
             if not args:
-                await event.message.respond(await node.get_data())
+                await event.message.respond(node.get_data())
             else:
                 if len(args) == 1:
-                    await node.set_data({args[0]: args[0]})
+                    node.set_data({args[0]: args[0]})
                 else:
-                    await node.set_data({args[0]: args[1]})
-                await event.message.respond(await node.get_data())
+                    node.set_data({args[0]: args[1]})
+                await event.message.respond(node.get_data())
 
 
 @bot.listen()
@@ -273,7 +273,7 @@ if HIKARI_VOICE:
 
     @bot.listen()
     async def voice_state_update(event: hikari.VoiceStateUpdateEvent) -> None:
-        await bot.data.lavalink.raw_handle_event_voice_state_update(
+        bot.data.lavalink.raw_handle_event_voice_state_update(
             event.state.guild_id,
             event.state.user_id,
             event.state.session_id,

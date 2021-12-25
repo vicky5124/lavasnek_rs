@@ -19,7 +19,7 @@ TOKEN = os.environ["DISCORD_TOKEN"]
 LAVALINK_PASSWORD = os.environ["LAVALINK_PASSWORD"]
 
 # If True connect to voice with the hata gateway instead of lavasnek_rs's
-HATA_VOICE = False
+HATA_VOICE = True
 
 
 class Data:
@@ -114,7 +114,7 @@ async def leave(ctx):
 @checks.guild_only()
 async def play(ctx, query=None):
     """Searches the query on youtube, or adds the URL to the queue."""
-    con = await bot.data.lavalink.get_guild_gateway_connection_info(ctx.guild.id)
+    con = bot.data.lavalink.get_guild_gateway_connection_info(ctx.guild.id)
     # Join the user's voice channel if the bot is not in one.
     if not con:
         await _join(ctx)
@@ -205,13 +205,13 @@ async def data(ctx, *args):
     node = await ctx.client.data.lavalink.get_guild_node(ctx.guild.id)
 
     if not args:
-        await ctx.respond(await node.get_data())
+        await ctx.respond(node.get_data())
     else:
         if len(args) == 1:
-            await node.set_data({args[0]: args[0]})
+            node.set_data({args[0]: args[0]})
         else:
-            await node.set_data({args[0]: args[1]})
-        await ctx.respond(await node.get_data())
+            node.set_data({args[0]: args[1]})
+        await ctx.respond(node.get_data())
 
 
 @bot.events
@@ -249,7 +249,7 @@ if HATA_VOICE:
         if not event.channel_id:
             event.channel_id = None
 
-        await client.data.lavalink.raw_handle_event_voice_state_update(
+        client.data.lavalink.raw_handle_event_voice_state_update(
             event.guild_id,
             event.user_id,
             event.session_id,

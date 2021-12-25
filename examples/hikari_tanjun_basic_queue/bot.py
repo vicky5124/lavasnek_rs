@@ -6,7 +6,7 @@ import lavasnek_rs
 
 
 PREFIX = ","
-TOKEN = os.environ["TOKEN"]
+TOKEN = os.environ["DISCORD_TOKEN"]
 
 
 class EventHandler:
@@ -55,9 +55,8 @@ async def on_shard_ready(
     """Event that triggers when the hikari gateway is ready."""
     builder = (
         lavasnek_rs.LavalinkBuilder(event.my_user.id, TOKEN)
-        .set_host(os.environ["LAVALINK_HOST"])
+        .set_host("127.0.0.1")
         .set_password(os.environ["LAVALINK_PASSWORD"])
-        .set_port(int(os.environ["LAVALINK_PORT"]))
         .set_start_gateway(False)
         # We set start gateway False because hikari can handle
         # voice events for us.
@@ -74,7 +73,7 @@ async def on_voice_state_update(
     lavalink: lavasnek_rs.Lavalink = tanjun.injected(type=lavasnek_rs.Lavalink),
 ) -> None:
     """Passes voice state updates to lavalink."""
-    await lavalink.raw_handle_event_voice_state_update(
+    lavalink.raw_handle_event_voice_state_update(
         event.state.guild_id,
         event.state.user_id,
         event.state.session_id,

@@ -80,7 +80,7 @@ async def _play_track(ctx: tanjun.abc.Context, song: str, lavalink: lavasnek_rs.
     assert ctx.guild_id is not None
 
     # Check if we are connected to voice
-    conn = await lavalink.get_guild_gateway_connection_info(ctx.guild_id)
+    conn = lavalink.get_guild_gateway_connection_info(ctx.guild_id)
 
     if not conn:
         # Join the users voice channel if we are not already connected
@@ -128,7 +128,7 @@ async def _leave_voice(ctx: tanjun.abc.Context, lavalink: lavasnek_rs.Lavalink) 
     """Stops playback of the current song."""
     assert ctx.guild_id is not None
 
-    if await lavalink.get_guild_gateway_connection_info(ctx.guild_id):
+    if lavalink.get_guild_gateway_connection_info(ctx.guild_id):
         # If were connected, destroy the connection
         await lavalink.destroy(ctx.guild_id)
 
