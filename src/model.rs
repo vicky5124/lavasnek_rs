@@ -329,40 +329,30 @@ impl Node {
     /// `T` is whatever type you give to `set_data`'s data parameter, but if you call this method before it,
     /// it will default to a Dict.
     ///
-    /// Returns `Future<T>`
+    /// Returns `T`
     #[pyo3(text_signature = "($self, /)")]
-    fn get_data<'a>(&self, py: Python<'a>) -> PyResult<&'a PyAny> {
+    fn get_data<'a>(&self, py: Python<'a>) -> Py<PyAny> {
         let data_lock = self.inner.data.clone();
         let dict = PyDict::new(py).into_py(py);
 
-        pyo3_asyncio::tokio::future_into_py(py, async move {
-            let contains_key = data_lock.read().await.contains_key::<NodeData>();
+        let contains_key = data_lock.read().contains_key::<NodeData>();
 
-            if !contains_key {
-                data_lock.write().await.insert::<NodeData>(dict)
-            }
+        if !contains_key {
+            data_lock.write().insert::<NodeData>(dict)
+        }
 
-            let data = {
-                let data_read = data_lock.read().await;
-                data_read.get::<NodeData>().unwrap().clone()
-            };
-
-            Ok(Python::with_gil(|py| data.into_py(py)))
-        })
+        let data_read = data_lock.read();
+        data_read.get::<NodeData>().unwrap().clone()
     }
 
     /// Use this to set the tored data of the Node.
     ///
-    /// Returns `Future<None>`
+    /// Returns `None`
     #[pyo3(text_signature = "($self, data, /)")]
-    fn set_data<'a>(&self, py: Python<'a>, data: PyObject) -> PyResult<&'a PyAny> {
+    fn set_data(&self, _py: Python, data: PyObject) {
         let data_lock = self.inner.data.clone();
 
-        pyo3_asyncio::tokio::future_into_py(py, async move {
-            data_lock.write().await.insert::<NodeData>(data);
-
-            Ok(Python::with_gil(|py| py.None()))
-        })
+        data_lock.write().insert::<NodeData>(data);
     }
 }
 

@@ -104,7 +104,7 @@ class Music(commands.Cog):
     async def play(self, ctx, *, query=None):
         """Searches the query on youtube, or adds the URL to the queue."""
 
-        con = await bot.data.lavalink.get_guild_gateway_connection_info(ctx.guild.id)
+        con = bot.data.lavalink.get_guild_gateway_connection_info(ctx.guild.id)
         # Join the user's voice channel if the bot is not in one.
         if not con:
             await ctx.reply("Connect to a voice channel or give me permissions to join it.")
@@ -189,7 +189,7 @@ class Music(commands.Cog):
                 user_id = int(data["d"]["user_id"])
                 session_id = data["d"]["session_id"]
 
-                await self.bot.data.lavalink.raw_handle_event_voice_state_update(
+                self.bot.data.lavalink.raw_handle_event_voice_state_update(
                     guild_id,
                     user_id,
                     session_id,
