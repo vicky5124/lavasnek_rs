@@ -22,6 +22,7 @@ setup(
     rust_extensions=[RustExtension("lavasnek_rs.lavasnek_rs", "Cargo.toml", binding=Binding.PyO3, strip=Strip.Debug)],
     setup_requires=setup_requires,
     include_package_data=True,
+    data_files=["lavasnek_rs/__init__.pyi"],
     packages=["lavasnek_rs"],
     zip_safe=False,
     python_requires=">=3.6",
