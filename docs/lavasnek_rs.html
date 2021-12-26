@@ -19,6 +19,11 @@
 
 
 
+                    <h2>Contents</h2>
+                    <ul>
+  <li><a href="#lavasnek_rs">lavasnek_rs</a></li>
+</ul>
+
 
 
                     <h2>API Documentation</h2>
@@ -306,16 +311,16 @@
                                 <a class="function" href="#TrackQueue.__init__">TrackQueue</a>
                         </li>
                         <li>
-                                <a class="variable" href="#TrackQueue.start_time">start_time</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#TrackQueue.track">track</a>
+                                <a class="variable" href="#TrackQueue.requester">requester</a>
                         </li>
                         <li>
                                 <a class="variable" href="#TrackQueue.end_time">end_time</a>
                         </li>
                         <li>
-                                <a class="variable" href="#TrackQueue.requester">requester</a>
+                                <a class="variable" href="#TrackQueue.track">track</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#TrackQueue.start_time">start_time</a>
                         </li>
                 </ul>
 
@@ -330,25 +335,25 @@
                                 <a class="variable" href="#Info.length">length</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Info.position">position</a>
+                                <a class="variable" href="#Info.title">title</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Info.is_stream">is_stream</a>
+                                <a class="variable" href="#Info.position">position</a>
                         </li>
                         <li>
                                 <a class="variable" href="#Info.identifier">identifier</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Info.author">author</a>
+                                <a class="variable" href="#Info.uri">uri</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Info.is_stream">is_stream</a>
                         </li>
                         <li>
                                 <a class="variable" href="#Info.is_seekable">is_seekable</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Info.title">title</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#Info.uri">uri</a>
+                                <a class="variable" href="#Info.author">author</a>
                         </li>
                 </ul>
 
@@ -381,22 +386,22 @@
                                 <a class="function" href="#Node.set_data">set_data</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Node.now_playing">now_playing</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#Node.is_paused">is_paused</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#Node.guild">guild</a>
-                        </li>
-                        <li>
                                 <a class="variable" href="#Node.volume">volume</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Node.is_on_loops">is_on_loops</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Node.now_playing">now_playing</a>
                         </li>
                         <li>
                                 <a class="variable" href="#Node.queue">queue</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Node.is_on_loops">is_on_loops</a>
+                                <a class="variable" href="#Node.guild">guild</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Node.is_paused">is_paused</a>
                         </li>
                 </ul>
 
@@ -423,28 +428,31 @@
                                 <a class="function" href="#Stats.__init__">Stats</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Stats.frame_stats_nulled">frame_stats_nulled</a>
+                                <a class="variable" href="#Stats.playing_players">playing_players</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Stats.frame_stats_deficit">frame_stats_deficit</a>
                         </li>
                         <li>
                                 <a class="variable" href="#Stats.players">players</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Stats.uptime">uptime</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#Stats.memory_reservable">memory_reservable</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#Stats.cpu_lavalink_load">cpu_lavalink_load</a>
+                                <a class="variable" href="#Stats.memory_free">memory_free</a>
                         </li>
                         <li>
                                 <a class="variable" href="#Stats.memory_allocated">memory_allocated</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Stats.playing_players">playing_players</a>
+                                <a class="variable" href="#Stats.frame_stats_nulled">frame_stats_nulled</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Stats.memory_free">memory_free</a>
+                                <a class="variable" href="#Stats.memory_used">memory_used</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Stats.cpu_lavalink_load">cpu_lavalink_load</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Stats.frame_stats_sent">frame_stats_sent</a>
                         </li>
                         <li>
                                 <a class="variable" href="#Stats.cpu_cores">cpu_cores</a>
@@ -453,16 +461,13 @@
                                 <a class="variable" href="#Stats.op">op</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Stats.memory_used">memory_used</a>
+                                <a class="variable" href="#Stats.uptime">uptime</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Stats.memory_reservable">memory_reservable</a>
                         </li>
                         <li>
                                 <a class="variable" href="#Stats.cpu_system_load">cpu_system_load</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#Stats.frame_stats_sent">frame_stats_sent</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#Stats.frame_stats_deficit">frame_stats_deficit</a>
                         </li>
                 </ul>
 
@@ -474,16 +479,16 @@
                                 <a class="function" href="#PlayerUpdate.__init__">PlayerUpdate</a>
                         </li>
                         <li>
-                                <a class="variable" href="#PlayerUpdate.state_position">state_position</a>
+                                <a class="variable" href="#PlayerUpdate.guild_id">guild_id</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#PlayerUpdate.state_time">state_time</a>
                         </li>
                         <li>
                                 <a class="variable" href="#PlayerUpdate.op">op</a>
                         </li>
                         <li>
-                                <a class="variable" href="#PlayerUpdate.guild_id">guild_id</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#PlayerUpdate.state_time">state_time</a>
+                                <a class="variable" href="#PlayerUpdate.state_position">state_position</a>
                         </li>
                 </ul>
 
@@ -516,7 +521,7 @@
                                 <a class="function" href="#TrackFinish.__init__">TrackFinish</a>
                         </li>
                         <li>
-                                <a class="variable" href="#TrackFinish.reason">reason</a>
+                                <a class="variable" href="#TrackFinish.op">op</a>
                         </li>
                         <li>
                                 <a class="variable" href="#TrackFinish.guild_id">guild_id</a>
@@ -525,10 +530,10 @@
                                 <a class="variable" href="#TrackFinish.track">track</a>
                         </li>
                         <li>
-                                <a class="variable" href="#TrackFinish.track_finish_type">track_finish_type</a>
+                                <a class="variable" href="#TrackFinish.reason">reason</a>
                         </li>
                         <li>
-                                <a class="variable" href="#TrackFinish.op">op</a>
+                                <a class="variable" href="#TrackFinish.track_finish_type">track_finish_type</a>
                         </li>
                 </ul>
 
@@ -540,28 +545,28 @@
                                 <a class="function" href="#TrackException.__init__">TrackException</a>
                         </li>
                         <li>
-                                <a class="variable" href="#TrackException.exception_cause">exception_cause</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#TrackException.track_exception_type">track_exception_type</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#TrackException.track">track</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#TrackException.op">op</a>
+                                <a class="variable" href="#TrackException.error">error</a>
                         </li>
                         <li>
                                 <a class="variable" href="#TrackException.guild_id">guild_id</a>
                         </li>
                         <li>
-                                <a class="variable" href="#TrackException.exception_severity">exception_severity</a>
-                        </li>
-                        <li>
                                 <a class="variable" href="#TrackException.exception_message">exception_message</a>
                         </li>
                         <li>
-                                <a class="variable" href="#TrackException.error">error</a>
+                                <a class="variable" href="#TrackException.exception_severity">exception_severity</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#TrackException.op">op</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#TrackException.exception_cause">exception_cause</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#TrackException.track">track</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#TrackException.track_exception_type">track_exception_type</a>
                         </li>
                 </ul>
 
@@ -573,19 +578,19 @@
                                 <a class="function" href="#TrackStuck.__init__">TrackStuck</a>
                         </li>
                         <li>
-                                <a class="variable" href="#TrackStuck.guild_id">guild_id</a>
-                        </li>
-                        <li>
                                 <a class="variable" href="#TrackStuck.track">track</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#TrackStuck.track_stuck_type">track_stuck_type</a>
                         </li>
                         <li>
                                 <a class="variable" href="#TrackStuck.op">op</a>
                         </li>
                         <li>
+                                <a class="variable" href="#TrackStuck.track_stuck_type">track_stuck_type</a>
+                        </li>
+                        <li>
                                 <a class="variable" href="#TrackStuck.threshold_ms">threshold_ms</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#TrackStuck.guild_id">guild_id</a>
                         </li>
                 </ul>
 
@@ -597,15 +602,6 @@
                                 <a class="function" href="#WebSocketClosed.__init__">WebSocketClosed</a>
                         </li>
                         <li>
-                                <a class="variable" href="#WebSocketClosed.websocket_closed_type">websocket_closed_type</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#WebSocketClosed.guild_id">guild_id</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#WebSocketClosed.by_remote">by_remote</a>
-                        </li>
-                        <li>
                                 <a class="variable" href="#WebSocketClosed.op">op</a>
                         </li>
                         <li>
@@ -613,6 +609,15 @@
                         </li>
                         <li>
                                 <a class="variable" href="#WebSocketClosed.code">code</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#WebSocketClosed.websocket_closed_type">websocket_closed_type</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#WebSocketClosed.guild_id">guild_id</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#WebSocketClosed.by_remote">by_remote</a>
                         </li>
                 </ul>
 
@@ -627,13 +632,13 @@
                                 <a class="variable" href="#PlayerDestroyed.guild_id">guild_id</a>
                         </li>
                         <li>
+                                <a class="variable" href="#PlayerDestroyed.player_destroyed_type">player_destroyed_type</a>
+                        </li>
+                        <li>
                                 <a class="variable" href="#PlayerDestroyed.user_id">user_id</a>
                         </li>
                         <li>
                                 <a class="variable" href="#PlayerDestroyed.op">op</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#PlayerDestroyed.player_destroyed_type">player_destroyed_type</a>
                         </li>
                         <li>
                                 <a class="variable" href="#PlayerDestroyed.cleanup">cleanup</a>
@@ -669,9 +674,24 @@
                     <h1 class="modulename">
 lavasnek_rs    </h1>
 
-                        <div class="docstring"><p>lavasnek_rs
-<strike>~</strike><strike>~</strike><strike>~</strike>~~~~
-lavalink-rs bindings for Python</p>
+                        <div class="docstring"><h2 id="lavasnek_rs">lavasnek_rs</h2>
+
+<p>lavalink-rs bindings for Python</p>
+
+<p>Cheat Sheet:</p>
+
+<ul>
+<li>Functions that return a <code>Result&lt;T, E&gt;</code> mean that it can raise an exception. <code>T</code> is the type they
+return normally, and <code>E</code> is a list of possible exceptions that can raise.</li>
+<li>Functions that return an <code>Option&lt;T&gt;</code> mean that the value returned can be <code>None</code>, where <code>T</code> would be
+the type of the returned value if not <code>None</code>.</li>
+<li>If something returns a <code>Future&lt;T&gt;</code>, it means that it returns
+<a href="https://docs.python.org/3/library/asyncio-future.html?#asyncio.Future">this</a>,
+and that function should be awaited to work.</li>
+<li>/ on arguments means the end of positional arguments.</li>
+<li>Self (with a capital S) means the type of self.</li>
+<li>A type prefixed with <code>impl</code> means it's a Class that implements that Trait type.</li>
+</ul>
 </div>
 
                         <details>
@@ -679,8 +699,21 @@ lavalink-rs bindings for Python</p>
             <div class="codehilite"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">lavasnek_rs</span>
-<span class="sd">~~~~~~~~~~~~~~~~~~~</span>
+<span class="sd">-------------------</span>
 <span class="sd">lavalink-rs bindings for Python</span>
+
+<span class="sd">Cheat Sheet:</span>
+
+<span class="sd">- Functions that return a `Result&lt;T, E&gt;` mean that it can raise an exception. `T` is the type they</span>
+<span class="sd">return normally, and `E` is a list of possible exceptions that can raise.</span>
+<span class="sd">- Functions that return an `Option&lt;T&gt;` mean that the value returned can be `None`, where `T` would be</span>
+<span class="sd">the type of the returned value if not `None`.</span>
+<span class="sd">- If something returns a `Future&lt;T&gt;`, it means that it returns</span>
+<span class="sd">[this](https://docs.python.org/3/library/asyncio-future.html?#asyncio.Future),</span>
+<span class="sd">and that function should be awaited to work.</span>
+<span class="sd">- / on arguments means the end of positional arguments.</span>
+<span class="sd">- Self (with a capital S) means the type of self.</span>
+<span class="sd">- A type prefixed with `impl` means it&#39;s a Class that implements that Trait type.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">.lavasnek_rs</span> <span class="kn">import</span> <span class="o">*</span>
@@ -2599,28 +2632,15 @@ raw_handle_event_voice_server_update() or manually build a dict with them.</p>
     
 
                             </div>
-                            <div id="TrackQueue.start_time" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#TrackQueue.start_time">#&nbsp;&nbsp</a>
+                            <div id="TrackQueue.requester" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackQueue.requester">#&nbsp;&nbsp</a>
 
-        <span class="name">start_time</span>
+        <span class="name">requester</span>
     </div>
 
-            <div class="docstring"><p>The time the track will start at.</p>
+            <div class="docstring"><p>The user id who requested the track if set by the <code><a href="#PlayBuilder">PlayBuilder</a></code></p>
 
-<p>Contains <code>Unsigned 64 bit integer</code></p>
-</div>
-
-
-                            </div>
-                            <div id="TrackQueue.track" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#TrackQueue.track">#&nbsp;&nbsp</a>
-
-        <span class="name">track</span>
-    </div>
-
-            <div class="docstring"><p>The playable track.</p>
-
-<p>Contains <code><a href="#Track">Track</a></code></p>
+<p>Contains <code>Option&lt;Unsigned 64 bit integer&gt;</code></p>
 </div>
 
 
@@ -2638,15 +2658,28 @@ raw_handle_event_voice_server_update() or manually build a dict with them.</p>
 
 
                             </div>
-                            <div id="TrackQueue.requester" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#TrackQueue.requester">#&nbsp;&nbsp</a>
+                            <div id="TrackQueue.track" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackQueue.track">#&nbsp;&nbsp</a>
 
-        <span class="name">requester</span>
+        <span class="name">track</span>
     </div>
 
-            <div class="docstring"><p>The user id who requested the track if set by the <code><a href="#PlayBuilder">PlayBuilder</a></code></p>
+            <div class="docstring"><p>The playable track.</p>
 
-<p>Contains <code>Option&lt;Unsigned 64 bit integer&gt;</code></p>
+<p>Contains <code><a href="#Track">Track</a></code></p>
+</div>
+
+
+                            </div>
+                            <div id="TrackQueue.start_time" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackQueue.start_time">#&nbsp;&nbsp</a>
+
+        <span class="name">start_time</span>
+    </div>
+
+            <div class="docstring"><p>The time the track will start at.</p>
+
+<p>Contains <code>Unsigned 64 bit integer</code></p>
 </div>
 
 
@@ -2686,6 +2719,17 @@ raw_handle_event_voice_server_update() or manually build a dict with them.</p>
 
 
                             </div>
+                            <div id="Info.title" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Info.title">#&nbsp;&nbsp</a>
+
+        <span class="name">title</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>String</code></p>
+</div>
+
+
+                            </div>
                             <div id="Info.position" class="classattr">
                                             <div class="attr variable"><a class="headerlink" href="#Info.position">#&nbsp;&nbsp</a>
 
@@ -2693,17 +2737,6 @@ raw_handle_event_voice_server_update() or manually build a dict with them.</p>
     </div>
 
             <div class="docstring"><p>Contains <code>Unsigned 64 bit integer</code></p>
-</div>
-
-
-                            </div>
-                            <div id="Info.is_stream" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Info.is_stream">#&nbsp;&nbsp</a>
-
-        <span class="name">is_stream</span>
-    </div>
-
-            <div class="docstring"><p>Contains <code>bool</code></p>
 </div>
 
 
@@ -2719,13 +2752,24 @@ raw_handle_event_voice_server_update() or manually build a dict with them.</p>
 
 
                             </div>
-                            <div id="Info.author" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Info.author">#&nbsp;&nbsp</a>
+                            <div id="Info.uri" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Info.uri">#&nbsp;&nbsp</a>
 
-        <span class="name">author</span>
+        <span class="name">uri</span>
     </div>
 
             <div class="docstring"><p>Contains <code>String</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Info.is_stream" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Info.is_stream">#&nbsp;&nbsp</a>
+
+        <span class="name">is_stream</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>bool</code></p>
 </div>
 
 
@@ -2741,21 +2785,10 @@ raw_handle_event_voice_server_update() or manually build a dict with them.</p>
 
 
                             </div>
-                            <div id="Info.title" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Info.title">#&nbsp;&nbsp</a>
+                            <div id="Info.author" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Info.author">#&nbsp;&nbsp</a>
 
-        <span class="name">title</span>
-    </div>
-
-            <div class="docstring"><p>Contains <code>String</code></p>
-</div>
-
-
-                            </div>
-                            <div id="Info.uri" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Info.uri">#&nbsp;&nbsp</a>
-
-        <span class="name">uri</span>
+        <span class="name">author</span>
     </div>
 
             <div class="docstring"><p>Contains <code>String</code></p>
@@ -2870,39 +2903,6 @@ it will default to a Dict.</p>
 
 
                             </div>
-                            <div id="Node.now_playing" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Node.now_playing">#&nbsp;&nbsp</a>
-
-        <span class="name">now_playing</span>
-    </div>
-
-            <div class="docstring"><p>Contains <code>Option&lt;TrackQueue&gt;</code></p>
-</div>
-
-
-                            </div>
-                            <div id="Node.is_paused" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Node.is_paused">#&nbsp;&nbsp</a>
-
-        <span class="name">is_paused</span>
-    </div>
-
-            <div class="docstring"><p>Contains <code>bool</code></p>
-</div>
-
-
-                            </div>
-                            <div id="Node.guild" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Node.guild">#&nbsp;&nbsp</a>
-
-        <span class="name">guild</span>
-    </div>
-
-            <div class="docstring"><p>Contains <code>Unsigned 64 bit integer</code></p>
-</div>
-
-
-                            </div>
                             <div id="Node.volume" class="classattr">
                                             <div class="attr variable"><a class="headerlink" href="#Node.volume">#&nbsp;&nbsp</a>
 
@@ -2910,6 +2910,28 @@ it will default to a Dict.</p>
     </div>
 
             <div class="docstring"><p>Contains <code>Unsigned 16 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Node.is_on_loops" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Node.is_on_loops">#&nbsp;&nbsp</a>
+
+        <span class="name">is_on_loops</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>bool</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Node.now_playing" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Node.now_playing">#&nbsp;&nbsp</a>
+
+        <span class="name">now_playing</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Option&lt;TrackQueue&gt;</code></p>
 </div>
 
 
@@ -2925,10 +2947,21 @@ it will default to a Dict.</p>
 
 
                             </div>
-                            <div id="Node.is_on_loops" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Node.is_on_loops">#&nbsp;&nbsp</a>
+                            <div id="Node.guild" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Node.guild">#&nbsp;&nbsp</a>
 
-        <span class="name">is_on_loops</span>
+        <span class="name">guild</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Unsigned 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Node.is_paused" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Node.is_paused">#&nbsp;&nbsp</a>
+
+        <span class="name">is_paused</span>
     </div>
 
             <div class="docstring"><p>Contains <code>bool</code></p>
@@ -3014,10 +3047,21 @@ it will default to a Dict.</p>
     
 
                             </div>
-                            <div id="Stats.frame_stats_nulled" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Stats.frame_stats_nulled">#&nbsp;&nbsp</a>
+                            <div id="Stats.playing_players" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Stats.playing_players">#&nbsp;&nbsp</a>
 
-        <span class="name">frame_stats_nulled</span>
+        <span class="name">playing_players</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Signed 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Stats.frame_stats_deficit" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Stats.frame_stats_deficit">#&nbsp;&nbsp</a>
+
+        <span class="name">frame_stats_deficit</span>
     </div>
 
             <div class="docstring"><p>Contains <code>Optional Signed 64 bit integer</code></p>
@@ -3036,10 +3080,10 @@ it will default to a Dict.</p>
 
 
                             </div>
-                            <div id="Stats.uptime" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Stats.uptime">#&nbsp;&nbsp</a>
+                            <div id="Stats.memory_free" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Stats.memory_free">#&nbsp;&nbsp</a>
 
-        <span class="name">uptime</span>
+        <span class="name">memory_free</span>
     </div>
 
             <div class="docstring"><p>Contains <code>Signed 64 bit integer</code></p>
@@ -3047,10 +3091,32 @@ it will default to a Dict.</p>
 
 
                             </div>
-                            <div id="Stats.memory_reservable" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Stats.memory_reservable">#&nbsp;&nbsp</a>
+                            <div id="Stats.memory_allocated" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Stats.memory_allocated">#&nbsp;&nbsp</a>
 
-        <span class="name">memory_reservable</span>
+        <span class="name">memory_allocated</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Signed 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Stats.frame_stats_nulled" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Stats.frame_stats_nulled">#&nbsp;&nbsp</a>
+
+        <span class="name">frame_stats_nulled</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Optional Signed 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Stats.memory_used" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Stats.memory_used">#&nbsp;&nbsp</a>
+
+        <span class="name">memory_used</span>
     </div>
 
             <div class="docstring"><p>Contains <code>Signed 64 bit integer</code></p>
@@ -3069,35 +3135,13 @@ it will default to a Dict.</p>
 
 
                             </div>
-                            <div id="Stats.memory_allocated" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Stats.memory_allocated">#&nbsp;&nbsp</a>
+                            <div id="Stats.frame_stats_sent" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Stats.frame_stats_sent">#&nbsp;&nbsp</a>
 
-        <span class="name">memory_allocated</span>
+        <span class="name">frame_stats_sent</span>
     </div>
 
-            <div class="docstring"><p>Contains <code>Signed 64 bit integer</code></p>
-</div>
-
-
-                            </div>
-                            <div id="Stats.playing_players" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Stats.playing_players">#&nbsp;&nbsp</a>
-
-        <span class="name">playing_players</span>
-    </div>
-
-            <div class="docstring"><p>Contains <code>Signed 64 bit integer</code></p>
-</div>
-
-
-                            </div>
-                            <div id="Stats.memory_free" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Stats.memory_free">#&nbsp;&nbsp</a>
-
-        <span class="name">memory_free</span>
-    </div>
-
-            <div class="docstring"><p>Contains <code>Signed 64 bit integer</code></p>
+            <div class="docstring"><p>Contains <code>Optional Signed 64 bit integer</code></p>
 </div>
 
 
@@ -3124,10 +3168,21 @@ it will default to a Dict.</p>
 
 
                             </div>
-                            <div id="Stats.memory_used" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Stats.memory_used">#&nbsp;&nbsp</a>
+                            <div id="Stats.uptime" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Stats.uptime">#&nbsp;&nbsp</a>
 
-        <span class="name">memory_used</span>
+        <span class="name">uptime</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Signed 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Stats.memory_reservable" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Stats.memory_reservable">#&nbsp;&nbsp</a>
+
+        <span class="name">memory_reservable</span>
     </div>
 
             <div class="docstring"><p>Contains <code>Signed 64 bit integer</code></p>
@@ -3142,28 +3197,6 @@ it will default to a Dict.</p>
     </div>
 
             <div class="docstring"><p>Contains <code>64 bit floating point</code></p>
-</div>
-
-
-                            </div>
-                            <div id="Stats.frame_stats_sent" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Stats.frame_stats_sent">#&nbsp;&nbsp</a>
-
-        <span class="name">frame_stats_sent</span>
-    </div>
-
-            <div class="docstring"><p>Contains <code>Optional Signed 64 bit integer</code></p>
-</div>
-
-
-                            </div>
-                            <div id="Stats.frame_stats_deficit" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Stats.frame_stats_deficit">#&nbsp;&nbsp</a>
-
-        <span class="name">frame_stats_deficit</span>
-    </div>
-
-            <div class="docstring"><p>Contains <code>Optional Signed 64 bit integer</code></p>
 </div>
 
 
@@ -3192,10 +3225,21 @@ it will default to a Dict.</p>
     
 
                             </div>
-                            <div id="PlayerUpdate.state_position" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#PlayerUpdate.state_position">#&nbsp;&nbsp</a>
+                            <div id="PlayerUpdate.guild_id" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#PlayerUpdate.guild_id">#&nbsp;&nbsp</a>
 
-        <span class="name">state_position</span>
+        <span class="name">guild_id</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Unsigned 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="PlayerUpdate.state_time" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#PlayerUpdate.state_time">#&nbsp;&nbsp</a>
+
+        <span class="name">state_time</span>
     </div>
 
             <div class="docstring"><p>Contains <code>Signed 64 bit integer</code></p>
@@ -3214,21 +3258,10 @@ it will default to a Dict.</p>
 
 
                             </div>
-                            <div id="PlayerUpdate.guild_id" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#PlayerUpdate.guild_id">#&nbsp;&nbsp</a>
+                            <div id="PlayerUpdate.state_position" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#PlayerUpdate.state_position">#&nbsp;&nbsp</a>
 
-        <span class="name">guild_id</span>
-    </div>
-
-            <div class="docstring"><p>Contains <code>Unsigned 64 bit integer</code></p>
-</div>
-
-
-                            </div>
-                            <div id="PlayerUpdate.state_time" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#PlayerUpdate.state_time">#&nbsp;&nbsp</a>
-
-        <span class="name">state_time</span>
+        <span class="name">state_position</span>
     </div>
 
             <div class="docstring"><p>Contains <code>Signed 64 bit integer</code></p>
@@ -3328,10 +3361,10 @@ it will default to a Dict.</p>
     
 
                             </div>
-                            <div id="TrackFinish.reason" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#TrackFinish.reason">#&nbsp;&nbsp</a>
+                            <div id="TrackFinish.op" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackFinish.op">#&nbsp;&nbsp</a>
 
-        <span class="name">reason</span>
+        <span class="name">op</span>
     </div>
 
             <div class="docstring"><p>Contains <code>String</code></p>
@@ -3361,10 +3394,10 @@ it will default to a Dict.</p>
 
 
                             </div>
-                            <div id="TrackFinish.track_finish_type" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#TrackFinish.track_finish_type">#&nbsp;&nbsp</a>
+                            <div id="TrackFinish.reason" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackFinish.reason">#&nbsp;&nbsp</a>
 
-        <span class="name">track_finish_type</span>
+        <span class="name">reason</span>
     </div>
 
             <div class="docstring"><p>Contains <code>String</code></p>
@@ -3372,10 +3405,10 @@ it will default to a Dict.</p>
 
 
                             </div>
-                            <div id="TrackFinish.op" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#TrackFinish.op">#&nbsp;&nbsp</a>
+                            <div id="TrackFinish.track_finish_type" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackFinish.track_finish_type">#&nbsp;&nbsp</a>
 
-        <span class="name">op</span>
+        <span class="name">track_finish_type</span>
     </div>
 
             <div class="docstring"><p>Contains <code>String</code></p>
@@ -3407,43 +3440,10 @@ it will default to a Dict.</p>
     
 
                             </div>
-                            <div id="TrackException.exception_cause" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#TrackException.exception_cause">#&nbsp;&nbsp</a>
+                            <div id="TrackException.error" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackException.error">#&nbsp;&nbsp</a>
 
-        <span class="name">exception_cause</span>
-    </div>
-
-            <div class="docstring"><p>Contains <code>String</code></p>
-</div>
-
-
-                            </div>
-                            <div id="TrackException.track_exception_type" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#TrackException.track_exception_type">#&nbsp;&nbsp</a>
-
-        <span class="name">track_exception_type</span>
-    </div>
-
-            <div class="docstring"><p>Contains <code>String</code></p>
-</div>
-
-
-                            </div>
-                            <div id="TrackException.track" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#TrackException.track">#&nbsp;&nbsp</a>
-
-        <span class="name">track</span>
-    </div>
-
-            <div class="docstring"><p>Contains <code>String</code></p>
-</div>
-
-
-                            </div>
-                            <div id="TrackException.op" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#TrackException.op">#&nbsp;&nbsp</a>
-
-        <span class="name">op</span>
+        <span class="name">error</span>
     </div>
 
             <div class="docstring"><p>Contains <code>String</code></p>
@@ -3462,17 +3462,6 @@ it will default to a Dict.</p>
 
 
                             </div>
-                            <div id="TrackException.exception_severity" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#TrackException.exception_severity">#&nbsp;&nbsp</a>
-
-        <span class="name">exception_severity</span>
-    </div>
-
-            <div class="docstring"><p>Contains <code>String</code></p>
-</div>
-
-
-                            </div>
                             <div id="TrackException.exception_message" class="classattr">
                                             <div class="attr variable"><a class="headerlink" href="#TrackException.exception_message">#&nbsp;&nbsp</a>
 
@@ -3484,10 +3473,54 @@ it will default to a Dict.</p>
 
 
                             </div>
-                            <div id="TrackException.error" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#TrackException.error">#&nbsp;&nbsp</a>
+                            <div id="TrackException.exception_severity" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackException.exception_severity">#&nbsp;&nbsp</a>
 
-        <span class="name">error</span>
+        <span class="name">exception_severity</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>String</code></p>
+</div>
+
+
+                            </div>
+                            <div id="TrackException.op" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackException.op">#&nbsp;&nbsp</a>
+
+        <span class="name">op</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>String</code></p>
+</div>
+
+
+                            </div>
+                            <div id="TrackException.exception_cause" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackException.exception_cause">#&nbsp;&nbsp</a>
+
+        <span class="name">exception_cause</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>String</code></p>
+</div>
+
+
+                            </div>
+                            <div id="TrackException.track" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackException.track">#&nbsp;&nbsp</a>
+
+        <span class="name">track</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>String</code></p>
+</div>
+
+
+                            </div>
+                            <div id="TrackException.track_exception_type" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackException.track_exception_type">#&nbsp;&nbsp</a>
+
+        <span class="name">track_exception_type</span>
     </div>
 
             <div class="docstring"><p>Contains <code>String</code></p>
@@ -3519,32 +3552,10 @@ it will default to a Dict.</p>
     
 
                             </div>
-                            <div id="TrackStuck.guild_id" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#TrackStuck.guild_id">#&nbsp;&nbsp</a>
-
-        <span class="name">guild_id</span>
-    </div>
-
-            <div class="docstring"><p>Contains <code>Unsigned 64 bit integer</code></p>
-</div>
-
-
-                            </div>
                             <div id="TrackStuck.track" class="classattr">
                                             <div class="attr variable"><a class="headerlink" href="#TrackStuck.track">#&nbsp;&nbsp</a>
 
         <span class="name">track</span>
-    </div>
-
-            <div class="docstring"><p>Contains <code>String</code></p>
-</div>
-
-
-                            </div>
-                            <div id="TrackStuck.track_stuck_type" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#TrackStuck.track_stuck_type">#&nbsp;&nbsp</a>
-
-        <span class="name">track_stuck_type</span>
     </div>
 
             <div class="docstring"><p>Contains <code>String</code></p>
@@ -3563,10 +3574,32 @@ it will default to a Dict.</p>
 
 
                             </div>
+                            <div id="TrackStuck.track_stuck_type" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackStuck.track_stuck_type">#&nbsp;&nbsp</a>
+
+        <span class="name">track_stuck_type</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>String</code></p>
+</div>
+
+
+                            </div>
                             <div id="TrackStuck.threshold_ms" class="classattr">
                                             <div class="attr variable"><a class="headerlink" href="#TrackStuck.threshold_ms">#&nbsp;&nbsp</a>
 
         <span class="name">threshold_ms</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Unsigned 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="TrackStuck.guild_id" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#TrackStuck.guild_id">#&nbsp;&nbsp</a>
+
+        <span class="name">guild_id</span>
     </div>
 
             <div class="docstring"><p>Contains <code>Unsigned 64 bit integer</code></p>
@@ -3598,39 +3631,6 @@ it will default to a Dict.</p>
     
 
                             </div>
-                            <div id="WebSocketClosed.websocket_closed_type" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#WebSocketClosed.websocket_closed_type">#&nbsp;&nbsp</a>
-
-        <span class="name">websocket_closed_type</span>
-    </div>
-
-            <div class="docstring"><p>Contains <code>String</code></p>
-</div>
-
-
-                            </div>
-                            <div id="WebSocketClosed.guild_id" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#WebSocketClosed.guild_id">#&nbsp;&nbsp</a>
-
-        <span class="name">guild_id</span>
-    </div>
-
-            <div class="docstring"><p>Contains <code>Unsigned 64 bit integer</code></p>
-</div>
-
-
-                            </div>
-                            <div id="WebSocketClosed.by_remote" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#WebSocketClosed.by_remote">#&nbsp;&nbsp</a>
-
-        <span class="name">by_remote</span>
-    </div>
-
-            <div class="docstring"><p>Contains <code>bool</code></p>
-</div>
-
-
-                            </div>
                             <div id="WebSocketClosed.op" class="classattr">
                                             <div class="attr variable"><a class="headerlink" href="#WebSocketClosed.op">#&nbsp;&nbsp</a>
 
@@ -3660,6 +3660,39 @@ it will default to a Dict.</p>
     </div>
 
             <div class="docstring"><p>Contains <code>Unsigned 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="WebSocketClosed.websocket_closed_type" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#WebSocketClosed.websocket_closed_type">#&nbsp;&nbsp</a>
+
+        <span class="name">websocket_closed_type</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>String</code></p>
+</div>
+
+
+                            </div>
+                            <div id="WebSocketClosed.guild_id" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#WebSocketClosed.guild_id">#&nbsp;&nbsp</a>
+
+        <span class="name">guild_id</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>Unsigned 64 bit integer</code></p>
+</div>
+
+
+                            </div>
+                            <div id="WebSocketClosed.by_remote" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#WebSocketClosed.by_remote">#&nbsp;&nbsp</a>
+
+        <span class="name">by_remote</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>bool</code></p>
 </div>
 
 
@@ -3699,6 +3732,17 @@ it will default to a Dict.</p>
 
 
                             </div>
+                            <div id="PlayerDestroyed.player_destroyed_type" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#PlayerDestroyed.player_destroyed_type">#&nbsp;&nbsp</a>
+
+        <span class="name">player_destroyed_type</span>
+    </div>
+
+            <div class="docstring"><p>Contains <code>String</code></p>
+</div>
+
+
+                            </div>
                             <div id="PlayerDestroyed.user_id" class="classattr">
                                             <div class="attr variable"><a class="headerlink" href="#PlayerDestroyed.user_id">#&nbsp;&nbsp</a>
 
@@ -3714,17 +3758,6 @@ it will default to a Dict.</p>
                                             <div class="attr variable"><a class="headerlink" href="#PlayerDestroyed.op">#&nbsp;&nbsp</a>
 
         <span class="name">op</span>
-    </div>
-
-            <div class="docstring"><p>Contains <code>String</code></p>
-</div>
-
-
-                            </div>
-                            <div id="PlayerDestroyed.player_destroyed_type" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#PlayerDestroyed.player_destroyed_type">#&nbsp;&nbsp</a>
-
-        <span class="name">player_destroyed_type</span>
     </div>
 
             <div class="docstring"><p>Contains <code>String</code></p>
