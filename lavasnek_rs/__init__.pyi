@@ -30,6 +30,13 @@ class Tracks:
     load_type: str
     playlist_info: PlaylistInfo
 
+class TrackStuck:
+    track: str
+    op: str
+    track_stuck_type: str
+    threshold_ms: int
+    guild_id: int
+
 class TrackQueue:
     start_time: int
     requester: int
