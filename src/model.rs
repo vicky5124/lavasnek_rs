@@ -196,50 +196,90 @@ pub struct Info {
 impl Info {
     #[getter]
     /// Contains `Unsigned 64 bit integer`
-    fn length(&self) -> u64 {
+    fn get_length(&self) -> u64 {
         self.inner.length
     }
 
     #[getter]
     /// Contains `Unsigned 64 bit integer`
-    fn position(&self) -> u64 {
+    fn get_position(&self) -> u64 {
         self.inner.position
     }
 
     #[getter]
     /// Contains `bool`
-    fn is_seekable(&self) -> bool {
+    fn get_is_seekable(&self) -> bool {
         self.inner.is_seekable
     }
 
     #[getter]
     /// Contains `bool`
-    fn is_stream(&self) -> bool {
+    fn get_is_stream(&self) -> bool {
         self.inner.is_stream
     }
 
     #[getter]
     /// Contains `String`
-    fn identifier(&self) -> String {
+    fn get_identifier(&self) -> String {
         self.inner.identifier.clone()
     }
 
     #[getter]
     /// Contains `String`
-    fn author(&self) -> String {
+    fn get_author(&self) -> String {
         self.inner.author.clone()
     }
 
     #[getter]
     /// Contains `String`
-    fn title(&self) -> String {
+    fn get_title(&self) -> String {
         self.inner.title.clone()
     }
 
     #[getter]
     /// Contains `String`
-    fn uri(&self) -> String {
+    fn get_uri(&self) -> String {
         self.inner.uri.clone()
+    }
+
+    #[setter]
+    fn set_length(&mut self, length: u64) {
+        self.inner.length = length
+    }
+
+    #[setter]
+    fn set_position(&mut self, position: u64) {
+        self.inner.position = position
+    }
+
+    #[setter]
+    fn set_is_seekable(&mut self, is_seekable: bool) {
+        self.inner.is_seekable = is_seekable
+    }
+
+    #[setter]
+    fn set_is_stream(&mut self, is_stream: bool) {
+        self.inner.is_stream = is_stream
+    }
+
+    #[setter]
+    fn set_identifier(&mut self, identifier: String) {
+        self.inner.identifier = identifier
+    }
+
+    #[setter]
+    fn set_author(&mut self, author: String) {
+        self.inner.author = author
+    }
+
+    #[setter]
+    fn set_title(&mut self, title: String) {
+        self.inner.title = title
+    }
+
+    #[setter]
+    fn set_uri(&mut self, uri: String) {
+        self.inner.uri = uri
     }
 }
 
