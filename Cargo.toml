@@ -2,7 +2,7 @@
 
 [package]
 name = "lavasnek_rs"
-version = "0.1.0-alpha.3"
+version = "0.1.0-alpha.4"
 edition = "2018"
 authors = ["vicky5124 <vickyf5124@gmail.com>"]
 readme = "README.md"

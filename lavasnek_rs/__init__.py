@@ -20,7 +20,7 @@ and that function should be awaited to work.
 
 from .lavasnek_rs import *
 
-__version__ = "0.1.0-alpha.1"
+__version__ = "0.1.0-alpha.4"
 __author__ = "vicky5124 <vickyf5124@gmail.com>"
 __license__ = "MPL-2.0"
 
