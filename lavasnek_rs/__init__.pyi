@@ -3,7 +3,7 @@ import typing as t
 class Info:
     title: str
     is_seekable: bool
-    indetifier: str
+    identifier: str
     is_stream: bool
     author: str
     length: int

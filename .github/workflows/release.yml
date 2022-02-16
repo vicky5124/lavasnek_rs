@@ -13,8 +13,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - vers: i686
-            os: ubuntu-20.04
+          #- vers: i686
+          #  os: ubuntu-20.04
           - vers: aarch64
             os: ubuntu-20.04
           - vers: auto64
@@ -53,19 +53,19 @@ jobs:
 
       - name: wheels Linux ${{ matrix.vers }}
         if: runner.os == 'Linux'
-        uses: joerick/cibuildwheel@v1.12.0
+        uses: joerick/cibuildwheel@v2.3.1
         env:
           CIBW_ARCHS_LINUX: ${{ matrix.vers }}
 
       - name: wheels Macos ${{ matrix.vers }}
         if: runner.os == 'Macos'
-        uses: joerick/cibuildwheel@v2.2.2
+        uses: joerick/cibuildwheel@v2.3.1
         env:
           CIBW_ARCHS_MACOS: ${{ matrix.vers }}
 
       - name: wheels Windows ${{ matrix.vers }}
         if: runner.os == 'Windows'
-        uses: joerick/cibuildwheel@v2.2.2
+        uses: joerick/cibuildwheel@v2.3.1
         env:
           CIBW_ARCHS_WINDOWS: ${{ matrix.vers }}
 

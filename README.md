@@ -1,6 +1,6 @@
 # lavasnek_rs
 
-- Dev Docs: [Main Site](https://5124.mywire.org:5124/docs/) | Fallback: [GitHub Pages](https://vicky5124.github.io/lavasnek_rs/lavasnek_rs/lavasnek_rs.html)
+- Dev Docs: [Main Site](https://docs.vicky.rs:5124/docs/) | Fallback: [GitHub Pages](https://vicky5124.github.io/lavasnek_rs/lavasnek_rs/lavasnek_rs.html)
 - [GitHub repo](https://github.com/vicky5124/lavasnek_rs/)
 - [GitLab repo](https://gitlab.com/vicky5124/lavasnek_rs/)
 

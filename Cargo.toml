@@ -2,7 +2,7 @@
 
 [package]
 name = "lavasnek_rs"
-version = "0.1.0-alpha.3"
+version = "0.1.0-alpha.4"
 edition = "2018"
 authors = ["vicky5124 <vickyf5124@gmail.com>"]
 readme = "README.md"
@@ -10,7 +10,7 @@ license = "MPL-2.0"
 description = "lavalink-rs bindings for Python"
 homepage = "https://github.com/vicky5124/lavasnek_rs"
 repository = "https://github.com/vicky5124/lavasnek_rs"
-documentation = "https://5124.mywire.org:5124/docs/"
+documentation = "https://vicky5124.github.io/lavasnek_rs/lavasnek_rs/lavasnek_rs.html"
 
 [lib]
 name = "lavasnek_rs"
