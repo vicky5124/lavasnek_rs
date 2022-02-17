@@ -10,11 +10,9 @@ use builders::*;
 use events::*;
 use model::*;
 
-use lavalink_rs::model::ConnectionInfo as LavaConnectionInfo;
 use lavalink_rs::LavalinkClient;
 
 use pyo3::prelude::*;
-use pythonize::{depythonize, pythonize};
 
 use tokio::time::{sleep, Duration};
 
@@ -84,9 +82,9 @@ impl Lavalink {
                 .await
                 .map_err(|e| error::TimeoutError::new_err(e.to_string()))?;
 
-            Ok(Python::with_gil(|py| {
-                pythonize(py, &connection_info).unwrap()
-            }))
+            Ok(ConnectionInfo {
+                inner: connection_info,
+            })
         })
     }
 
@@ -132,13 +130,16 @@ impl Lavalink {
     ///
     /// Returns: `Future<Result<None, builtins.TypeError>>`
     #[pyo3(text_signature = "($self, connection_info, /)")]
-    fn create_session<'a>(&self, py: Python<'a>, connection_info: PyObject) -> PyResult<&'a PyAny> {
+    fn create_session<'a>(
+        &self,
+        py: Python<'a>,
+        connection_info: ConnectionInfo,
+    ) -> PyResult<&'a PyAny> {
         let lava_client = self.lava.clone();
-        let connection_info: LavaConnectionInfo = depythonize(connection_info.as_ref(py))?;
 
         pyo3_asyncio::tokio::future_into_py(py, async move {
             lava_client
-                .create_session(&connection_info)
+                .create_session(&connection_info.inner)
                 .await
                 .map_err(|e| error::TypeError::new_err(format!("Missing field '{}'", e)))?;
 
@@ -712,18 +713,18 @@ impl Lavalink {
     #[pyo3(text_signature = "($self, guild_id, /)")]
     fn get_guild_gateway_connection_info<'a>(
         &self,
-        py: Python<'a>,
+        _py: Python<'a>,
         guild_id: u64,
-    ) -> Py<PyAny> {
+    ) -> Option<ConnectionInfo> {
         let lava_client = self.lava.clone();
 
         let connections = lava_client.discord_gateway_connections();
         let connection = connections.get(&guild_id.into());
 
         if let Some(con) = connection {
-            pythonize(py, &con.to_owned()).unwrap()
+            Some(ConnectionInfo { inner: con.clone() })
         } else {
-            py.None()
+            None
         }
     }
 
@@ -752,9 +753,9 @@ impl Lavalink {
             .await
             .map_err(|e| error::TimeoutError::new_err(e.to_string()))?;
 
-            Ok(Python::with_gil(|py| {
-                pythonize(py, &connection_info).unwrap()
-            }))
+            Ok(ConnectionInfo {
+                inner: connection_info,
+            })
         })
     }
 
