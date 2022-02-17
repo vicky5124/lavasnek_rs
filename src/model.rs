@@ -1,7 +1,8 @@
 use lavalink_rs::model::{
-    Band as LavaBand, Info as LavaInfo, Node as LavaNode, PlayerDestroyed as LavaPlayerDestroyed,
-    PlayerUpdate as LavaPlayerUpdate, PlaylistInfo as LavaPlaylistInfo, Stats as LavaStats,
-    Track as LavaTrack, TrackException as LavaTrackException, TrackFinish as LavaTrackFinish,
+    Band as LavaBand, ConnectionInfo as LavaConnectionInfo, Info as LavaInfo, Node as LavaNode,
+    PlayerDestroyed as LavaPlayerDestroyed, PlayerUpdate as LavaPlayerUpdate,
+    PlaylistInfo as LavaPlaylistInfo, Stats as LavaStats, Track as LavaTrack,
+    TrackException as LavaTrackException, TrackFinish as LavaTrackFinish,
     TrackQueue as LavaTrackQueue, TrackStart as LavaTrackStart, TrackStuck as LavaTrackStuck,
     Tracks as LavaTracks, WebSocketClosed as LavaWebSocketClosed,
 };
@@ -14,10 +15,11 @@ impl TypeMapKey for NodeData {
     type Value = PyObject;
 }
 
-/// This is never actually used, a dictionary is used instead. If you use a 3rd party method of
-/// joining a voice channel, you can get this values from the `VOICE_STATE_UPDATE` and
+/// If you use a 3rd party method of joining a voice channel, you can get the values
+/// required for this from the `VOICE_STATE_UPDATE` and
 /// `VOICE_SERVER_UPDATE` events, and use raw_handle_event_voice_state_update() +
-/// raw_handle_event_voice_server_update() or manually build a dict with them.
+/// raw_handle_event_voice_server_update() or manually build a dict with them, and use
+/// `ConnectionInfo({ ... })`
 ///
 /// With hikari:
 /// ```py
@@ -45,7 +47,20 @@ impl TypeMapKey for NodeData {
 /// - `token` : `String`
 /// - `session_id` : `String`
 #[pyclass]
-pub struct ConnectionInfo;
+#[derive(Clone)]
+pub struct ConnectionInfo {
+    pub inner: LavaConnectionInfo,
+}
+
+#[pymethods]
+impl ConnectionInfo {
+    #[new]
+    fn new(_py: Python<'_>, dict: &PyDict) -> PyResult<ConnectionInfo> {
+        Ok(ConnectionInfo {
+            inner: pythonize::depythonize(dict)?,
+        })
+    }
+}
 
 #[pyclass]
 #[derive(Clone, Debug)]
