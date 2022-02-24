@@ -10,3 +10,4 @@ build/
 .mypy_cache
 *.so
 .venv/
+test*

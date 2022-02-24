@@ -869,7 +869,14 @@ fn log_something() {
     info!("Something!");
 }
 
-/// Cheat Sheet:
+/// Lavasnek is a lavalink wrapper for any asyncio python discord library. Lavalink is a standalone audio sending node for playing audio on discord voice channels.
+/// It also has utilities like searching on several websites such as YouTube, Twitch and SoundCloud.
+/// 
+/// - Dev Docs: [Main Site](https://docs.vicky.rs/lavasnek_rs.html) | Fallback: [GitHub Pages](https://vicky5124.github.io/lavasnek_rs/lavasnek_rs/lavasnek_rs.html)
+/// - [GitHub repo](https://github.com/vicky5124/lavasnek_rs/)
+/// - [GitLab mirror](https://gitlab.com/vicky5124/lavasnek_rs/)
+///
+/// Documentation Cheat Sheet:
 ///
 /// - Functions that return a `Result<T, E>` mean that it can raise an exception. `T` is the type they
 /// return normally, and `E` is a list of possible exceptions that can raise.
