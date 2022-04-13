@@ -108,7 +108,7 @@ jobs:
         shell: bash -e {0}
         run: |
           PYTHON=python${{ matrix.python.version }}
-          curl -sS https://bootstrap.pypa.io/get-pip.py | $PYTHON
+          curl -sS https://bootstrap.pypa.io/pip/3.6/get-pip.py | $PYTHON
           $PYTHON -m pip install 'crossenv>=1.1.2'
           $PYTHON -m crossenv /opt/python/${{ matrix.python.name }}/bin/python3 --cc $TARGET_CC --cxx $TARGET_CXX --sysroot $TARGET_SYSROOT --env LIBRARY_PATH= .venv
           source .venv/bin/activate
