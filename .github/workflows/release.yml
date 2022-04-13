@@ -69,7 +69,8 @@ jobs:
         env:
           CIBW_ARCHS_WINDOWS: ${{ matrix.vers }}
 
-      - uses: actions/upload-artifact@v2
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
         with:
           path: ./wheelhouse/*.whl
 
@@ -115,7 +116,7 @@ jobs:
           build-pip install -U pip wheel setuptools-rust setuptools
           pip install -U pip wheel setuptools-rust setuptools
           export PYO3_CROSS_LIB_DIR="$PWD/.venv/lib"
-          python setup.py bdist_wheel --dist-dir ./dist/
+          python setup.py bdist_wheel --dist-dir ./wheelhouse/
       - name: Build Wheels 3.7-3.10
         if: matrix.python.version != 3.6
         env:
@@ -131,11 +132,11 @@ jobs:
           pip install -U pip wheel setuptools-rust setuptools
           export PYO3_CROSS_LIB_DIR="$PWD/.venv/lib"
           cp distutils-sysconfig-patch.py .venv/lib/distutils-sysconfig-patch.py
-          python setup.py bdist_wheel --dist-dir ./dist/
+          python setup.py bdist_wheel --dist-dir ./wheelhouse/
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          path: dist/*.tar.gz
+          path: ./wheelhouse/*.whl
 
   build_sdist:
     name: Build source distribution
