@@ -102,7 +102,7 @@ jobs:
           override: true
           target: ${{ matrix.platform.target }}
       - name: Build Wheels 3.6
-        if: matrix.python.version = 3.6
+        if: matrix.python.version == 3.6
         env:
           PLAT_NAME: manylinux2014_${{ matrix.platform.arch }}
         shell: bash -e {0}
