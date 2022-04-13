@@ -88,8 +88,8 @@ jobs:
         platform: [
           { target: "aarch64-unknown-linux-gnu", arch: "aarch64" },
           { target: "armv7-unknown-linux-gnueabihf", arch: "armv7" },
-            #{ target: "s390x-unknown-linux-gnu", arch: "s390x" },
-            #{ target: "powerpc64le-unknown-linux-gnu", arch: "ppc64le" },
+          { target: "s390x-unknown-linux-gnu", arch: "s390x" },
+          { target: "powerpc64le-unknown-linux-gnu", arch: "ppc64le" },
         ]
     container:
       image: docker://messense/manylinux2014-cross:${{ matrix.platform.arch }}
@@ -107,11 +107,12 @@ jobs:
         shell: bash -e {0}
         run: |
           PYTHON=python${{ matrix.python.version }}
+          curl -sS https://bootstrap.pypa.io/get-pip.py | $PYTHON
           $PYTHON -m pip install 'crossenv>=1.1.2'
-          $PYTHON -m crossenv /opt/python/${{ matrix.python.name }}/bin/python3 --cc $TARGET_CC --cxx $TARGET_CXX --sysroot $TARGET_SYSROOT --env LIBRARY_PATH= venv
-          . venv/bin/activate
-          pip install -U pip wheel setuptools-rust setuptools html5lib
-          export PYO3_CROSS_LIB_DIR="$PWD/venv/lib"
+          $PYTHON -m crossenv /opt/python/${{ matrix.python.name }}/bin/python3 --cc $TARGET_CC --cxx $TARGET_CXX --sysroot $TARGET_SYSROOT --env LIBRARY_PATH= .venv
+          source .venv/bin/activate
+          pip install -U pip wheel setuptools-rust setuptools
+          export PYO3_CROSS_LIB_DIR="$PWD/.venv/lib"
           python setup.py bdist_wheel --dist-dir ./dist/
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
