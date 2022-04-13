@@ -101,7 +101,22 @@ jobs:
           toolchain: stable
           override: true
           target: ${{ matrix.platform.target }}
-      - name: Build Wheels
+      - name: Build Wheels 3.6
+        if: matrix.python.version = 3.6
+        env:
+          PLAT_NAME: manylinux2014_${{ matrix.platform.arch }}
+        shell: bash -e {0}
+        run: |
+          PYTHON=python${{ matrix.python.version }}
+          curl -sS https://bootstrap.pypa.io/get-pip.py | $PYTHON
+          $PYTHON -m pip install 'crossenv>=1.1.2'
+          $PYTHON -m crossenv /opt/python/${{ matrix.python.name }}/bin/python3 --cc $TARGET_CC --cxx $TARGET_CXX --sysroot $TARGET_SYSROOT --env LIBRARY_PATH= .venv
+          source .venv/bin/activate
+          pip install -U pip wheel setuptools-rust setuptools
+          export PYO3_CROSS_LIB_DIR="$PWD/.venv/lib"
+          python setup.py bdist_wheel --dist-dir ./dist/
+      - name: Build Wheels 3.7-3.10
+        if: matrix.python.version != 3.6
         env:
           PLAT_NAME: manylinux2014_${{ matrix.platform.arch }}
         shell: bash -e {0}
