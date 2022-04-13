@@ -83,6 +83,7 @@ jobs:
           { version: '3.7', name: 'cp37-cp37' },
           { version: '3.8', name: 'cp38-cp38' },
           { version: '3.9', name: 'cp39-cp39' },
+          { version: '3.10', name: 'cp310-cp310' },
         ]
         platform: [
           { target: "aarch64-unknown-linux-gnu", arch: "aarch64" },
@@ -107,7 +108,6 @@ jobs:
         run: |
           PYTHON=python${{ matrix.python.version }}
           $PYTHON -m pip install 'crossenv>=1.1.2'
-          cd pyo3-test
           $PYTHON -m crossenv /opt/python/${{ matrix.python.name }}/bin/python3 --cc $TARGET_CC --cxx $TARGET_CXX --sysroot $TARGET_SYSROOT --env LIBRARY_PATH= venv
           . venv/bin/activate
           pip install -U pip wheel setuptools-rust setuptools
