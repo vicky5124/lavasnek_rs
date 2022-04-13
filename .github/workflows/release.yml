@@ -115,7 +115,6 @@ jobs:
           build-pip install -U pip wheel setuptools-rust setuptools
           pip install -U pip wheel setuptools-rust setuptools
           export PYO3_CROSS_LIB_DIR="$PWD/.venv/lib"
-          cp distutils-sysconfig-patch.py .venv/lib/distutils-sysconfig-patch.py
           python setup.py bdist_wheel --dist-dir ./dist/
       - name: Build Wheels 3.7-3.10
         if: matrix.python.version != 3.6
