@@ -79,8 +79,8 @@ jobs:
     strategy:
       matrix:
         python: [
-          { version: '3.6', name: 'cp36-cp36' },
-          { version: '3.7', name: 'cp37-cp37' },
+          { version: '3.6', name: 'cp36-cp36m' },
+          { version: '3.7', name: 'cp37-cp37m' },
           { version: '3.8', name: 'cp38-cp38' },
           { version: '3.9', name: 'cp39-cp39' },
           { version: '3.10', name: 'cp310-cp310' },
