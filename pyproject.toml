@@ -23,7 +23,7 @@ mypy    = "^0.910"
 [build-system]
 requires = ["setuptools", "wheel", "setuptools-rust"]
 #requires      = ["maturin>=0.11,<0.12"]
-#build-backend = "maturin"
+build-backend = "setuptools.build_meta"
 
 [tool.flake8]
 python         = ">=3.6.2,<4.0"
