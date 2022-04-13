@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.5
+
+- Add missing typehints for decode_track (@thenishantsapkota)
+- Use the actual ConnectionInfo type (@vicky5124)
+- Update dependencies (@vicky5124)
+- Support ARM 32 bit (@vicky5124)
+- Fix some deadlockings (@vicky5124)
+
 ## 0.1.0-alpha.4
 
 - Update lightbulb example to use lightbulb v2 (@neonjonn)
