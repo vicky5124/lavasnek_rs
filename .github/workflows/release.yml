@@ -62,6 +62,7 @@ jobs:
         uses: joerick/cibuildwheel@v2.4.0
         env:
           CIBW_ARCHS_MACOS: ${{ matrix.vers }}
+        run: rustup toolchain add aarch64-apple-darwin
 
       - name: wheels Windows ${{ matrix.vers }}
         if: runner.os == 'Windows'
