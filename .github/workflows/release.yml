@@ -28,7 +28,7 @@ jobs:
 
     env:
       SCCACHE_VERSION: 0.2.13
-      CIBW_BEFORE_ALL_LINUX: "curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y"
+      CIBW_BEFORE_ALL: "curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y"
       CIBW_BUILD_VERBOSITY: "1" # Make some more noise to not stall, and extra debugging.
       CIBW_ENVIRONMENT: 'PATH="$PATH:$HOME/.cargo/bin"'
       CIBW_SKIP: "cp27-* cp34-* cp35-* pp* *-win32"
@@ -53,19 +53,19 @@ jobs:
 
       - name: wheels Linux ${{ matrix.vers }}
         if: runner.os == 'Linux'
-        uses: joerick/cibuildwheel@v2.3.1
+        uses: joerick/cibuildwheel@v2.4.0
         env:
           CIBW_ARCHS_LINUX: ${{ matrix.vers }}
 
       - name: wheels Macos ${{ matrix.vers }}
         if: runner.os == 'Macos'
-        uses: joerick/cibuildwheel@v2.3.1
+        uses: joerick/cibuildwheel@v2.4.0
         env:
           CIBW_ARCHS_MACOS: ${{ matrix.vers }}
 
       - name: wheels Windows ${{ matrix.vers }}
         if: runner.os == 'Windows'
-        uses: joerick/cibuildwheel@v2.3.1
+        uses: joerick/cibuildwheel@v2.4.0
         env:
           CIBW_ARCHS_WINDOWS: ${{ matrix.vers }}
 
@@ -110,9 +110,9 @@ jobs:
           $PYTHON -m pip install 'crossenv>=1.1.2'
           $PYTHON -m crossenv /opt/python/${{ matrix.python.name }}/bin/python3 --cc $TARGET_CC --cxx $TARGET_CXX --sysroot $TARGET_SYSROOT --env LIBRARY_PATH= venv
           . venv/bin/activate
-          pip install -U pip wheel setuptools-rust setuptools
+          pip install -U pip wheel setuptools-rust setuptools html5lib
           export PYO3_CROSS_LIB_DIR="$PWD/venv/lib"
-          python setup.py sdist
+          python setup.py bdist_wheel --dist-dir ./dist/
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
