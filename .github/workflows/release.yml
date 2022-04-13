@@ -28,7 +28,7 @@ jobs:
 
     env:
       SCCACHE_VERSION: 0.2.13
-      CIBW_BEFORE_ALL: "curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y"
+      CIBW_BEFORE_ALL: "curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y && rustup toolchain add aarch64-apple-darwin"
       CIBW_BUILD_VERBOSITY: "1" # Make some more noise to not stall, and extra debugging.
       CIBW_ENVIRONMENT: 'PATH="$PATH:$HOME/.cargo/bin"'
       CIBW_SKIP: "cp27-* cp34-* cp35-* pp* *-win32"
@@ -50,9 +50,6 @@ jobs:
         uses: docker/setup-qemu-action@v1
         with:
           platforms: all
-
-      - if: runner.vers == 'arm64'
-        run: rustup toolchain add aarch64-apple-darwin
 
       - name: wheels Linux ${{ matrix.vers }}
         if: runner.os == 'Linux'
