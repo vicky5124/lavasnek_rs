@@ -112,8 +112,10 @@ jobs:
           $PYTHON -m pip install 'crossenv>=1.1.2'
           $PYTHON -m crossenv /opt/python/${{ matrix.python.name }}/bin/python3 --cc $TARGET_CC --cxx $TARGET_CXX --sysroot $TARGET_SYSROOT --env LIBRARY_PATH= .venv
           source .venv/bin/activate
+          build-pip install -U pip wheel setuptools-rust setuptools
           pip install -U pip wheel setuptools-rust setuptools
           export PYO3_CROSS_LIB_DIR="$PWD/.venv/lib"
+          cp distutils-sysconfig-patch.py .venv/lib/distutils-sysconfig-patch.py
           python setup.py bdist_wheel --dist-dir ./dist/
       - name: Build Wheels 3.7-3.10
         if: matrix.python.version != 3.6
@@ -126,8 +128,10 @@ jobs:
           $PYTHON -m pip install 'crossenv>=1.1.2'
           $PYTHON -m crossenv /opt/python/${{ matrix.python.name }}/bin/python3 --cc $TARGET_CC --cxx $TARGET_CXX --sysroot $TARGET_SYSROOT --env LIBRARY_PATH= .venv
           source .venv/bin/activate
+          build-pip install -U pip wheel setuptools-rust setuptools
           pip install -U pip wheel setuptools-rust setuptools
           export PYO3_CROSS_LIB_DIR="$PWD/.venv/lib"
+          cp distutils-sysconfig-patch.py .venv/lib/distutils-sysconfig-patch.py
           python setup.py bdist_wheel --dist-dir ./dist/
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
