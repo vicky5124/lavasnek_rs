@@ -11,3 +11,5 @@ build/
 *.so
 .venv/
 test*
+artifacts
+*.whl
