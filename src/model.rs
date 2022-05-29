@@ -250,7 +250,7 @@ impl Info {
         title = "None",
         uri = "None"
     )]
-    fn new<'a>(
+    fn new(
         length: Option<u64>,
         position: Option<u64>,
         is_seekable: Option<bool>,
@@ -260,18 +260,18 @@ impl Info {
         title: Option<String>,
         uri: Option<String>,
     ) -> Self {
-        let mut info = LavaInfo::default();
+        let inner = LavaInfo {
+            length: length.unwrap_or_default(),
+            position: position.unwrap_or_default(),
+            is_seekable: is_seekable.unwrap_or_default(),
+            is_stream: is_stream.unwrap_or_default(),
+            identifier: identifier.unwrap_or_default(),
+            author: author.unwrap_or_default(),
+            title: title.unwrap_or_default(),
+            uri: uri.unwrap_or_default(),
+        };
 
-        info.length = length.unwrap_or_default();
-        info.position = position.unwrap_or_default();
-        info.is_seekable = is_seekable.unwrap_or_default();
-        info.is_stream = is_stream.unwrap_or_default();
-        info.identifier = identifier.unwrap_or_default();
-        info.author = author.unwrap_or_default();
-        info.title = title.unwrap_or_default();
-        info.uri = uri.unwrap_or_default();
-
-        Self { inner: info }
+        Self { inner }
     }
 
     #[getter]
@@ -451,7 +451,7 @@ impl Node {
     ///
     /// Returns `T`
     #[pyo3(text_signature = "($self, /)")]
-    fn get_data<'a>(&self, py: Python<'a>) -> Py<PyAny> {
+    fn get_data(&self, py: Python<'_>) -> Py<PyAny> {
         let data_lock = self.inner.data.clone();
         let dict = PyDict::new(py).into_py(py);
 

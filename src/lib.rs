@@ -1,3 +1,5 @@
+#![allow(clippy::too_many_arguments)]
+
 #[macro_use]
 extern crate log;
 
@@ -711,9 +713,9 @@ impl Lavalink {
     ///
     /// Returns: `Option<ConnectionInfo>`
     #[pyo3(text_signature = "($self, guild_id, /)")]
-    fn get_guild_gateway_connection_info<'a>(
+    fn get_guild_gateway_connection_info(
         &self,
-        _py: Python<'a>,
+        _py: Python<'_>,
         guild_id: u64,
     ) -> Option<ConnectionInfo> {
         let lava_client = self.lava.clone();
@@ -721,11 +723,7 @@ impl Lavalink {
         let connections = lava_client.discord_gateway_connections();
         let connection = connections.get(&guild_id.into());
 
-        if let Some(con) = connection {
-            Some(ConnectionInfo { inner: con.clone() })
-        } else {
-            None
-        }
+        connection.map(|con| ConnectionInfo { inner: con.clone() })
     }
 
     /// Waits until the ConnectionInfo is complete and returns it.
