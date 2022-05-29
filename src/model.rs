@@ -108,6 +108,16 @@ pub struct Track {
 
 #[pymethods]
 impl Track {
+    #[new]
+    fn new(track: String, info: Option<Info>) -> Self {
+        let t = LavaTrack {
+            track,
+            info: info.map(|i| i.inner),
+        };
+
+        Self { inner: t }
+    }
+
     #[getter]
     /// The playable track.
     ///
@@ -209,6 +219,41 @@ pub struct Info {
 
 #[pymethods]
 impl Info {
+    #[new]
+    #[args(
+        length = "None",
+        position = "None",
+        is_seekable = "None",
+        is_stream = "None",
+        identifier = "None",
+        author = "None",
+        title = "None",
+        uri = "None"
+    )]
+    fn new<'a>(
+        length: Option<u64>,
+        position: Option<u64>,
+        is_seekable: Option<bool>,
+        is_stream: Option<bool>,
+        identifier: Option<String>,
+        author: Option<String>,
+        title: Option<String>,
+        uri: Option<String>,
+    ) -> Self {
+        let mut info = LavaInfo::default();
+
+        info.length = length.unwrap_or_default();
+        info.position = position.unwrap_or_default();
+        info.is_seekable = is_seekable.unwrap_or_default();
+        info.is_stream = is_stream.unwrap_or_default();
+        info.identifier = identifier.unwrap_or_default();
+        info.author = author.unwrap_or_default();
+        info.title = title.unwrap_or_default();
+        info.uri = uri.unwrap_or_default();
+
+        Self { inner: info }
+    }
+
     #[getter]
     /// Contains `Unsigned 64 bit integer`
     fn get_length(&self) -> u64 {

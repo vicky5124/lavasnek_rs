@@ -1,14 +1,27 @@
 import typing as t
 
 class Info:
-    title: str
-    is_seekable: bool
-    identifier: str
-    is_stream: bool
-    author: str
     length: int
     position: int
+    is_seekable: bool
+    is_stream: bool
+    identifier: str
+    author: str
+    title: str
     uri: str
+
+    def __new__(
+        cls,
+        *,
+        length: t.Optional[int] = None,
+        position: t.Optional[int] = None,
+        is_seekable: t.Optional[bool] = None,
+        is_stream: t.Optional[bool] = None,
+        identifier: t.Optional[str] = None,
+        author: t.Optional[str] = None,
+        title: t.Optional[str] = None,
+        uri: t.Optional[str] = None
+    ) -> Info: ...
 
 class ConnectionInfo:
     guild_id: int
@@ -24,6 +37,8 @@ class PlaylistInfo:
 class Track:
     info: Info
     track: str
+
+    def __new__(cls, track: str, *, info: t.Optional[Info]) -> Track: ...
 
 class Tracks:
     tracks: t.List[Track]
