@@ -100,6 +100,13 @@ impl Tracks {
     }
 }
 
+/// __new__()
+///
+/// Positional Arguments:
+/// - `track` : `str`
+/// - `info` : `Option<Info>`
+///
+/// Returns: `Self`
 #[pyclass]
 #[derive(Clone, Debug)]
 pub struct Track {
@@ -211,6 +218,19 @@ impl PlaylistInfo {
     }
 }
 
+/// __new__()
+///
+/// Arguments:
+/// - `length` : `Unsigned 64 bit integer`
+/// - `position` : `Unsigned 64 bit integer`
+/// - `is_seekable` : `bool`
+/// - `is_stream` : `bool`
+/// - `identifier` : `str`
+/// - `author` : `str`
+/// - `title` : `str`
+/// - `uri` : `str`
+///
+/// Returns: `Self`
 #[pyclass]
 #[derive(Clone, Debug)]
 pub struct Info {
