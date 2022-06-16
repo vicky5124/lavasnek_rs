@@ -9,9 +9,6 @@ import lavasnek_rs
 PREFIX = ","
 TOKEN = os.environ["DISCORD_TOKEN"]
 
-# If True connect to voice with the hikari gateway instead of lavasnek_rs's
-HIKARI_VOICE = False
-
 
 def is_command(cmd_name: str, content: str) -> bool:
     """Check if the message sent is a valid command."""
@@ -82,17 +79,8 @@ async def _join(event: hikari.GuildMessageCreateEvent) -> Optional[hikari.Snowfl
         await event.message.respond("You are in a voice channel but not in a voie channel?")
         return None
 
-    if HIKARI_VOICE:
-        await bot.update_voice_state(event.guild_id, channel_id, self_deaf=True)
-        connection_info = await bot.data.lavalink.wait_for_full_connection_info_insert(event.guild_id)
-    else:
-        try:
-            connection_info = await bot.data.lavalink.join(event.guild_id, channel_id)
-        except TimeoutError:
-            await event.message.respond(
-                "I was unable to connect to the voice channel, maybe missing permissions? or some internal issue."
-            )
-            return None
+    await bot.update_voice_state(event.guild_id, channel_id, self_deaf=True)
+    connection_info = await bot.data.lavalink.wait_for_full_connection_info_insert(event.guild_id)
 
     await bot.data.lavalink.create_session(connection_info)
 
@@ -128,11 +116,8 @@ async def on_message(event: hikari.GuildMessageCreateEvent) -> None:  # noqa: C9
         elif is_command("leave", event.content):
             await bot.data.lavalink.destroy(event.guild_id)
 
-            if HIKARI_VOICE:
-                await bot.update_voice_state(event.guild_id, None)
-                await bot.data.lavalink.wait_for_connection_info_remove(event.guild_id)
-            else:
-                await bot.data.lavalink.leave(event.guild_id)
+            await bot.update_voice_state(event.guild_id, None)
+            await bot.data.lavalink.wait_for_connection_info_remove(event.guild_id)
 
             # Destroy nor leave remove the node nor the queue loop, you should do this manually.
             await bot.data.lavalink.remove_guild_node(event.guild_id)
@@ -261,32 +246,30 @@ async def on_ready(event: hikari.ShardReadyEvent) -> None:
         .set_host("127.0.0.1").set_password(os.environ["LAVALINK_PASSWORD"])
     )
 
-    if HIKARI_VOICE:
-        builder.set_start_gateway(False)
+    builder.set_start_gateway(False)
 
     lava_client = await builder.build(EventHandler())
 
     bot.data.lavalink = lava_client
 
 
-if HIKARI_VOICE:
+@bot.listen()
+async def voice_state_update(event: hikari.VoiceStateUpdateEvent) -> None:
+    bot.data.lavalink.raw_handle_event_voice_state_update(
+        event.state.guild_id,
+        event.state.user_id,
+        event.state.session_id,
+        event.state.channel_id,
+    )
 
-    @bot.listen()
-    async def voice_state_update(event: hikari.VoiceStateUpdateEvent) -> None:
-        bot.data.lavalink.raw_handle_event_voice_state_update(
-            event.state.guild_id,
-            event.state.user_id,
-            event.state.session_id,
-            event.state.channel_id,
-        )
 
-    @bot.listen()
-    async def voice_server_update(event: hikari.VoiceServerUpdateEvent) -> None:
-        if not event.endpoint:
-            logging.warning("Endpoint should never be None!")
-            return
+@bot.listen()
+async def voice_server_update(event: hikari.VoiceServerUpdateEvent) -> None:
+    if not event.endpoint:
+        logging.warning("Endpoint should never be None!")
+        return
 
-        await bot.data.lavalink.raw_handle_event_voice_server_update(event.guild_id, event.endpoint, event.token)
+    await bot.data.lavalink.raw_handle_event_voice_server_update(event.guild_id, event.endpoint, event.token)
 
 
 if __name__ == "__main__":

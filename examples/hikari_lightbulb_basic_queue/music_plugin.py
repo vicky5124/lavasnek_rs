@@ -7,9 +7,6 @@ from consts import LAVALINK_PASSWORD, PREFIX, TOKEN
 
 import lavasnek_rs
 
-# If True connect to voice with the hikari gateway instead of lavasnek_rs's
-HIKARI_VOICE = False
-
 
 class EventHandler:
     """Events from the Lavalink server"""
@@ -49,20 +46,10 @@ async def _join(ctx: lightbulb.Context) -> Optional[hikari.Snowflake]:
 
     channel_id = voice_state[0].channel_id
 
-    if HIKARI_VOICE:
-        assert ctx.guild_id is not None
+    assert ctx.guild_id is not None
 
-        await plugin.bot.update_voice_state(ctx.guild_id, channel_id, self_deaf=True)
-        connection_info = await plugin.bot.d.lavalink.wait_for_full_connection_info_insert(ctx.guild_id)
-
-    else:
-        try:
-            connection_info = await plugin.bot.d.lavalink.join(ctx.guild_id, channel_id)
-        except TimeoutError:
-            await ctx.respond(
-                "I was unable to connect to the voice channel, maybe missing permissions? or some internal issue."
-            )
-            return None
+    await plugin.bot.update_voice_state(ctx.guild_id, channel_id, self_deaf=True)
+    connection_info = await plugin.bot.d.lavalink.wait_for_full_connection_info_insert(ctx.guild_id)
 
     await plugin.bot.d.lavalink.create_session(connection_info)
 
@@ -80,8 +67,7 @@ async def start_lavalink(event: hikari.ShardReadyEvent) -> None:
         .set_host("127.0.0.1").set_password(LAVALINK_PASSWORD)
     )
 
-    if HIKARI_VOICE:
-        builder.set_start_gateway(False)
+    builder.set_start_gateway(False)
 
     lava_client = await builder.build(EventHandler())
 
@@ -109,12 +95,9 @@ async def leave(ctx: lightbulb.Context) -> None:
 
     await plugin.bot.d.lavalink.destroy(ctx.guild_id)
 
-    if HIKARI_VOICE:
-        if ctx.guild_id is not None:
-            await plugin.bot.update_voice_state(ctx.guild_id, None)
-            await plugin.bot.d.lavalink.wait_for_connection_info_remove(ctx.guild_id)
-    else:
-        await plugin.bot.d.lavalink.leave(ctx.guild_id)
+    if ctx.guild_id is not None:
+        await plugin.bot.update_voice_state(ctx.guild_id, None)
+        await plugin.bot.d.lavalink.wait_for_connection_info_remove(ctx.guild_id)
 
     # Destroy nor leave remove the node nor the queue loop, you should do this manually.
     await plugin.bot.d.lavalink.remove_guild_node(ctx.guild_id)
@@ -262,20 +245,19 @@ async def data(ctx: lightbulb.Context) -> None:
     await ctx.respond(node.get_data())
 
 
-if HIKARI_VOICE:
+@plugin.listener(hikari.VoiceStateUpdateEvent)
+async def voice_state_update(event: hikari.VoiceStateUpdateEvent) -> None:
+    plugin.bot.d.lavalink.raw_handle_event_voice_state_update(
+        event.state.guild_id,
+        event.state.user_id,
+        event.state.session_id,
+        event.state.channel_id,
+    )
 
-    @plugin.listener(hikari.VoiceStateUpdateEvent)
-    async def voice_state_update(event: hikari.VoiceStateUpdateEvent) -> None:
-        plugin.bot.d.lavalink.raw_handle_event_voice_state_update(
-            event.state.guild_id,
-            event.state.user_id,
-            event.state.session_id,
-            event.state.channel_id,
-        )
 
-    @plugin.listener(hikari.VoiceServerUpdateEvent)
-    async def voice_server_update(event: hikari.VoiceServerUpdateEvent) -> None:
-        await plugin.bot.d.lavalink.raw_handle_event_voice_server_update(event.guild_id, event.endpoint, event.token)
+@plugin.listener(hikari.VoiceServerUpdateEvent)
+async def voice_server_update(event: hikari.VoiceServerUpdateEvent) -> None:
+    await plugin.bot.d.lavalink.raw_handle_event_voice_server_update(event.guild_id, event.endpoint, event.token)
 
 
 def load(bot: lightbulb.BotApp) -> None:
