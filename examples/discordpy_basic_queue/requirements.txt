@@ -1,1 +1,1 @@
-enhanced-dpy==1.7.3.7.post6
+discord.py==1.7.3

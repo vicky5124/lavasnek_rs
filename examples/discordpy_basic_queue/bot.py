@@ -1,13 +1,16 @@
-import logging
 import os
+import logging
+import logging.config
 
+import colorlog
 import lavasnek_rs
 import discord
 from discord.ext import commands
 
-FORMAT = "%(levelname)s %(name)s %(asctime)-15s %(filename)s:%(lineno)d %(message)s"
-logging.basicConfig(format=FORMAT)
-logging.getLogger().setLevel(logging.INFO)
+colorlog.basicConfig(
+    level=logging.INFO,
+    format="%(log_color)s[%(bold)s%(levelname)- 7s]%(thin)s %(asctime)23.23s: " "%(thin)s%(message)s%(reset)s",
+)
 
 PREFIX = ","
 TOKEN = os.environ["DISCORD_TOKEN"]
@@ -15,6 +18,68 @@ LAVALINK_PASSWORD = os.environ["LAVALINK_PASSWORD"]
 
 # If True connect to voice with the discord.py's gateway instead of lavasnek_rs's
 DPY_VOICE = True
+
+
+class DpyVoice(discord.VoiceProtocol):
+    def __init__(self, bot, channel):
+        self.bot = bot
+        self.channel = channel
+
+    @property
+    def client(self):
+        return self.bot
+
+    async def on_voice_server_update(self, data) -> None:
+        logging.debug(f"Voice Server Update: {data}")
+
+        guild_id = int(data["guild_id"])
+        endpoint = data["endpoint"]
+        token = data["token"]
+
+        await self.bot.data.lavalink.raw_handle_event_voice_server_update(guild_id, endpoint, token)
+
+    async def on_voice_state_update(self, data) -> None:
+        logging.debug(f"Voice State Update: {data}")
+
+        if not data["channel_id"]:
+            channel_id = None
+        else:
+            channel_id = int(data["channel_id"])
+
+        guild_id = int(data["guild_id"])
+        user_id = int(data["user_id"])
+        session_id = data["session_id"]
+
+        self.bot.data.lavalink.raw_handle_event_voice_state_update(
+            guild_id,
+            user_id,
+            session_id,
+            channel_id,
+        )
+
+        if channel_id is None:
+            await self.disconnect(force=True)
+
+    # async def connect(self, timeout: float, reconnect: bool, self_deaf: bool, self_mute: bool): # 2.0
+    async def connect(self, timeout: float, reconnect: bool):
+        # self.channel.guild.change_voice_state(channel=self.channel, self_mute=self_mute, self_deaf=self_deaf) # 2.0
+        await self.channel.guild.change_voice_state(channel=self.channel, self_deaf=True)
+
+        connection_info = await self.bot.data.lavalink.wait_for_full_connection_info_insert(self.channel.guild.id)
+
+        await self.bot.data.lavalink.create_session(connection_info)
+
+    async def disconnect(self, force: bool):
+        if force:
+            await self.channel.guild.change_voice_state(channel=None)
+            await self.bot.data.lavalink.destroy(self.channel.guild.id)
+            await self.bot.data.lavalink.wait_for_connection_info_remove(self.channel.guild.id)
+        else:
+            await self.bot.data.lavalink.destroy(self.channel.guild.id)
+            await self.bot.data.lavalink.wait_for_connection_info_remove(self.channel.guild.id)
+            await self.channel.guild.change_voice_state(channel=None)
+
+        self.cleanup()
 
 
 class Data:
@@ -67,31 +132,10 @@ class Music(commands.Cog):
     async def leave(self, ctx):
         """Leaves the voice channel the bot is in, clearing the queue."""
 
-        await ctx.bot.data.lavalink.destroy(ctx.guild.id)
-
         if DPY_VOICE:
-            # await ctx.voice_bot.disconnect() # this needs PyNaCl fsr...
-            ws = None
-
-            if isinstance(ctx.bot, commands.AutoShardedBot):
-                try:
-                    ws = ctx.bot.shards[ctx.guild.shard_id].ws
-                except AttributeError:
-                    ws = ctx.bot.shards[ctx.guild.shard_id]._parent.ws
-
-            if ctx.bot.shard_id is None or ctx.bot.shard_id == ctx.guild.shard_id:
-                ws = ctx.bot.ws
-
-            if ws:
-                await ws.voice_state(ctx.guild.id, None)
-
-                await ctx.bot.data.lavalink.wait_for_connection_info_remove(ctx.guild.id)
-            else:
-                await ctx.reply("Unknown error.")
-                raise commands.CommandError("I don't know what the hell happened")
-
-            await ctx.bot.data.lavalink.wait_for_connection_info_remove(ctx.guild.id)
+            await ctx.voice_client.disconnect(force=True)
         else:
+            await ctx.bot.data.lavalink.destroy(ctx.guild.id)
             await ctx.bot.data.lavalink.leave(ctx.guild.id)
 
         # Destroy nor leave remove the node nor the queue loop, you should do this manually.
@@ -133,29 +177,12 @@ class Music(commands.Cog):
     async def ensure_voice(self, ctx):
         if ctx.author.voice:
             try:
-                if DPY_VOICE:
-                    # await ctx.author.voice.channel.connect() # this needs PyNaCl fsr...
-                    ws = None
-
-                    if isinstance(ctx.bot, commands.AutoShardedBot):
-                        try:
-                            ws = ctx.bot.shards[ctx.guild.shard_id].ws
-                        except AttributeError:
-                            ws = ctx.bot.shards[ctx.guild.shard_id]._parent.ws
-
-                    if ctx.bot.shard_id is None or ctx.bot.shard_id == ctx.guild.shard_id:
-                        ws = ctx.bot.ws
-
-                    if ws:
-                        await ws.voice_state(ctx.guild.id, str(ctx.author.voice.channel.id), self_deaf=True)
-
-                        connection_info = await ctx.bot.data.lavalink.wait_for_full_connection_info_insert(ctx.guild.id)
+                if not ctx.voice_client:
+                    if DPY_VOICE:
+                        await ctx.author.voice.channel.connect(cls=DpyVoice)
                     else:
-                        await ctx.reply("Unknown error.")
-                        raise commands.CommandError("I don't know what the hell happened")
-                else:
-                    connection_info = await ctx.bot.data.lavalink.join(ctx.guild.id, ctx.author.voice.channel.id)
-                await ctx.bot.data.lavalink.create_session(connection_info)
+                        connection_info = await ctx.bot.data.lavalink.join(ctx.guild.id, ctx.author.voice.channel.id)
+                        await ctx.bot.data.lavalink.create_session(connection_info)
             except TimeoutError:
                 await ctx.reply(
                     "You are not connected to a voice channel OR i didn't have permissions to join your voice channel."
@@ -164,37 +191,6 @@ class Music(commands.Cog):
 
         else:
             await ctx.reply("You are not connected to a voice channel.")
-
-    if DPY_VOICE:
-
-        @commands.Cog.listener()
-        async def on_socket_response(self, data) -> None:
-            if not data or "t" not in data:
-                return
-
-            if data["t"] == "VOICE_SERVER_UPDATE":
-                guild_id = int(data["d"]["guild_id"])
-                endpoint = data["d"]["endpoint"]
-                token = data["d"]["token"]
-
-                await self.bot.data.lavalink.raw_handle_event_voice_server_update(guild_id, endpoint, token)
-
-            elif data["t"] == "VOICE_STATE_UPDATE":
-                if not data["d"]["channel_id"]:
-                    channel_id = None
-                else:
-                    channel_id = int(data["d"]["channel_id"])
-
-                guild_id = int(data["d"]["guild_id"])
-                user_id = int(data["d"]["user_id"])
-                session_id = data["d"]["session_id"]
-
-                self.bot.data.lavalink.raw_handle_event_voice_state_update(
-                    guild_id,
-                    user_id,
-                    session_id,
-                    channel_id,
-                )
 
 
 @bot.event
