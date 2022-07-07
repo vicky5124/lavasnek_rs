@@ -66,7 +66,7 @@ bot = Bot(token=TOKEN)
 async def _join(event: hikari.GuildMessageCreateEvent) -> Optional[hikari.Snowflake]:
     """Join the user's voice channel and create a lavalink session."""
 
-    if not (voice_state := bot.cache.get_voice_state(ctx.guild_id, ctx.author)):
+    if not (voice_state := bot.cache.get_voice_state(event.guild_id, event.author)):
         await event.message.respond("Connect to a voice channel first")
         return None
 
