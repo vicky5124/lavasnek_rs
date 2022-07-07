@@ -35,17 +35,21 @@ async def _join_voice(ctx: tanjun.abc.Context, lavalink: lavasnek_rs.Lavalink) -
 
     if ctx.client.cache and ctx.client.shards:
         # Get the users voice state
-        if (voice_state := ctx.client.cache.get_voice_state(ctx.guild_id, ctx.author)) is None:
+        if not (voice_state := ctx.client.cache.get_voice_state(ctx.guild_id, ctx.author)):
             await ctx.respond("Please connect to a voice channel.")
             return None
 
+        channel_id = voice_state.channel_id
+        assert channel_id is not None
+
         # Join the voice channel
-        await ctx.client.shards.update_voice_state(ctx.guild_id, voice_state.channel_id, self_deaf=True)
+        await ctx.client.shards.update_voice_state(ctx.guild_id, channel_id, self_deaf=True)
         # Lavasnek waits for the data on the event
         conn = await lavalink.wait_for_full_connection_info_insert(ctx.guild_id)
         # Lavasnek tells lavalink to connect
         await lavalink.create_session(conn)
-        return voice_state.channel_id
+
+        return channel_id
 
     await ctx.respond("Unable to join voice. The cache is disabled or shards are down.")
     return None
