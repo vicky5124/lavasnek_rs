@@ -37,7 +37,7 @@ plugin = lightbulb.Plugin("Music")
 async def _join(ctx: lightbulb.Context) -> Optional[hikari.Snowflake]:
     assert ctx.guild_id is not None
 
-    if not (voice_state := ctx.bot.cache.get_voice_state(ctx.guild_id, ctx.author_id)):
+    if not (voice_state := ctx.bot.cache.get_voice_state(ctx.guild_id, ctx.author.id)):
         await ctx.respond("Connect to a voice channel first.")
         return None
 
