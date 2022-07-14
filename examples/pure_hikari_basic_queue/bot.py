@@ -66,18 +66,13 @@ bot = Bot(token=TOKEN)
 async def _join(event: hikari.GuildMessageCreateEvent) -> Optional[hikari.Snowflake]:
     """Join the user's voice channel and create a lavalink session."""
 
-    states = bot.cache.get_voice_states_view_for_guild(event.guild_id)
-    voice_state = [state async for state in states.iterator().filter(lambda i: i.user_id == event.author_id)]
-
-    if not voice_state:
+    if not (voice_state := bot.cache.get_voice_state(event.guild_id, event.author)):
         await event.message.respond("Connect to a voice channel first")
         return None
 
-    channel_id = voice_state[0].channel_id
+    channel_id = voice_state.channel_id
 
-    if not channel_id:
-        await event.message.respond("You are in a voice channel but not in a voie channel?")
-        return None
+    assert channel_id is not None
 
     await bot.update_voice_state(event.guild_id, channel_id, self_deaf=True)
     connection_info = await bot.data.lavalink.wait_for_full_connection_info_insert(event.guild_id)
